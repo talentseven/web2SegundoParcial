@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="Product">
+		
+		<id name="id" column="ID">
+			<generator class="native"/>
+		</id>
+		<property name="title" column="TITLE" not-null="true" />
+		<property name="rating" column="RATING" not-null="true" />
+		<property name="alreadyUsed" column="ALREADY_READ" type="boolean" />
+		<property name="borrowable" column="BORROWABLE" type="boolean" />
+		<property name="image" column="IMAGE" type="serializable" not-null="false" />
+
+	    <union-subclass name="Book" table="BOOKS" >
+	    	<set name="authors" cascade="none" lazy="false" >
+	        	<key column="author_id" not-null="false" />
+	       	 	<one-to-many class="ar.edu.uces.progweb2.springmvc.model.Author" />
+	    	</set>		
+	        <property name="description" column="DESCRIPTION" type="clob" not-null="false" />
+	    </union-subclass>
+		    
+	    <union-subclass name="Movie" table="MOVIES">
+	        <set name="actors" cascade="none" lazy="false" >
+	        	<key column="actor_id" not-null="false" />
+	       	 	<one-to-many class="ar.edu.uces.progweb2.springmvc.model.Actor" />
+	    	</set>		
+	        <many-to-one name="director" column="DIRECTOR_ID" class="ar.edu.uces.progweb2.springmvc.model.Director" cascade="none" not-null="true" lazy="false" />
+	        <property name="format">
+		      <type name="org.hibernate.type.EnumType">
+		         <param name="enumClass">ar.edu.uces.progweb2.springmvc.model.Format</param>
+		      </type>
+		   </property>    
+	    </union-subclass>
+	    
+	</class>
+</hibernate-mapping>

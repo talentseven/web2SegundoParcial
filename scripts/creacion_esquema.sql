@@ -10,7 +10,8 @@ DROP TABLE IF EXISTS `Preferences`;
 
 CREATE  TABLE `Preferences` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `language` VARCHAR(10) NOT NULL,
+  `language` VARCHAR(10) NULL,
+  `country` VARCHAR(10) NULL,
   PRIMARY KEY (`id`)  );
 
 CREATE  TABLE `Users` (
@@ -23,11 +24,53 @@ CREATE  TABLE `Users` (
   PRIMARY KEY (`id`)  );
   
 ALTER TABLE `Users` ADD CONSTRAINT fk_preferences FOREIGN KEY (`preference_id`) REFERENCES `Preferences`(`id`);
+
+CREATE  TABLE `Actors` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(10) NOT NULL,
+  `last_name` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`)  );
   
-insert into `Preferences` (language) VALUES ('es-AR');
-insert into `Preferences` (language) VALUES ('es-ES');
-insert into `Preferences` (language) VALUES ('en-US');
-insert into `Preferences` (language) VALUES ('en-UK');
+CREATE  TABLE `Authors` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(10) NOT NULL,
+  `last_name` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`)  );
+  
+CREATE  TABLE `Directors` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(10) NOT NULL,
+  `last_name` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`)  );
+  
+CREATE  TABLE `Books` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(200) NOT NULL,
+  `rating` VARCHAR(10) NOT NULL,
+  `alreadyUsed` BOOLEAN,
+  `borrowable` BOOLEAN,
+  `image` BLOB,
+  `description` CLOB,
+  PRIMARY KEY (`id`)  );
+  
+CREATE  TABLE `Movies` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(200) NOT NULL,
+  `rating` VARCHAR(10) NOT NULL,
+  `alreadyUsed` BOOLEAN,
+  `borrowable` BOOLEAN,
+  `image` BLOB,
+  `format` VARCHAR(20),
+  `director_id` INT NOT NULL,
+  PRIMARY KEY (`id`)  );
+
+  ALTER TABLE `Movies` ADD CONSTRAINT fk_director FOREIGN KEY (`director_id`) REFERENCES `Director`(`id`);
+
+  
+insert into `Preferences` (language, country) VALUES ('es', 'AR');
+insert into `Preferences` (language, country) VALUES ('es', 'ES');
+insert into `Preferences` (language, country) VALUES ('en', 'US');
+insert into `Preferences` (language, country) VALUES ('en', 'UK');
 
 insert into `Users` (first_name, last_name, email, password, preference_id) VALUES ('Andres', 'Biasoli', 'andres@gmail.com', '123456', 1);
 insert into `Users` (first_name, last_name, email, password, preference_id) VALUES ('Diego', 'Mornacco', 'diego@gmail.com', '123456', 2);
