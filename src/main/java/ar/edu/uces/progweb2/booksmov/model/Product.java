@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public abstract class Product {
 	
-	protected Long id;
+	private Long id;
 	protected String title;
 	protected String rating;
 	protected boolean alreadyUsed;
@@ -21,12 +21,6 @@ public abstract class Product {
 		this.image = image;
 	}
 
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -57,6 +51,10 @@ public abstract class Product {
 	public void setImage(Serializable image) {
 		this.image = image;
 	}
-	
-	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

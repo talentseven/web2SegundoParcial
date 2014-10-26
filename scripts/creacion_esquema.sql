@@ -7,6 +7,11 @@ USE `booksmov_db`;
 
 DROP TABLE IF EXISTS `Users`;
 DROP TABLE IF EXISTS `Preferences`;
+DROP TABLE IF EXISTS `Authors`;
+DROP TABLE IF EXISTS `Actors`;
+DROP TABLE IF EXISTS `Books`;
+DROP TABLE IF EXISTS `Movies`;
+DROP TABLE IF EXISTS `Directors`;
 
 CREATE  TABLE `Preferences` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -27,45 +32,52 @@ ALTER TABLE `Users` ADD CONSTRAINT fk_preferences FOREIGN KEY (`preference_id`) 
 
 CREATE  TABLE `Actors` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(10) NOT NULL,
-  `last_name` VARCHAR(10) NOT NULL,
+  `first_name` VARCHAR(100) NOT NULL,
+  `last_name` VARCHAR(100) NOT NULL,
+  `movie_id` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`)  );
-  
+
 CREATE  TABLE `Authors` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(10) NOT NULL,
-  `last_name` VARCHAR(10) NOT NULL,
+  `first_name` VARCHAR(100) NOT NULL,
+  `last_name` VARCHAR(100) NOT NULL,
+  `book_id` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`)  );
   
 CREATE  TABLE `Directors` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(10) NOT NULL,
-  `last_name` VARCHAR(10) NOT NULL,
+  `full_name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`)  );
   
 CREATE  TABLE `Books` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `isbn` VARCHAR(50) NOT NULL,
   `title` VARCHAR(200) NOT NULL,
   `rating` VARCHAR(10) NOT NULL,
   `alreadyUsed` BOOLEAN,
   `borrowable` BOOLEAN,
   `image` BLOB,
-  `description` CLOB,
-  PRIMARY KEY (`id`)  );
+  `description` TEXT,
+  PRIMARY KEY (`isbn`)  );
   
 CREATE  TABLE `Movies` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `isan` VARCHAR(50) NOT NULL,
   `title` VARCHAR(200) NOT NULL,
   `rating` VARCHAR(10) NOT NULL,
   `alreadyUsed` BOOLEAN,
   `borrowable` BOOLEAN,
   `image` BLOB,
-  `format` VARCHAR(20),
-  `director_id` INT NOT NULL,
-  PRIMARY KEY (`id`)  );
+  `format` VARCHAR(20) NOT NULL,
+  `director_id` INT NULL,
+  PRIMARY KEY (`isan`)  );
 
-  ALTER TABLE `Movies` ADD CONSTRAINT fk_director FOREIGN KEY (`director_id`) REFERENCES `Director`(`id`);
+  ALTER TABLE `Movies` ADD CONSTRAINT fk_director FOREIGN KEY (`director_id`)
+  REFERENCES `Directors`(`id`);
 
+  ALTER TABLE `Actors` ADD CONSTRAINT fk_movie FOREIGN KEY (`movie_id`)
+  REFERENCES `Movies`(`isan`);
+  
+  ALTER TABLE `Authors` ADD CONSTRAINT fk_book FOREIGN KEY (`book_id`)
+  REFERENCES `Books`(`isbn`);
   
 insert into `Preferences` (language, country) VALUES ('es', 'AR');
 insert into `Preferences` (language, country) VALUES ('es', 'ES');

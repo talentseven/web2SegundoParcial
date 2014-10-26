@@ -26,6 +26,10 @@
 			<list>
 				<value>/ar/edu/uces/progweb2/booksmov/hbm/User.hbm.xml</value>
 				<value>/ar/edu/uces/progweb2/booksmov/hbm/Preference.hbm.xml</value>
+				<value>/ar/edu/uces/progweb2/booksmov/hbm/Product.hbm.xml</value>
+				<value>/ar/edu/uces/progweb2/booksmov/hbm/Author.hbm.xml</value>
+				<value>/ar/edu/uces/progweb2/booksmov/hbm/Actor.hbm.xml</value>
+				<value>/ar/edu/uces/progweb2/booksmov/hbm/Director.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

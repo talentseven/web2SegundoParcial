@@ -16,7 +16,8 @@
 	<context:component-scan base-package="ar.edu.uces.progweb2.booksmov" />
 
 	<mvc:annotation-driven />
-
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	
 	<!-- message resources -->
 
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -26,7 +27,7 @@
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
 		<property name="prefix" >
-			<value>/WEB-INF/views/</value>
+			<value>/WEB-INF/jsp/</value>
 		</property>
 		<property name="suffix">
 			<value>.jsp</value>

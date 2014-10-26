@@ -2,35 +2,35 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-	<class name="Product">
+<hibernate-mapping package="ar.edu.uces.progweb2.booksmov.model">
+	<class name="Product" abstract="true">
 		
-		<id name="id" column="ID">
-			<generator class="native"/>
-		</id>
+		<id name="id" column="ID" />
 		<property name="title" column="TITLE" not-null="true" />
 		<property name="rating" column="RATING" not-null="true" />
 		<property name="alreadyUsed" column="ALREADY_READ" type="boolean" />
 		<property name="borrowable" column="BORROWABLE" type="boolean" />
-		<property name="image" column="IMAGE" type="serializable" not-null="false" />
+		<property name="image" column="IMAGE" type="serializable" not-null="true" />
 
 	    <union-subclass name="Book" table="BOOKS" >
+	    	<property name="isbn" column="ISBN" not-null="true" />
 	    	<set name="authors" cascade="none" lazy="false" >
-	        	<key column="author_id" not-null="false" />
-	       	 	<one-to-many class="ar.edu.uces.progweb2.springmvc.model.Author" />
+	        	<key column="book_id" not-null="false" />
+	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Author" />
 	    	</set>		
-	        <property name="description" column="DESCRIPTION" type="clob" not-null="false" />
+	        <property name="description" column="DESCRIPTION" type="text" not-null="false" />
 	    </union-subclass>
 		    
 	    <union-subclass name="Movie" table="MOVIES">
+	    	<property name="isan" column="ISAN" not-null="true" />
 	        <set name="actors" cascade="none" lazy="false" >
-	        	<key column="actor_id" not-null="false" />
-	       	 	<one-to-many class="ar.edu.uces.progweb2.springmvc.model.Actor" />
+	        	<key column="movie_id" not-null="false" />
+	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Actor" />
 	    	</set>		
-	        <many-to-one name="director" column="DIRECTOR_ID" class="ar.edu.uces.progweb2.springmvc.model.Director" cascade="none" not-null="true" lazy="false" />
-	        <property name="format">
+	        <many-to-one name="director" column="DIRECTOR_ID" class="ar.edu.uces.progweb2.booksmov.model.Director" cascade="none" not-null="false" lazy="false" />
+	        <property name="format" not-null="false">
 		      <type name="org.hibernate.type.EnumType">
-		         <param name="enumClass">ar.edu.uces.progweb2.springmvc.model.Format</param>
+		         <param name="enumClass">ar.edu.uces.progweb2.booksmov.model.Format</param>
 		      </type>
 		   </property>    
 	    </union-subclass>

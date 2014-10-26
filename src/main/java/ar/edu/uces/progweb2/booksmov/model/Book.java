@@ -5,13 +5,15 @@ import java.util.Set;
 
 public class Book extends Product{
 	
+	private String isbn;
 	private String description;
 	private Set<Author> authors;
 	
 	public Book(){}
 	
-	public Book(String title, String mark, boolean alreadyUsed, boolean borrowable, Serializable image, String description, Set<Author> authors){
+	public Book(String isbn, String title, String mark, boolean alreadyUsed, boolean borrowable, Serializable image, String description, Set<Author> authors){
 		super(title, mark, alreadyUsed, borrowable, image);
+		this.isbn = isbn;
 		this.description = description;
 		this.authors = authors;
 	}
@@ -30,6 +32,14 @@ public class Book extends Product{
 
 	public void setAuthors(Set<Author> authors) {
 		this.authors = authors;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 	
 }
