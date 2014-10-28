@@ -5,17 +5,22 @@
 <hibernate-mapping package="ar.edu.uces.progweb2.booksmov.model">
 	<class name="Product" abstract="true">
 		
-		<id name="id" column="ID" />
+		<id name="id" column="ID" >
+			<generator class="increment" />
+		</id>
 		<property name="title" column="TITLE" not-null="true" />
 		<property name="rating" column="RATING" not-null="true" />
-		<property name="alreadyUsed" column="ALREADY_READ" type="boolean" />
+		<property name="alreadyUsed" column="ALREADY_USED" type="boolean" />
 		<property name="borrowable" column="BORROWABLE" type="boolean" />
-		<property name="image" column="IMAGE" type="serializable" not-null="true" />
-
+		<property name="image" column="IMAGE" type="binary" not-null="true" />
+		<many-to-one name="user" class="ar.edu.uces.progweb2.booksmov.model.User" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+		
 	    <union-subclass name="Book" table="BOOKS" >
 	    	<property name="isbn" column="ISBN" not-null="true" />
-	    	<set name="authors" cascade="none" lazy="false" >
-	        	<key column="book_id" not-null="false" />
+	    	<set name="authors" cascade="all" lazy="false" >
+	        	<key column="BOOK_ID" not-null="false" />
 	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Author" />
 	    	</set>		
 	        <property name="description" column="DESCRIPTION" type="text" not-null="false" />
@@ -23,16 +28,18 @@
 		    
 	    <union-subclass name="Movie" table="MOVIES">
 	    	<property name="isan" column="ISAN" not-null="true" />
-	        <set name="actors" cascade="none" lazy="false" >
-	        	<key column="movie_id" not-null="false" />
+	        <set name="actors" cascade="all" lazy="false" >
+	        	<key column="MOVIE_ID" not-null="false" />
 	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Actor" />
 	    	</set>		
-	        <many-to-one name="director" column="DIRECTOR_ID" class="ar.edu.uces.progweb2.booksmov.model.Director" cascade="none" not-null="false" lazy="false" />
-	        <property name="format" not-null="false">
+	        <many-to-one name="director" column="DIRECTOR_ID" class="ar.edu.uces.progweb2.booksmov.model.Director" cascade="all" not-null="false" lazy="false" />
+	     
+	        <property name="format" not-null="false" column="FORMAT">
 		      <type name="org.hibernate.type.EnumType">
 		         <param name="enumClass">ar.edu.uces.progweb2.booksmov.model.Format</param>
+		         <param name="type">12</param>
 		      </type>
-		   </property>    
+		   </property>
 	    </union-subclass>
 	    
 	</class>

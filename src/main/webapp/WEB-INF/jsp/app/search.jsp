@@ -14,8 +14,16 @@
 <body>
 	<h1>Search</h1>
 	
-	<spring:message code="label.welcome"/>
+	<spring:message code="label.welcome"/> <br />
 	
 	<a href='<c:url value="/app/books/new" />'>Alta libros</a>
+	<a href='<c:url value="/app/movies/new" />'>Alta peliculas</a>
+	
+	<ul>
+	<h1>size de books: ${fn:length(bookDto.authors)}</h1>
+	<c:forEach var="author" items="${bookDto.authors}">
+		<li>${author.fullName}</li>
+	</c:forEach>
+	</ul>
 </body>
 </html>

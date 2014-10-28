@@ -13,17 +13,17 @@ var author = {
 					e.preventDefault();
 					e.stopPropagation();
 					
-				    var studentId = $('#studentId').data('id'),
-				    	courseId = $('#courseList option:selected').val();
+				    var firstName = $('#firstName').val(),
+				    	lastName = $('#lastName').val();
 				    
 				    $.ajax({
 				    	
-				    	url: '../inscription/processing',
-				    	type: 'POST',
-						data: {studentId: studentId, courseId: courseId},
+				    	url: '/booksmov/app/authors/new',
+				    	type: 'GET',
+						data: {firstName: firstName, lastName: lastName},
 						success: function(data){
 							var data = $.parseJSON(data);
-							alert(data.message.description);
+							console.log(data);
 						},
 						error: function(any, textStatus, errorThrown){
 							console.log(textStatus + errorThrown + any);
@@ -32,7 +32,7 @@ var author = {
 				    });
 				   	
 				});
-			},
+			}/*,
 			
 			"listCourses" : function(){
 				
@@ -61,5 +61,6 @@ var author = {
 				   	
 				});
 			}
+			*/
 		}
 };

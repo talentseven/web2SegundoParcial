@@ -12,6 +12,16 @@
 		<property name="password" column="PASSWORD"/>
 		<property name="email" column="EMAIL" />
 		
+		<set name="books" cascade="all" lazy="false" >
+        	<key column="USER_ID" not-null="false" />
+       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Book" />
+    	</set>		
+		
+		<set name="movies" cascade="all" lazy="false" >
+        	<key column="USER_ID" not-null="false" />
+       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Movie" />
+    	</set>
+		
 		<many-to-one name="preferences" column="PREFERENCE_ID" lazy="false" cascade="none" class="ar.edu.uces.progweb2.booksmov.model.Preference"/>
 	</class>
 </hibernate-mapping>

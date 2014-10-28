@@ -1,31 +1,23 @@
 package ar.edu.uces.progweb2.booksmov.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import ar.edu.uces.progweb2.booksmov.model.Author;
 
-public class BookDto {
+public class BookDto extends ProductDto{
 	
-	private String title;
-	private String rating;
-	private boolean alreadyUsed;
-	private boolean borrowable;
-	private Serializable image;
 	private String isbn;
 	private String description;
-	private Set<Author> authors;
-	private Author newAuthor;
+	private String authors;
+	private Set<Author> authorsSet = new HashSet<Author>();
 	
 	public BookDto(){}
 	
-	public BookDto(String isbn){
-		this.isbn = isbn;
-	}
-	
 	public BookDto(String title, String rating, boolean alreadyUsed,
 			boolean borrowable, Serializable image, String isbn,
-			String description, Set<Author> authors, Author newAuthor) {
+			String description) {
 		this.title = title;
 		this.rating = rating;
 		this.alreadyUsed = alreadyUsed;
@@ -33,48 +25,6 @@ public class BookDto {
 		this.image = image;
 		this.isbn = isbn;
 		this.description = description;
-		this.authors = authors;
-		this.newAuthor = newAuthor;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getRating() {
-		return rating;
-	}
-
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
-
-	public boolean isAlreadyUsed() {
-		return alreadyUsed;
-	}
-
-	public void setAlreadyUsed(boolean alreadyUsed) {
-		this.alreadyUsed = alreadyUsed;
-	}
-
-	public boolean isBorrowable() {
-		return borrowable;
-	}
-
-	public void setBorrowable(boolean borrowable) {
-		this.borrowable = borrowable;
-	}
-
-	public Serializable getImage() {
-		return image;
-	}
-
-	public void setImage(Serializable image) {
-		this.image = image;
 	}
 
 	public String getIsbn() {
@@ -93,22 +43,30 @@ public class BookDto {
 		this.description = description;
 	}
 
-	public Set<Author> getAuthors() {
+	public String getAuthors() {
 		return authors;
 	}
 
-	public void setAuthors(Set<Author> authors) {
+	public void setAuthors(String authors) {
 		this.authors = authors;
 	}
-
-	public Author getNewAuthor() {
-		return newAuthor;
+	
+	public Set<Author> getAuthorsSet() {
+		return authorsSet;
 	}
 
-	public void setNewAuthor(Author newAuthor) {
-		this.newAuthor = newAuthor;
+	public void setAuthorsSet(Set<Author> authorsSet) {
+		this.authorsSet = authorsSet;
 	}
-	
-	
-	
+
+	public void clearFields(){
+		this.isbn = null;
+		this.title = null;
+		this.description = null;
+		this.rating = null;
+		this.borrowable = false;
+		this.image = null;
+		this.alreadyUsed = false;
+		this.authors = null;
+	}
 }

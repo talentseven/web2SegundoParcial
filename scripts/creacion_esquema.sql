@@ -32,16 +32,14 @@ ALTER TABLE `Users` ADD CONSTRAINT fk_preferences FOREIGN KEY (`preference_id`) 
 
 CREATE  TABLE `Actors` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(100) NOT NULL,
-  `last_name` VARCHAR(100) NOT NULL,
-  `movie_id` VARCHAR(50) NOT NULL,
+  `full_name` VARCHAR(100) NOT NULL,
+  `movie_id` INT NOT NULL,
   PRIMARY KEY (`id`)  );
 
 CREATE  TABLE `Authors` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(100) NOT NULL,
-  `last_name` VARCHAR(100) NOT NULL,
-  `book_id` VARCHAR(50) NOT NULL,
+  `full_name` VARCHAR(100) NOT NULL,
+  `book_id` INT NOT NULL,
   PRIMARY KEY (`id`)  );
   
 CREATE  TABLE `Directors` (
@@ -50,34 +48,44 @@ CREATE  TABLE `Directors` (
   PRIMARY KEY (`id`)  );
   
 CREATE  TABLE `Books` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `isbn` VARCHAR(50) NOT NULL,
   `title` VARCHAR(200) NOT NULL,
   `rating` VARCHAR(10) NOT NULL,
-  `alreadyUsed` BOOLEAN,
+  `already_used` BOOLEAN,
   `borrowable` BOOLEAN,
-  `image` BLOB,
+  `user_id` INT NOT NULL,
+  `image` LONGBLOB,
   `description` TEXT,
-  PRIMARY KEY (`isbn`)  );
+  PRIMARY KEY (`id`)  );
   
 CREATE  TABLE `Movies` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `isan` VARCHAR(50) NOT NULL,
   `title` VARCHAR(200) NOT NULL,
   `rating` VARCHAR(10) NOT NULL,
-  `alreadyUsed` BOOLEAN,
+  `already_used` BOOLEAN,
   `borrowable` BOOLEAN,
-  `image` BLOB,
+  `user_id` INT NOT NULL,
+  `image` LONGBLOB,
   `format` VARCHAR(20) NOT NULL,
   `director_id` INT NULL,
-  PRIMARY KEY (`isan`)  );
+  PRIMARY KEY (`id`)  );
 
   ALTER TABLE `Movies` ADD CONSTRAINT fk_director FOREIGN KEY (`director_id`)
   REFERENCES `Directors`(`id`);
+  
+  ALTER TABLE `Movies` ADD CONSTRAINT fk_user_movie FOREIGN KEY (`user_id`)
+  REFERENCES `Users`(`id`);
+  
+  ALTER TABLE `Books` ADD CONSTRAINT fk_user_book FOREIGN KEY (`user_id`)
+  REFERENCES `Users`(`id`);
 
   ALTER TABLE `Actors` ADD CONSTRAINT fk_movie FOREIGN KEY (`movie_id`)
-  REFERENCES `Movies`(`isan`);
+  REFERENCES `Movies`(`id`);
   
   ALTER TABLE `Authors` ADD CONSTRAINT fk_book FOREIGN KEY (`book_id`)
-  REFERENCES `Books`(`isbn`);
+  REFERENCES `Books`(`id`);
   
 insert into `Preferences` (language, country) VALUES ('es', 'AR');
 insert into `Preferences` (language, country) VALUES ('es', 'ES');

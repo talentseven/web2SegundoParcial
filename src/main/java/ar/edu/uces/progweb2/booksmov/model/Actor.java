@@ -3,12 +3,11 @@ package ar.edu.uces.progweb2.booksmov.model;
 public class Actor {
 	
 	private Long id;
-	private String firstName;
-	private String lastName;
+	private String fullName;
+	private Movie movie;
 	
-	public Actor(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public Actor(String fullName) {
+		this.fullName = fullName;
 	}
 	
 	public Actor(){}
@@ -21,20 +20,20 @@ public class Actor {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public Movie getMovie() {
+		return movie;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setMovie(Movie movie) {
+		this.movie = movie;
 	}
 
 	@Override
@@ -42,9 +41,7 @@ public class Actor {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result
-				+ ((lastName == null) ? 0 : lastName.hashCode());
+				+ ((fullName == null) ? 0 : fullName.hashCode());
 		return result;
 	}
 
@@ -57,17 +54,14 @@ public class Actor {
 		if (getClass() != obj.getClass())
 			return false;
 		Actor other = (Actor) obj;
-		if (firstName == null) {
-			if (other.firstName != null)
+		if (fullName == null) {
+			if (other.fullName != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
+		} else if (!fullName.equals(other.fullName))
 			return false;
 		return true;
 	}
+
+	
 	
 }

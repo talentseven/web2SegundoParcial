@@ -1,19 +1,19 @@
 package ar.edu.uces.progweb2.booksmov.model;
 
-import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Movie extends Product{
 	
 	private String isan;
-	private Set<Actor> actors;
-	private Enum<Format> format;
+	private Set<Actor> actors = new HashSet<Actor>();
+	private Format format;
 	private Director director;
 	
 	public Movie(){}
 	
-	public Movie(String isan, String title, String mark, boolean alreadyUsed, boolean borrowable, Serializable image, Enum<Format> format, Set<Actor> actors, Director director){
-		super(title, mark, alreadyUsed, borrowable, image);
+	public Movie(String isan, String title, String mark, boolean alreadyUsed, boolean borrowable, byte[] image, Format format, Set<Actor> actors, Director director, User user){
+		super(title, mark, alreadyUsed, borrowable, image, user);
 		this.isan = isan;
 		this.format = format;
 		this.actors = actors;
@@ -28,11 +28,11 @@ public class Movie extends Product{
 		this.actors = actors;
 	}
 
-	public Enum<Format> getFormat() {
+	public Format getFormat() {
 		return format;
 	}
 
-	public void setFormat(Enum<Format> format) {
+	public void setFormat(Format format) {
 		this.format = format;
 	}
 

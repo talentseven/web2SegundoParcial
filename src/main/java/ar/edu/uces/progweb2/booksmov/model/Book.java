@@ -1,18 +1,18 @@
 package ar.edu.uces.progweb2.booksmov.model;
 
-import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Book extends Product{
 	
 	private String isbn;
 	private String description;
-	private Set<Author> authors;
+	private Set<Author> authors = new HashSet<Author>();
 	
 	public Book(){}
 	
-	public Book(String isbn, String title, String mark, boolean alreadyUsed, boolean borrowable, Serializable image, String description, Set<Author> authors){
-		super(title, mark, alreadyUsed, borrowable, image);
+	public Book(String isbn, String title, String mark, boolean alreadyUsed, boolean borrowable, byte[] image, String description, Set<Author> authors, User user){
+		super(title, mark, alreadyUsed, borrowable, image, user);
 		this.isbn = isbn;
 		this.description = description;
 		this.authors = authors;

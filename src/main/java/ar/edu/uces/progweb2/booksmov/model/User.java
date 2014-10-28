@@ -1,5 +1,8 @@
 package ar.edu.uces.progweb2.booksmov.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class User {
 	
 	private Long id;
@@ -8,6 +11,8 @@ public class User {
 	private String password;
 	private String email;
 	private Preference preferences;
+	private Set<Book> books = new HashSet<Book>();
+	private Set<Movie> movies = new HashSet<Movie>(); 
 	
 	public Preference getPreferences() {
 		return preferences;
@@ -44,6 +49,18 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Set<Book> getBooks() {
+		return books;
+	}
+	public void setBooks(Set<Book> books) {
+		this.books = books;
+	}
+	public Set<Movie> getMovies() {
+		return movies;
+	}
+	public void setMovies(Set<Movie> movies) {
+		this.movies = movies;
 	}
 	
 	

@@ -4,6 +4,6 @@ import ar.edu.uces.progweb2.booksmov.model.User;
 
 public interface LoginDao {
 
-	User get(String email);
+	User get(String email, String password);
 
 }

@@ -1,24 +1,25 @@
 package ar.edu.uces.progweb2.booksmov.model;
 
-import java.io.Serializable;
 
 public abstract class Product {
 	
-	private Long id;
+	protected Long id;
 	protected String title;
 	protected String rating;
 	protected boolean alreadyUsed;
 	protected boolean borrowable;
-	protected Serializable image;
+	protected byte[] image;
+	protected User user;
 	
 	public Product(){}
 	
-	public Product(String title, String rating, boolean alreadyUsed, boolean borrowable, Serializable image) {
+	public Product(String title, String rating, boolean alreadyUsed, boolean borrowable, byte[] image, User user) {
 		this.title = title;
 		this.rating = rating;
 		this.alreadyUsed = alreadyUsed;
 		this.borrowable = borrowable;
 		this.image = image;
+		this.user = user;
 	}
 
 	public String getTitle() {
@@ -45,10 +46,10 @@ public abstract class Product {
 	public void setBorrowable(boolean borrowable) {
 		this.borrowable = borrowable;
 	}
-	public Serializable getImage() {
+	public byte[] getImage() {
 		return image;
 	}
-	public void setImage(Serializable image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 	public Long getId() {
@@ -57,4 +58,13 @@ public abstract class Product {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 }

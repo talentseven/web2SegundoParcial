@@ -47,11 +47,13 @@ public class LoginController {
 	public String processLogin(@ModelAttribute("userDto") UserDto userDto, BindingResult result, HttpServletRequest request, HttpServletResponse response){
 		userValidator.validate(userDto, result);
 		if(!result.hasErrors()){
-			User user = loginService.getUserByEmail(userDto.getEmail());
+			User user = loginService.getUserByCredentials(userDto.getEmail(), userDto.getPassword());
 			if(user != null){
 				resolveLocale(request, response, user);
 				request.getSession().setAttribute("user", user);
 				return "redirect:/app/search";
+			}else{
+				result.rejectValue("email", "errors.login.bad.credentials");
 			}
 		}
 		return "login";
