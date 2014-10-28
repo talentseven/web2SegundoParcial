@@ -1,10 +1,13 @@
 package ar.edu.uces.progweb2.booksmov.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Actor {
 	
 	private Long id;
 	private String fullName;
-	private Movie movie;
+	private Set<Movie> movies = new HashSet<Movie>();
 	
 	public Actor(String fullName) {
 		this.fullName = fullName;
@@ -28,12 +31,12 @@ public class Actor {
 		this.fullName = fullName;
 	}
 
-	public Movie getMovie() {
-		return movie;
+	public Set<Movie> getMovies() {
+		return movies;
 	}
 
-	public void setMovie(Movie movie) {
-		this.movie = movie;
+	public void setMovies(Set<Movie> movies) {
+		this.movies = movies;
 	}
 
 	@Override

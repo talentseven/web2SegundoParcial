@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS `Actors`;
 DROP TABLE IF EXISTS `Books`;
 DROP TABLE IF EXISTS `Movies`;
 DROP TABLE IF EXISTS `Directors`;
+DROP TABLE IF EXISTS `Authors_books`;
 
 CREATE  TABLE `Preferences` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -33,13 +34,11 @@ ALTER TABLE `Users` ADD CONSTRAINT fk_preferences FOREIGN KEY (`preference_id`) 
 CREATE  TABLE `Actors` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `full_name` VARCHAR(100) NOT NULL,
-  `movie_id` INT NOT NULL,
   PRIMARY KEY (`id`)  );
 
 CREATE  TABLE `Authors` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `full_name` VARCHAR(100) NOT NULL,
-  `book_id` INT NOT NULL,
   PRIMARY KEY (`id`)  );
   
 CREATE  TABLE `Directors` (
@@ -71,6 +70,30 @@ CREATE  TABLE `Movies` (
   `format` VARCHAR(20) NOT NULL,
   `director_id` INT NULL,
   PRIMARY KEY (`id`)  );
+  
+  CREATE  TABLE `Authors_books` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `author_id` INT NOT NULL,
+  `book_id` INT NOT NULL,
+  PRIMARY KEY (`id`)  );
+
+  CREATE  TABLE `Actors_movies` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `actor_id` INT NOT NULL,
+  `movie_id` INT NOT NULL,
+  PRIMARY KEY (`id`)  );
+
+  ALTER TABLE `Authors_books` ADD CONSTRAINT fk_book_author FOREIGN KEY (`book_id`)
+  REFERENCES `Books`(`id`);
+
+  ALTER TABLE `Authors_books` ADD CONSTRAINT fk_author_book FOREIGN KEY (`author_id`)
+  REFERENCES `Authors`(`id`);
+  
+  ALTER TABLE `Actors_movies` ADD CONSTRAINT fk_movie_actor FOREIGN KEY (`movie_id`)
+  REFERENCES `Movies`(`id`);
+
+  ALTER TABLE `Actors_movies` ADD CONSTRAINT fk_actor_movie FOREIGN KEY (`actor_id`)
+  REFERENCES `Actors`(`id`);
 
   ALTER TABLE `Movies` ADD CONSTRAINT fk_director FOREIGN KEY (`director_id`)
   REFERENCES `Directors`(`id`);
@@ -80,12 +103,6 @@ CREATE  TABLE `Movies` (
   
   ALTER TABLE `Books` ADD CONSTRAINT fk_user_book FOREIGN KEY (`user_id`)
   REFERENCES `Users`(`id`);
-
-  ALTER TABLE `Actors` ADD CONSTRAINT fk_movie FOREIGN KEY (`movie_id`)
-  REFERENCES `Movies`(`id`);
-  
-  ALTER TABLE `Authors` ADD CONSTRAINT fk_book FOREIGN KEY (`book_id`)
-  REFERENCES `Books`(`id`);
   
 insert into `Preferences` (language, country) VALUES ('es', 'AR');
 insert into `Preferences` (language, country) VALUES ('es', 'ES');

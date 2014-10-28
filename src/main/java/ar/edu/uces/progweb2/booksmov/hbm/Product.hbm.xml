@@ -19,18 +19,24 @@
 		
 	    <union-subclass name="Book" table="BOOKS" >
 	    	<property name="isbn" column="ISBN" not-null="true" />
-	    	<set name="authors" cascade="all" lazy="false" >
-	        	<key column="BOOK_ID" not-null="false" />
-	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Author" />
+	    	
+	    	<set name="authors" table="authors_books" cascade="all" lazy="false" inverse="false">
+	        	<key column="BOOK_ID" not-null="true" />
+	       	 	<many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Author">
+	                <column name="AUTHOR_ID" not-null="true" />
+	            </many-to-many>
 	    	</set>		
 	        <property name="description" column="DESCRIPTION" type="text" not-null="false" />
 	    </union-subclass>
 		    
 	    <union-subclass name="Movie" table="MOVIES">
 	    	<property name="isan" column="ISAN" not-null="true" />
-	        <set name="actors" cascade="all" lazy="false" >
-	        	<key column="MOVIE_ID" not-null="false" />
-	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Actor" />
+	      
+	        <set name="actors" table="actors_movies" cascade="all" lazy="false" inverse="false">
+	        	<key column="MOVIE_ID" not-null="true" />
+	       	 	<many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Actor">
+	                <column name="ACTOR_ID" not-null="true" />
+	            </many-to-many>
 	    	</set>		
 	        <many-to-one name="director" column="DIRECTOR_ID" class="ar.edu.uces.progweb2.booksmov.model.Director" cascade="all" not-null="false" lazy="false" />
 	     
