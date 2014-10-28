@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import ar.edu.uces.progweb2.booksmov.dto.BookDto;
 import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
+import ar.edu.uces.progweb2.booksmov.model.Author;
 import ar.edu.uces.progweb2.booksmov.model.User;
 import ar.edu.uces.progweb2.booksmov.service.BookService;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;

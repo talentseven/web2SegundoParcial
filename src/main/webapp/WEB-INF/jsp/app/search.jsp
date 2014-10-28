@@ -25,5 +25,31 @@
 		<li>${author.fullName}</li>
 	</c:forEach>
 	</ul>
+	
+	<h1>Libros</h1>
+	<ul>
+	<c:forEach var="book" items="${books}">
+		<li>${book.title}</li>
+		<li>Autores:
+		 	<ul>
+				<c:forEach var="author" items="${book.authors}">
+					<li> ${author.fullName} </li>	
+				</c:forEach>
+			</ul>
+		</li>
+	</c:forEach>
+	</ul>
+	
+	<h1>Peliculas</h1>
+	<c:forEach var="movie" items="${movies}">
+		<li>${movie.title}</li>
+		<li>Actores:
+			<ul>
+				<c:forEach var="actor" items="${movie.actors}">
+					<li> ${actor.fullName} </li>	
+				</c:forEach>
+			</ul>
+		</li>
+	</c:forEach>
 </body>
 </html>
