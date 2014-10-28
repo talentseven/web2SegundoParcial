@@ -1,17 +1,20 @@
 package ar.edu.uces.progweb2.booksmov.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import ar.edu.uces.progweb2.booksmov.dto.BookDto;
+import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
-import ar.edu.uces.progweb2.booksmov.model.Author;
+import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.model.User;
 import ar.edu.uces.progweb2.booksmov.service.BookService;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;
@@ -31,12 +34,29 @@ public class SearchController {
 		
 		User user = (User) model.get("user");
 		Long id = user.getId();
-		
 		List<BookDto> books = bookService.getBooksByUserId(id);
 		List<MovieDto> movies = movieService.getMoviesByUserId(id);
-		model.addAttribute("books", books);
-		model.addAttribute("movies", movies);
-		
+		List<ProductDto> products = new ArrayList<ProductDto>();
+		products.addAll(books);
+		products.addAll(movies);
+		model.addAttribute("filterDto", new FilterDto());
+		model.addAttribute("products", products);
 		return "search";
+	}
+	
+	@RequestMapping(value="/book/{isbn}", method=RequestMethod.GET)
+	public String findBook(@PathVariable("isbn") String isbn, ModelMap model){
+		
+		BookDto book = bookService.getBookByIsbn(isbn);
+		model.addAttribute("book", book);
+		return "bookDetails";
+	}
+	
+	@RequestMapping(value="/movie/{isan}", method=RequestMethod.GET)
+	public String findMovie(@PathVariable("isan") String isan, ModelMap model){
+		
+		MovieDto movie = movieService.getMovieByIsan(isan);
+		model.addAttribute("movie", movie);
+		return "movieDetails";
 	}
 }

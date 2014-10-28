@@ -13,13 +13,14 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	<h1>Alta libros</h1>
+	<h1>Editar libro</h1>
 	
-	<form:form method="POST" modelAttribute="bookDto" action="/booksmov/app/books/new" enctype="multipart/form-data" >
+	<form:form method="POST" modelAttribute="bookDto" action="/booksmov/app/books/edit" enctype="multipart/form-data" >
+		<img height="130" width="100" src='<c:url value="/app/image/book/${bookDto.isbn}" />' />
 		<form:label path="isbn">
 			<spring:message code="label.books.isbn" /> 
 		</form:label>
-		<form:input path="isbn" /> <form:errors path="isbn" cssStyle="color: red" /><br/>
+		<form:input path="isbn" readonly="true" /> <form:errors path="isbn" cssStyle="color: red" /><br/>
 		<form:label path="title">
 			<spring:message code="label.books.title" /> 
 		</form:label>
@@ -59,12 +60,12 @@
 		</form:label>
 		<form:input type="file" path="image" />
 		<form:errors path="image" cssStyle="color: red" /><br/>
-		
-		<form:button><spring:message code="label.submit"/></form:button>
+		<form:hidden path="id" />
+		<form:button><spring:message code="label.products.modify"/></form:button>
 	</form:form>
 	
 	<c:if test="${bookDto.success}">
-		<h2>El libro se ha ingresado exitosamente!</h2>
+		<h2>El libro se ha actualizado exitosamente!</h2>
 	</c:if>
 	
 	<script src="<c:url value="/resources/js/authors.js" />"></script>

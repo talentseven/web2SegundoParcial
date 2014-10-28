@@ -5,5 +5,9 @@ import java.io.Serializable;
 
 public interface ImageService {
 	
-	byte[] getImage(Serializable serializable) throws IOException;
+	byte[] getImage(Serializable serializable, String type) throws IOException;
+	
+	byte[] getBookImageFromDb(String isbn);
+	
+	byte[] getMovieImageFromDb(String isan);
 }

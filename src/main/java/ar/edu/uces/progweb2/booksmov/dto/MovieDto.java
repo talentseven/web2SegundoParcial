@@ -2,9 +2,7 @@ package ar.edu.uces.progweb2.booksmov.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import ar.edu.uces.progweb2.booksmov.model.Actor;
 import ar.edu.uces.progweb2.booksmov.model.Director;
@@ -14,7 +12,7 @@ public class MovieDto extends ProductDto{
 	
 	private String isan;
 	private String actors;
-	private Set<Actor> actorSet = new HashSet<Actor>();
+	private List<Actor> actorList = new ArrayList<Actor>();
 	private Director director;
 	private	List<Format> formats = new ArrayList<Format>();
 	private Format selectedFormat;
@@ -23,12 +21,13 @@ public class MovieDto extends ProductDto{
 
 	public MovieDto(String title, String rating, boolean alreadyUsed,
 			boolean borrowable, Serializable image, String isan,
-			String actors, Director director, Format format) {
-		super(title, rating, alreadyUsed, borrowable, image);
+			String actors, Director director, Format format, Long userId) {
+		super(title, rating, alreadyUsed, borrowable, image, userId);
 		this.isan = isan;
 		this.actors = actors;
 		this.director = director;
 		this.selectedFormat = format;
+		this.type = "movie";
 	}
 
 	public String getIsan() {
@@ -70,13 +69,13 @@ public class MovieDto extends ProductDto{
 	public void setSelectedFormat(Format selectedFormat) {
 		this.selectedFormat = selectedFormat;
 	}
-	
-	public Set<Actor> getActorSet() {
-		return actorSet;
+
+	public List<Actor> getActorList() {
+		return actorList;
 	}
 
-	public void setActorSet(Set<Actor> actorSet) {
-		this.actorSet = actorSet;
+	public void setActorList(List<Actor> actorList) {
+		this.actorList = actorList;
 	}
 
 	public void clearFields(){

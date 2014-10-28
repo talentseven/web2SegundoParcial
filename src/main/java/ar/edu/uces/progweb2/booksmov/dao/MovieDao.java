@@ -8,4 +8,6 @@ public interface MovieDao {
 	
 	void save(Movie movie);
 	List<Movie> getMovies(Long id);
+	Movie getMovieByIsan(String isan);
+	void update(Movie movie);
 }

@@ -39,4 +39,16 @@ public class MovieServiceImpl implements MovieService {
 		return movieDtos;
 	}
 
+	@Override
+	public MovieDto getMovieByIsan(String isan) {
+		Movie movie = movieDao.getMovieByIsan(isan);
+		return converter.transform(movie);
+	}
+
+	@Override
+	public void update(Movie movie) {
+		movieDao.update(movie);
+		
+	}
+
 }

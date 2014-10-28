@@ -11,11 +11,10 @@ public class Book extends Product{
 	
 	public Book(){}
 	
-	public Book(String isbn, String title, String mark, boolean alreadyUsed, boolean borrowable, byte[] image, String description, Set<Author> authors, User user){
+	public Book(String isbn, String title, String mark, boolean alreadyUsed, boolean borrowable, byte[] image, String description, User user){
 		super(title, mark, alreadyUsed, borrowable, image, user);
 		this.isbn = isbn;
 		this.description = description;
-		this.authors = authors;
 	}
 
 	public String getDescription() {

@@ -13,24 +13,29 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	<h1>Alta libros</h1>
+	<h1>Editar Pelicula</h1>
 	
-	<form:form method="POST" modelAttribute="bookDto" action="/booksmov/app/books/new" enctype="multipart/form-data" >
-		<form:label path="isbn">
-			<spring:message code="label.books.isbn" /> 
+	<form:form method="POST" modelAttribute="movieDto" action="/booksmov/app/movies/edit" enctype="multipart/form-data" >
+		<img height="130" width="100" src='<c:url value="/app/image/movie/${movieDto.isan}" />' />
+		<form:label path="isan">
+			<spring:message code="label.movies.isan" /> 
 		</form:label>
-		<form:input path="isbn" /> <form:errors path="isbn" cssStyle="color: red" /><br/>
+		<form:input path="isan" readonly="true" /> <form:errors path="isan" cssStyle="color: red" /><br/>
 		<form:label path="title">
-			<spring:message code="label.books.title" /> 
+			<spring:message code="label.movies.title" /> 
 		</form:label>
 		<form:input path="title" maxlength="200"/> <form:errors path="title" cssStyle="color: red" /><br/><br/>
-		<form:label path="authors">
-			<spring:message code="label.books.authors"/>
-			<spring:message code="label.books.authors.example"/>
+		<form:label path="director.fullName">
+			<spring:message code="label.movies.director"/>
 		</form:label>
-		<form:input path="authors" maxlength="100"/> <form:errors path="authors" cssStyle="color: red" /><br/>
+		<form:input path="director.fullName" maxlength="100"/> 
+		<form:label path="actors">
+			<spring:message code="label.movies.actors"/>
+			<spring:message code="label.movies.actors.example"/>
+		</form:label>
+		<form:input path="actors" maxlength="100"/> <form:errors path="actors" cssStyle="color: red" /><br/>
 		<form:label path="rating">
-			<spring:message code="label.books.rating" /> 
+			<spring:message code="label.movies.rating" /> 
 		</form:label>
 		<form:radiobutton path="rating" value="1"/>1 
 		<form:radiobutton path="rating" value="2"/>2 
@@ -39,32 +44,34 @@
 		<form:radiobutton path="rating" value="5"/>5
 		<form:errors path="rating" cssStyle="color: red" /><br/>
 		
-		<form:label path="description">
-			<spring:message code="label.books.description" /> 
+		<form:label path="selectedFormat">
+			<spring:message code="label.movies.formats" /> 
 		</form:label>
-		<form:textarea path="description" rows="5" cols="30" /><br/>
+		<form:select path="selectedFormat">
+		     <form:options items="${formats}"  />
+		</form:select> <form:errors path="selectedFormat" cssStyle="color: red" /><br/>
 		
 		<form:label path="borrowable">
-			<spring:message code="label.books.borrowable" /> 
+			<spring:message code="label.movies.borrowable" /> 
 		</form:label> 
 		<form:checkbox path="borrowable" /><br />
 		
 		<form:label path="alreadyUsed">
-			<spring:message code="label.books.alreadyRead" /> 
+			<spring:message code="label.movies.alreadyUsed" /> 
 		</form:label> 
 		<form:checkbox path="alreadyUsed" /><br />
 		
 		<form:label path="image">
-			<spring:message code="label.books.image" /> 
+			<spring:message code="label.movies.image" /> 
 		</form:label>
 		<form:input type="file" path="image" />
 		<form:errors path="image" cssStyle="color: red" /><br/>
-		
-		<form:button><spring:message code="label.submit"/></form:button>
+		<form:hidden path="id" />
+		<form:button><spring:message code="label.products.modify"/></form:button>
 	</form:form>
 	
-	<c:if test="${bookDto.success}">
-		<h2>El libro se ha ingresado exitosamente!</h2>
+	<c:if test="${movieDto.success}">
+		<h2>La película se ha actualizado exitosamente!</h2>
 	</c:if>
 	
 	<script src="<c:url value="/resources/js/authors.js" />"></script>

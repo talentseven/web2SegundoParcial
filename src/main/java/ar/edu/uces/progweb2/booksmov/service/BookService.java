@@ -9,4 +9,6 @@ public interface BookService {
 
 	void save(Book book);
 	List<BookDto> getBooksByUserId(Long id);
+	BookDto getBookByIsbn(String isbn);
+	void update(Book book);
 }

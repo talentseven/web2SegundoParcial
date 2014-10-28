@@ -26,6 +26,7 @@
 		<form:input path="title" maxlength="200"/> <form:errors path="title" cssStyle="color: red" /><br/><br/>
 		<form:label path="actors">
 			<spring:message code="label.movies.actors"/>
+			<spring:message code="label.movies.actors.example"/>
 		</form:label>
 		<form:input path="actors" maxlength="100"/> <br />
 		<form:label path="director.fullName">
@@ -64,7 +65,7 @@
 		<form:label path="image">
 			<spring:message code="label.movies.image" /> 
 		</form:label>
-		<input type="file" name="image" />
+		<form:input type="file" path="image" />
 		<form:errors path="image" cssStyle="color: red" /><br/>
 		
 		<form:button><spring:message code="label.submit"/></form:button>

@@ -28,7 +28,19 @@ public class BookDaoImpl implements BookDao{
 		Query query = session.createQuery("FROM Book b WHERE b.user.id = :userId");
 		query.setLong("userId", id);
 		return query.list();
+	}
 
+	@Override
+	public Book getBookByIsbn(String isbn) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM Book b WHERE b.isbn = :isbn");
+		query.setString("isbn", isbn);
+		return (Book) query.uniqueResult();
+	}
+
+	@Override
+	public void update(Book book) {
+		sessionFactory.getCurrentSession().update(book);
 	}
 
 }

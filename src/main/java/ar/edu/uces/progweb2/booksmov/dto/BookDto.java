@@ -1,8 +1,8 @@
 package ar.edu.uces.progweb2.booksmov.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import ar.edu.uces.progweb2.booksmov.model.Author;
 
@@ -11,20 +11,17 @@ public class BookDto extends ProductDto{
 	private String isbn;
 	private String description;
 	private String authors;
-	private Set<Author> authorsSet = new HashSet<Author>();
+	private List<Author> authorsList = new ArrayList<Author>();
 	
 	public BookDto(){}
 	
 	public BookDto(String title, String rating, boolean alreadyUsed,
 			boolean borrowable, Serializable image, String isbn,
-			String description) {
-		this.title = title;
-		this.rating = rating;
-		this.alreadyUsed = alreadyUsed;
-		this.borrowable = borrowable;
-		this.image = image;
+			String description, Long userId) {
+		super(title, rating, alreadyUsed, borrowable, image, userId);
 		this.isbn = isbn;
 		this.description = description;
+		this.type = "book";
 	}
 
 	public String getIsbn() {
@@ -51,12 +48,12 @@ public class BookDto extends ProductDto{
 		this.authors = authors;
 	}
 	
-	public Set<Author> getAuthorsSet() {
-		return authorsSet;
+	public List<Author> getAuthorsList() {
+		return authorsList;
 	}
 
-	public void setAuthorsSet(Set<Author> authorsSet) {
-		this.authorsSet = authorsSet;
+	public void setAuthorsList(List<Author> authorsList) {
+		this.authorsList = authorsList;
 	}
 
 	public void clearFields(){
