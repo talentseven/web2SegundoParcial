@@ -3,6 +3,7 @@
 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="ar.edu.uces.progweb2.booksmov.model">
+	
 	<class name="Product" abstract="true">
 		
 		<id name="id" column="ID" >
@@ -16,10 +17,9 @@
 		<many-to-one name="user" class="ar.edu.uces.progweb2.booksmov.model.User" fetch="select">
             <column name="user_id" not-null="true" />
         </many-to-one>
-		
+        		
 	    <union-subclass name="Book" table="BOOKS" >
 	    	<property name="isbn" column="ISBN" not-null="true" />
-	    	
 	    	<set name="authors" table="authors_books" cascade="all" lazy="false" inverse="false">
 	        	<key column="BOOK_ID" not-null="true" />
 	       	 	<many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Author">

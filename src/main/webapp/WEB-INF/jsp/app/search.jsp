@@ -22,47 +22,40 @@
 		<h1>Libros y peliculas</h1>
 		<div id="filter">
 			<span><spring:message code="label.filter.by"/></span>
-			<form:form action="/booksmov/app/filter" modelAttribute="filterDto" method="GET">
-				<form:label path="userName">
+			<form:form action="/booksmov/app/filter" modelAttribute="filterDto" method="POST">
+				<form:label path="userName.value">
 					<spring:message code="label.filter.user"/>
 				</form:label>
-				<form:input path="userName" /><br />
-				<form:label path="rating">
+				<form:input path="userName.value" /><br />
+				<form:label path="rating.value">
 					<spring:message code="label.filter.rating"/>
 				</form:label>
-				<form:radiobutton path="rating" value="1"/>1 
-				<form:radiobutton path="rating" value="2"/>2 
-				<form:radiobutton path="rating" value="3"/>3 
-				<form:radiobutton path="rating" value="4"/>4 
-				<form:radiobutton path="rating" value="5"/>5<br />
-				<form:label path="title">
+				<form:radiobutton path="rating.value" value="1"/>1 
+				<form:radiobutton path="rating.value" value="2"/>2 
+				<form:radiobutton path="rating.value" value="3"/>3 
+				<form:radiobutton path="rating.value" value="4"/>4 
+				<form:radiobutton path="rating.value" value="5"/>5<br />
+				<form:label path="title.value">
 					<spring:message code="label.filter.title"/>
 				</form:label>
-				<form:input path="title" /><br />
-				<form:radiobutton path="type" value="1"/> 
-				<form:label path="type">
+				<form:input path="title.value" />
+				<form:label path="borrowable.value">
+					<spring:message code="label.filter.borrowable"/>
+				</form:label>
+				<form:checkbox path="borrowable.boolValue" />
+				<br />
+				<form:radiobutton path="type.value" value="all"/> 
+				<form:label path="type.value">
 					<spring:message code="label.filter.all"/>
 				</form:label>
-				<form:radiobutton path="type" value="2"/> 
-				<form:label path="type">
+				<form:radiobutton path="type.value" value="books"/> 
+				<form:label path="type.value">
 					<spring:message code="label.filter.booksOnly"/>
 				</form:label>
-				<form:radiobutton path="type" value="3"/> 
-				<form:label path="type">
+				<form:radiobutton path="type.value" value="movies"/> 
+				<form:label path="type.value">
 					<spring:message code="label.filter.moviesOnly"/>
 				</form:label><br />
-				<form:label path="author"> 
-					<spring:message code="label.filter.author"/>
-				</form:label>
-				<form:input path="author" /><br />
-				<form:label path="actor">
-					<spring:message code="label.filter.actor"/>
-				</form:label>
-				<form:input path="actor" /><br />
-				<form:label path="director">
-					<spring:message code="label.filter.director"/>
-				</form:label>
-				<form:input path="director" />
 				<form:button><spring:message code="label.filter.submit"/></form:button>
 			</form:form>
 		</div>
@@ -74,7 +67,7 @@
 				<th> <spring:message code="label.products.borrowable"/> </th>
 				<th> <spring:message code="label.products.alreadyUsed"/> </th>
 				<th> <spring:message code="label.products.extra.data"/> </th>
-				<th> <spring:message code="label.products.modify"/> </th>
+				<th> <spring:message code="label.products.action"/> </th>
 			</tr>
 		<c:forEach var="product" items="${products}">
 			<c:set var="type" value="book" />
@@ -146,6 +139,11 @@
 					<c:if test="${product.userId eq sessionScope.user.id}">
 						<a href='<c:url value="/app/${type}s/edit/${id}" />'>
 							<img src='<c:url value="/resources/img/editar.gif" />' />
+						</a>
+					</c:if>
+					<c:if test="${product.userId ne sessionScope.user.id and product.borrowable eq true}">
+						<a href='<c:url value="/app/loan/${product.id}?type=${type}" />'>
+							<img src='<c:url value="/resources/img/solicitud_prestamo.png" />' />
 						</a>
 					</c:if>
 				</td>

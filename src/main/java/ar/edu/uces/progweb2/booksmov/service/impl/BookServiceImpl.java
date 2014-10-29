@@ -2,6 +2,7 @@ package ar.edu.uces.progweb2.booksmov.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,10 @@ public class BookServiceImpl implements BookService{
 	public List<BookDto> getBooksByUserId(Long id) {
 		List<Book> books = bookDao.getBooks(id);
 		List<BookDto> bookDtos = new ArrayList<BookDto>();
-		
+		return transform(books, bookDtos);
+	}
+
+	private List<BookDto> transform(List<Book> books, List<BookDto> bookDtos) {
 		for (Book book : books) {
 			bookDtos.add(converter.transform(book));
 		}
@@ -49,6 +53,26 @@ public class BookServiceImpl implements BookService{
 	public void update(Book book) {
 		bookDao.update(book);
 		
+	}
+
+	@Override
+	public List<BookDto> searchBooksWithCriteria(String criteria, Map<String, String> values) {
+		List<Book> books = bookDao.getBooksByCriteria(criteria, values);
+		List<BookDto> bookDtos = new ArrayList<BookDto>();
+		return transform(books, bookDtos);
+	}
+
+	@Override
+	public List<BookDto> getBooksByUserName(String userName) {
+		List<Book> books = bookDao.getBooksByUserName(userName);
+		List<BookDto> bookDtos = new ArrayList<BookDto>();
+		return transform(books, bookDtos);
+	}
+
+	@Override
+	public BookDto getBookById(Long id) {
+		Book book = bookDao.getBookById(id);
+		return converter.transform(book);
 	}
 
 }

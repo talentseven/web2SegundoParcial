@@ -13,6 +13,7 @@ public class User {
 	private Preference preferences;
 	private Set<Book> books = new HashSet<Book>();
 	private Set<Movie> movies = new HashSet<Movie>(); 
+	private Set<LoanRequest> loans = new HashSet<LoanRequest>();
 	
 	public Preference getPreferences() {
 		return preferences;
@@ -61,6 +62,12 @@ public class User {
 	}
 	public void setMovies(Set<Movie> movies) {
 		this.movies = movies;
+	}
+	public Set<LoanRequest> getLoans() {
+		return loans;
+	}
+	public void setLoans(Set<LoanRequest> loans) {
+		this.loans = loans;
 	}
 	
 	

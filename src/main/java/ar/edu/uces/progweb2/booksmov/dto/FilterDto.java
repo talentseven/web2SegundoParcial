@@ -1,63 +1,84 @@
 package ar.edu.uces.progweb2.booksmov.dto;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import ar.edu.uces.progweb2.booksmov.model.Product;
+import ar.edu.uces.progweb2.booksmov.model.User;
+import ar.edu.uces.progweb2.booksmov.search.filter.OptionSearch;
+
 public class FilterDto {
 	
+	/*
 	private String userName;
-	private String rating;
+	private String rating = "3";
 	private String title;
-	private String type = "1";
+	private String type = "all";
 	private boolean borrowable;
-	private String author;
-	private String actor;
-	private String director;
+	*/
+	private OptionSearch borrowable; 
+	private OptionSearch userName;
+	private OptionSearch rating; 
+	private OptionSearch type; 
+	private OptionSearch title; 
 	
-	public String getUserName() {
-		return userName;
+	public FilterDto(){
+		borrowable = new OptionSearch(Product.class, "borrowable", false);
+		userName = new OptionSearch(User.class, "userName", "");
+		rating = new OptionSearch(Product.class, "rating", "3");
+		type = new OptionSearch(String.class, "type", "all");
+		title = new OptionSearch(String.class, "title", "");
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	
+	public Map<String, Object> getOptionsMap(){
+		Map<String, Object> options = new LinkedHashMap<String, Object>();
+		options.put("userName", userName.getValue());
+		options.put("rating", rating.getValue());
+		options.put("title", title.getValue());
+		options.put("type", type.getValue());
+		options.put("borrowable", borrowable.isBoolValue());
+		
+		return options;
 	}
-	public String getRating() {
-		return rating;
-	}
-	public void setRating(String rating) {
-		this.rating = rating;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public boolean isBorrowable() {
+
+	public OptionSearch getBorrowable() {
 		return borrowable;
 	}
-	public void setBorrowable(boolean borrowable) {
+
+	public void setBorrowable(OptionSearch borrowable) {
 		this.borrowable = borrowable;
 	}
-	public String getAuthor() {
-		return author;
+
+	public OptionSearch getUserName() {
+		return userName;
 	}
-	public void setAuthor(String author) {
-		this.author = author;
+
+	public void setUserName(OptionSearch userName) {
+		this.userName = userName;
 	}
-	public String getActor() {
-		return actor;
+
+	public OptionSearch getRating() {
+		return rating;
 	}
-	public void setActor(String actor) {
-		this.actor = actor;
+
+	public void setRating(OptionSearch rating) {
+		this.rating = rating;
 	}
-	public String getDirector() {
-		return director;
+
+	public OptionSearch getType() {
+		return type;
 	}
-	public void setDirector(String director) {
-		this.director = director;
+
+	public void setType(OptionSearch type) {
+		this.type = type;
+	}
+
+	public OptionSearch getTitle() {
+		return title;
+	}
+
+	public void setTitle(OptionSearch title) {
+		this.title = title;
 	}
 	
 	

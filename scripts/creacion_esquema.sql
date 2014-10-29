@@ -7,12 +7,14 @@ USE `booksmov_db`;
 
 DROP TABLE IF EXISTS `Users`;
 DROP TABLE IF EXISTS `Preferences`;
+DROP TABLE IF EXISTS `Authors_books`;
+DROP TABLE IF EXISTS `Actors_movies`;
 DROP TABLE IF EXISTS `Authors`;
 DROP TABLE IF EXISTS `Actors`;
 DROP TABLE IF EXISTS `Books`;
 DROP TABLE IF EXISTS `Movies`;
 DROP TABLE IF EXISTS `Directors`;
-DROP TABLE IF EXISTS `Authors_books`;
+DROP TABLE IF EXISTS `Loan_requests`;
 
 CREATE  TABLE `Preferences` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -21,13 +23,13 @@ CREATE  TABLE `Preferences` (
   PRIMARY KEY (`id`)  );
 
 CREATE  TABLE `Users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_user` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(200) NOT NULL,
   `last_name` VARCHAR(200) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
   `preference_id` INT NULL,
-  PRIMARY KEY (`id`)  );
+  PRIMARY KEY (`id_user`)  );
   
 ALTER TABLE `Users` ADD CONSTRAINT fk_preferences FOREIGN KEY (`preference_id`) REFERENCES `Preferences`(`id`);
 
@@ -57,7 +59,7 @@ CREATE  TABLE `Books` (
   `image` LONGBLOB,
   `description` TEXT,
   PRIMARY KEY (`id`)  );
-  
+
 CREATE  TABLE `Movies` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `isan` VARCHAR(50) NOT NULL,
@@ -82,7 +84,27 @@ CREATE  TABLE `Movies` (
   `actor_id` INT NOT NULL,
   `movie_id` INT NOT NULL,
   PRIMARY KEY (`id`)  );
-
+  /*
+  CREATE  TABLE `States` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`)  );
+  */
+  CREATE  TABLE `Loan_requests` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `product_id` INT NOT NULL,
+  `request_desc` VARCHAR(500) NOT NULL,
+  `state` VARCHAR(20) NOT NULL,
+  `requester` INT NOT NULL,
+  `consignee` INT NOT NULL,
+  `request_date` DATE NOT NULL,
+  `response_date` DATE NULL,
+  PRIMARY KEY (`id`)  );
+  
+  /*
+  ALTER TABLE `Loan_requests` ADD CONSTRAINT fk_loan_product FOREIGN KEY (`product_id`)
+  REFERENCES 
+*/
   ALTER TABLE `Authors_books` ADD CONSTRAINT fk_book_author FOREIGN KEY (`book_id`)
   REFERENCES `Books`(`id`);
 
@@ -99,10 +121,10 @@ CREATE  TABLE `Movies` (
   REFERENCES `Directors`(`id`);
   
   ALTER TABLE `Movies` ADD CONSTRAINT fk_user_movie FOREIGN KEY (`user_id`)
-  REFERENCES `Users`(`id`);
+  REFERENCES `Users`(`id_user`);
   
   ALTER TABLE `Books` ADD CONSTRAINT fk_user_book FOREIGN KEY (`user_id`)
-  REFERENCES `Users`(`id`);
+  REFERENCES `Users`(`id_user`);
   
 insert into `Preferences` (language, country) VALUES ('es', 'AR');
 insert into `Preferences` (language, country) VALUES ('es', 'ES');

@@ -4,7 +4,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="ar.edu.uces.progweb2.booksmov.model.User" table="USERS">
-		<id name="id" column="ID">
+		<id name="id" column="ID_USER">
 			<generator class="native"/>
 		</id>
 		<property name="firstName" column="FIRST_NAME" />
@@ -20,6 +20,11 @@
 		<set name="movies" cascade="all" lazy="false" >
         	<key column="USER_ID" not-null="false" />
        	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Movie" />
+    	</set>
+    	
+    	<set name="loans" cascade="all" lazy="true" >
+        	<key column="USER_ID" not-null="false" />
+       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.LoanRequest" />
     	</set>
 		
 		<many-to-one name="preferences" column="PREFERENCE_ID" lazy="false" cascade="none" class="ar.edu.uces.progweb2.booksmov.model.Preference"/>

@@ -30,6 +30,7 @@
 				<value>/ar/edu/uces/progweb2/booksmov/hbm/Author.hbm.xml</value>
 				<value>/ar/edu/uces/progweb2/booksmov/hbm/Actor.hbm.xml</value>
 				<value>/ar/edu/uces/progweb2/booksmov/hbm/Director.hbm.xml</value>
+				<value>/ar/edu/uces/progweb2/booksmov/hbm/LoanRequest.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
