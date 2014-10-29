@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -44,19 +43,5 @@ public class SearchController {
 		return "search";
 	}
 	
-	@RequestMapping(value="/book/{isbn}", method=RequestMethod.GET)
-	public String findBook(@PathVariable("isbn") String isbn, ModelMap model){
-		
-		BookDto book = bookService.getBookByIsbn(isbn);
-		model.addAttribute("book", book);
-		return "bookDetails";
-	}
 	
-	@RequestMapping(value="/movie/{isan}", method=RequestMethod.GET)
-	public String findMovie(@PathVariable("isan") String isan, ModelMap model){
-		
-		MovieDto movie = movieService.getMovieByIsan(isan);
-		model.addAttribute("movie", movie);
-		return "movieDetails";
-	}
 }

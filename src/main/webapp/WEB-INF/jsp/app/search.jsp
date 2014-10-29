@@ -73,6 +73,7 @@
 				<th> <spring:message code="label.products.rating"/> </th>
 				<th> <spring:message code="label.products.borrowable"/> </th>
 				<th> <spring:message code="label.products.alreadyUsed"/> </th>
+				<th> <spring:message code="label.products.extra.data"/> </th>
 				<th> <spring:message code="label.products.modify"/> </th>
 			</tr>
 		<c:forEach var="product" items="${products}">
@@ -91,7 +92,7 @@
 					
 					<img height="130" width="100" src='<c:url value="/app/image/${type}/${id}" />' />
 				</td>
-				<td><a href='<c:url value="/app/search/${type}/${id}" />'>${product.title}</a></td>
+				<td>${product.title}</td>
 				<td>${product.rating}</td>
 				<td>
 					<c:choose>
@@ -110,6 +111,34 @@
 						</c:when>
 						<c:otherwise>
 							<spring:message code="label.no"/>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${type eq 'book'}">
+							 <spring:message code="label.books.isbn"/> 
+								 ${product.isbn} <br />
+							 <spring:message code="label.books.authors"/> <br />
+							 <ul>
+						 		<c:forEach var="author" items="${product.authorsList}">
+									<li> ${author.fullName} </li>	
+								</c:forEach>
+							 </ul>
+						</c:when>
+						<c:otherwise>
+							 <spring:message code="label.movies.isan"/> 
+								 ${product.isan} <br />
+							 <spring:message code="label.movies.formats"/> 
+							  	 ${product.selectedFormat} <br />
+							 <spring:message code="label.movies.director"/> 
+								 ${product.director.fullName} <br />
+						     <spring:message code="label.movies.actors"/> 
+						     <ul>
+						 		<c:forEach var="actor" items="${product.actorList}">
+									<li> ${actor.fullName} </li>	
+								</c:forEach>
+							 </ul>
 						</c:otherwise>
 					</c:choose>
 				</td>
