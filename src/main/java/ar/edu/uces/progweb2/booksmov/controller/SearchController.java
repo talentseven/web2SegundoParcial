@@ -17,6 +17,7 @@ import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.model.User;
 import ar.edu.uces.progweb2.booksmov.service.BookService;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;
+import ar.edu.uces.progweb2.booksmov.service.ProductService;
 
 @Controller
 @SessionAttributes("user")
@@ -27,17 +28,20 @@ public class SearchController {
 	private BookService bookService;
 	@Autowired
 	private MovieService movieService;
-	
+	@Autowired
+	private ProductService productService;
+
 	@RequestMapping(method=RequestMethod.GET)
 	public String findProducts(ModelMap model){
 		
 		User user = (User) model.get("user");
 		Long id = user.getId();
-		List<BookDto> books = bookService.getBooksByUserId(id);
-		List<MovieDto> movies = movieService.getMoviesByUserId(id);
-		List<ProductDto> products = new ArrayList<ProductDto>();
-		products.addAll(books);
-		products.addAll(movies);
+		//List<BookDto> books = bookService.getBooksByUserId(id);
+		//List<MovieDto> movies = movieService.getMoviesByUserId(id);
+		//List<ProductDto> products = new ArrayList<ProductDto>();
+		//products.addAll(books);
+		//products.addAll(movies);
+		List<ProductDto> products = productService.getProductsByUserId(id);
 		model.addAttribute("filterDto", new FilterDto());
 		model.addAttribute("products", products);
 		return "search";

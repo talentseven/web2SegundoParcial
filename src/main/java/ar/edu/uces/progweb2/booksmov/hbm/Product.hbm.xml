@@ -4,11 +4,10 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="ar.edu.uces.progweb2.booksmov.model">
 	
-	<class name="Product" abstract="true">
-		
-		<id name="id" column="ID" >
-			<generator class="increment" />
-		</id>
+		<class name="Product" abstract="true" table="PRODUCTS">
+		<id name="id" column="ID" > 
+			<generator class="native" /> 
+ 		</id>
 		<property name="title" column="TITLE" not-null="true" />
 		<property name="rating" column="RATING" not-null="true" />
 		<property name="alreadyUsed" column="ALREADY_USED" type="boolean" />
@@ -18,23 +17,20 @@
             <column name="user_id" not-null="true" />
         </many-to-one>
         		
-	    <union-subclass name="Book" table="BOOKS" >
+	    <joined-subclass name="Book" table="BOOKS" >
+	    	<key column="ID"/>
 	    	<set name="authors" table="authors_books" cascade="all" lazy="false" inverse="false">
 	        	<key column="BOOK_ID" not-null="true" />
-	       	 	<many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Author">
-	                <column name="AUTHOR_ID" not-null="true" />
-	            </many-to-many>
+	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Author" />
 	    	</set>		
 	        <property name="description" column="DESCRIPTION" type="text" not-null="false" />
-	    </union-subclass>
+	    </joined-subclass>
 		    
-	    <union-subclass name="Movie" table="MOVIES">
-	      
+	    <joined-subclass name="Movie" table="MOVIES">
+	    	<key column="ID"/>
 	        <set name="actors" table="actors_movies" cascade="all" lazy="false" inverse="false">
 	        	<key column="MOVIE_ID" not-null="true" />
-	       	 	<many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Actor">
-	                <column name="ACTOR_ID" not-null="true" />
-	            </many-to-many>
+	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Actor" />
 	    	</set>		
 	        <many-to-one name="director" column="DIRECTOR_ID" class="ar.edu.uces.progweb2.booksmov.model.Director" cascade="all" not-null="false" lazy="false" />
 	     
@@ -44,7 +40,6 @@
 		         <param name="type">12</param>
 		      </type>
 		   </property>
-	    </union-subclass>
-	    
+		</joined-subclass>
 	</class>
 </hibernate-mapping>

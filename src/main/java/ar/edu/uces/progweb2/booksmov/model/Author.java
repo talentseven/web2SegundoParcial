@@ -1,13 +1,11 @@
 package ar.edu.uces.progweb2.booksmov.model;
 
-import java.util.HashSet;
-import java.util.Set;
 
 public class Author {
 	
 	private Long id;
 	private String fullName;
-	private Set<Book> books = new HashSet<Book>();
+	private Book book;
 
 	public Author(String fullName) {
 		this.fullName = fullName;
@@ -31,12 +29,12 @@ public class Author {
 		this.fullName = fullName;
 	}
 	
-	public Set<Book> getBooks() {
-		return books;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setBooks(Set<Book> books) {
-		this.books = books;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	@Override

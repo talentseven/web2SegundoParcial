@@ -7,13 +7,12 @@ USE `booksmov_db`;
 
 DROP TABLE IF EXISTS `Users`;
 DROP TABLE IF EXISTS `Preferences`;
-DROP TABLE IF EXISTS `Authors_books`;
-DROP TABLE IF EXISTS `Actors_movies`;
 DROP TABLE IF EXISTS `Authors`;
 DROP TABLE IF EXISTS `Actors`;
 DROP TABLE IF EXISTS `Books`;
 DROP TABLE IF EXISTS `Movies`;
 DROP TABLE IF EXISTS `Directors`;
+DROP TABLE IF EXISTS `Products`;
 DROP TABLE IF EXISTS `Loan_requests`;
 
 CREATE  TABLE `Preferences` (
@@ -34,19 +33,21 @@ ALTER TABLE `Users` ADD CONSTRAINT fk_preferences FOREIGN KEY (`preference_id`) 
 CREATE  TABLE `Actors` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `full_name` VARCHAR(100) NOT NULL,
+  `movie_id` INT NOT NULL,
   PRIMARY KEY (`id`)  );
 
 CREATE  TABLE `Authors` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `full_name` VARCHAR(100) NOT NULL,
+  `book_id` INT NOT NULL,
   PRIMARY KEY (`id`)  );
   
 CREATE  TABLE `Directors` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `full_name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`)  );
-  
-CREATE  TABLE `Books` (
+
+CREATE  TABLE `Products` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(200) NOT NULL,
   `rating` VARCHAR(10) NOT NULL,
@@ -54,32 +55,19 @@ CREATE  TABLE `Books` (
   `borrowable` BOOLEAN,
   `user_id` INT NOT NULL,
   `image` LONGBLOB,
+  PRIMARY KEY (`id`)  );
+  
+CREATE  TABLE `Books` (
+  `id` INT NOT NULL,
   `description` TEXT,
   PRIMARY KEY (`id`)  );
 
 CREATE  TABLE `Movies` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(200) NOT NULL,
-  `rating` VARCHAR(10) NOT NULL,
-  `already_used` BOOLEAN,
-  `borrowable` BOOLEAN,
-  `user_id` INT NOT NULL,
-  `image` LONGBLOB,
+  `id` INT NOT NULL,
   `format` VARCHAR(20) NOT NULL,
   `director_id` INT NULL,
   PRIMARY KEY (`id`)  );
   
-  CREATE  TABLE `Authors_books` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `author_id` INT NOT NULL,
-  `book_id` INT NOT NULL,
-  PRIMARY KEY (`id`)  );
-
-  CREATE  TABLE `Actors_movies` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `actor_id` INT NOT NULL,
-  `movie_id` INT NOT NULL,
-  PRIMARY KEY (`id`)  );
   /*
   CREATE  TABLE `States` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -101,26 +89,24 @@ CREATE  TABLE `Movies` (
   ALTER TABLE `Loan_requests` ADD CONSTRAINT fk_loan_product FOREIGN KEY (`product_id`)
   REFERENCES 
 */
-  ALTER TABLE `Authors_books` ADD CONSTRAINT fk_book_author FOREIGN KEY (`book_id`)
+	
+  ALTER TABLE `Authors` ADD CONSTRAINT fk_author_book FOREIGN KEY (`book_id`)
   REFERENCES `Books`(`id`);
-
-  ALTER TABLE `Authors_books` ADD CONSTRAINT fk_author_book FOREIGN KEY (`author_id`)
-  REFERENCES `Authors`(`id`);
   
-  ALTER TABLE `Actors_movies` ADD CONSTRAINT fk_movie_actor FOREIGN KEY (`movie_id`)
+  ALTER TABLE `Actors` ADD CONSTRAINT fk_actor_movie FOREIGN KEY (`movie_id`)
   REFERENCES `Movies`(`id`);
-
-  ALTER TABLE `Actors_movies` ADD CONSTRAINT fk_actor_movie FOREIGN KEY (`actor_id`)
-  REFERENCES `Actors`(`id`);
-
+  
   ALTER TABLE `Movies` ADD CONSTRAINT fk_director FOREIGN KEY (`director_id`)
   REFERENCES `Directors`(`id`);
-  
-  ALTER TABLE `Movies` ADD CONSTRAINT fk_user_movie FOREIGN KEY (`user_id`)
+   
+  ALTER TABLE `Products` ADD CONSTRAINT fk_product_user FOREIGN KEY (`user_id`)
   REFERENCES `Users`(`id_user`);
-  
-  ALTER TABLE `Books` ADD CONSTRAINT fk_user_book FOREIGN KEY (`user_id`)
-  REFERENCES `Users`(`id_user`);
+
+  ALTER TABLE `Movies` ADD CONSTRAINT fk_product_movie FOREIGN KEY (`id`)
+  REFERENCES `Products`(`id`);
+
+  ALTER TABLE `Books` ADD CONSTRAINT fk_product_book FOREIGN KEY (`id`)
+  REFERENCES `Products`(`id`);
   
 insert into `Preferences` (language, country) VALUES ('es', 'AR');
 insert into `Preferences` (language, country) VALUES ('es', 'ES');

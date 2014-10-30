@@ -9,11 +9,8 @@
 		</id>
 		<property name="fullName" column="FULL_NAME" />
         
-        <set name="movies" table="actors_movies" lazy="false" cascade="all" inverse="true">
-            <key column="ACTOR_ID" not-null="true" />
-            <many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Movie">
-                <column name="MOVIE_ID" not-null="true" />
-            </many-to-many>
-        </set>
+<!--         <many-to-one name="movie" class="ar.edu.uces.progweb2.booksmov.model.Movie" fetch="select"> -->
+<!--             <column name="movie_id" not-null="true" /> -->
+<!--         </many-to-one> -->
 	</class>
 </hibernate-mapping>

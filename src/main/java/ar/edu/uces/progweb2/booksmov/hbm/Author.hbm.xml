@@ -9,11 +9,9 @@
 		</id>
 		<property name="fullName" column="FULL_NAME" />
 		
-		<set name="books" table="authors_books" lazy="false" cascade="all" inverse="true">
-            <key column="AUTHOR_ID" not-null="true" />
-            <many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Book">
-                <column name="BOOK_ID" not-null="true" />
-            </many-to-many>
-        </set>
+<!-- 		<many-to-one name="book" class="ar.edu.uces.progweb2.booksmov.model.Book" fetch="select"> -->
+<!--             <column name="book_id" not-null="true" /> -->
+<!--         </many-to-one> -->
+		
 	</class>
 </hibernate-mapping>

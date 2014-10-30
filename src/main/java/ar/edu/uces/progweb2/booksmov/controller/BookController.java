@@ -109,7 +109,7 @@ public class BookController {
 		
 		for (int i = 0; i < result.length; i++) {
 			Author author = new Author(result[i].trim());
-			author.getBooks().add(book);
+			author.setBook(book);
 			book.getAuthors().add(author);
 		}
 	}

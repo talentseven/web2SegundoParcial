@@ -9,8 +9,7 @@ public class User {
 	private String name;
 	private String password;
 	private Preference preferences;
-	private Set<Book> books = new HashSet<Book>();
-	private Set<Movie> movies = new HashSet<Movie>(); 
+	private Set<Product> products = new HashSet<Product>();
 	private Set<LoanRequest> loans = new HashSet<LoanRequest>();
 	
 	public Preference getPreferences() {
@@ -37,17 +36,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Set<Book> getBooks() {
-		return books;
+
+	public Set<Product> getProducts() {
+		return products;
 	}
-	public void setBooks(Set<Book> books) {
-		this.books = books;
-	}
-	public Set<Movie> getMovies() {
-		return movies;
-	}
-	public void setMovies(Set<Movie> movies) {
-		this.movies = movies;
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 	public Set<LoanRequest> getLoans() {
 		return loans;
