@@ -1,6 +1,7 @@
 -- password is '4540' hashed con http://www.nitrxgen.net/hashgen/
 CREATE USER 'root'@'localhost' IDENTIFIED BY PASSWORD '4540'; 
 
+DROP SCHEMA IF EXISTS `booksmov_db`;
 CREATE SCHEMA IF NOT EXISTS `booksmov_db`;
 
 USE `booksmov_db`;

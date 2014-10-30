@@ -27,4 +27,10 @@ public class ImageController {
 	public byte[] getMovieImage(@PathVariable("id") Long id){
 		return imageService.getMovieImageFromDb(id);
 	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@ResponseBody
+	public byte[] getProductImage(@PathVariable("id") Long id){
+		return imageService.getProductImageFromDb(id);
+	}
 }

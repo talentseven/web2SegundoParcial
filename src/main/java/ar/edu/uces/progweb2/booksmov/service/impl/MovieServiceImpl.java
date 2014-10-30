@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.MovieDao;
 import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
-import ar.edu.uces.progweb2.booksmov.model.Book;
 import ar.edu.uces.progweb2.booksmov.model.Movie;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;
 

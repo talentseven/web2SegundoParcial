@@ -7,12 +7,24 @@ public class LoanRequest {
 	private Long id;
 	private Product product;
 	private String requestDescription;
-	/* O un LoanState  */
 	private LoanStateEnum state;
 	private User requester;
 	private User consignee;
 	private Date requestDate;
 	private Date responseDate;
+	
+	public LoanRequest(Product product, String requestDescription,
+			LoanStateEnum state, User requester, User consignee,
+			Date requestDate) {
+		this.product = product;
+		this.requestDescription = requestDescription;
+		this.state = state;
+		this.requester = requester;
+		this.consignee = consignee;
+		this.requestDate = requestDate;
+	}
+	
+	public LoanRequest(){}
 	
 	public Long getId() {
 		return id;

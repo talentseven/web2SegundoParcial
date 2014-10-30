@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.uces.progweb2.booksmov.dao.ImageDao;
 import ar.edu.uces.progweb2.booksmov.model.Book;
 import ar.edu.uces.progweb2.booksmov.model.Movie;
+import ar.edu.uces.progweb2.booksmov.model.Product;
 
 @Repository
 public class ImageDaoImpl implements ImageDao{
@@ -29,6 +30,14 @@ public class ImageDaoImpl implements ImageDao{
 	public byte[] getMovieImage(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (byte[]) session.createCriteria(Movie.class)
+	        .setProjection(Projections.projectionList().add(Projections.property("image")))
+	        .add(Restrictions.eq("id", id)).uniqueResult();
+	}
+
+	@Override
+	public byte[] getProductImage(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (byte[]) session.createCriteria(Product.class)
 	        .setProjection(Projections.projectionList().add(Projections.property("image")))
 	        .add(Restrictions.eq("id", id)).uniqueResult();
 	}

@@ -47,5 +47,10 @@ public class ImageServiceImpl implements ImageService{
 	public byte[] getMovieImageFromDb(Long id) {
 		return imageDao.getMovieImage(id);
 	}
+
+	@Override
+	public byte[] getProductImageFromDb(Long id) {
+		return imageDao.getProductImage(id);
+	}
 	
 }

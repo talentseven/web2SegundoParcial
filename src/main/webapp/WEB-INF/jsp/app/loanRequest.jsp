@@ -14,8 +14,14 @@
 <body>
 	<h1>Solicitud de Prestamo</h1>
 	
-	<form:form action="/booksmov/" method="POST" modelAttribute="loanDto">
-	
+	<form:form action="/booksmov/app/loan/request" method="POST" modelAttribute="loanDto">
+		<form:label path="requestDescription">
+			<spring:message code="loan.request.description" />
+		</form:label>
+		<form:textarea path="requestDescription" maxlength="500" />
+		<form:hidden path="consigneeId"/>
+		<form:hidden path="productId"/>
+		<form:button><spring:message code="loan.submit.request"/></form:button>
 	</form:form>
 </body>
 </html>

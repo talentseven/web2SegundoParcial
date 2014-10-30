@@ -51,10 +51,8 @@ public class BookDaoImpl implements BookDao{
 	@Override
 	public List<Book> getBooksByUserName(String userName) {
 		Session session = sessionFactory.getCurrentSession();
-		//Query query = session.createQuery("SELECT ub FROM User u INNER JOIN u.books ub on u.id = ub.user.id WHERE u.firstName = :name");
-		SQLQuery query = session.createSQLQuery("select * from books b inner join users u on b.user_id = u.id_user where u.first_name = :name");
-		query.addEntity(Book.class);
-		query.setParameter("name", userName);
+		Query query = session.createQuery("FROM Book b WHERE b.user.name = :name");
+		query.setString("name", userName);
 		return (List<Book>) query.list();
 	}
 

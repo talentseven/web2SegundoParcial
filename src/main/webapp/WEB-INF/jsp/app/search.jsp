@@ -16,10 +16,19 @@
 	
 	<spring:message code="label.welcome"/> <br />
 	
-	<a href='<c:url value="/app/books/new" />'>Alta libros</a>
-	<a href='<c:url value="/app/movies/new" />'>Alta peliculas</a>
+	<a href='<c:url value="/app/books/new" />'>Alta libros</a> <br />
+	<a href='<c:url value="/app/movies/new" />'>Alta peliculas</a> <br />
+	<a href='<c:url value="/app/loan/" />'>Mis préstamos</a> <br />
+	<a href='<c:url value="/app/loan/notifications" />'>Revisión de préstamos</a>
 	
 		<h1>Libros y peliculas</h1>
+		
+		<c:if test="${not empty message}">
+			<div id="messages">
+				<h3>${message}</h3>
+			</div>
+		</c:if>
+				
 		<div id="filter">
 			<span><spring:message code="label.filter.by"/></span>
 			<form:form action="/booksmov/app/filter" modelAttribute="filterDto" method="POST">
@@ -59,89 +68,91 @@
 				<form:button><spring:message code="label.filter.submit"/></form:button>
 			</form:form>
 		</div>
-		<table border="1">
-			<tr>
-				<th> <spring:message code="label.products.cover"/> </th>
- 				<th> <spring:message code="label.products.title"/> </th>
-				<th> <spring:message code="label.products.rating"/> </th>
-				<th> <spring:message code="label.products.borrowable"/> </th>
-				<th> <spring:message code="label.products.alreadyUsed"/> </th>
-				<th> <spring:message code="label.products.extra.data"/> </th>
-				<th> <spring:message code="label.products.action"/> </th>
-			</tr>
-		<c:forEach var="product" items="${products}">
-			<tr>
-				<td>
-					<c:choose>
-						<c:when test="${product.type eq 'movie'}">
-							<c:set var="type" value="movie" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="type" value="book" />
-						</c:otherwise>
-					</c:choose>
-					<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
-				</td>
-				<td>${product.title}</td>
-				<td>${product.rating}</td>
-				<td>
-					<c:choose>
-						<c:when test="${product.borrowable}">
-							<spring:message code="label.yes"/>
-						</c:when>
-						<c:otherwise>
-							<spring:message code="label.no"/>
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-					<c:choose>
-						<c:when test="${product.alreadyUsed}">
-							<spring:message code="label.yes"/>
-						</c:when>
-						<c:otherwise>
-							<spring:message code="label.no"/>
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-					<c:choose>
-						<c:when test="${type eq 'book'}">
-							 <spring:message code="label.books.authors"/> <br />
-							 <ul>
-						 		<c:forEach var="author" items="${product.authorsList}">
-									<li> ${author.fullName} </li>	
-								</c:forEach>
-							 </ul>
-						</c:when>
-						<c:otherwise>
-							 <spring:message code="label.movies.formats"/> 
-							  	 ${product.selectedFormat} <br />
-							 <spring:message code="label.movies.director"/> 
-								 ${product.director.fullName} <br />
-						     <spring:message code="label.movies.actors"/> 
-						     <ul>
-						 		<c:forEach var="actor" items="${product.actorList}">
-									<li> ${actor.fullName} </li>	
-								</c:forEach>
-							 </ul>
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td>
-					<c:if test="${product.userId eq sessionScope.user.id}">
-						<a href='<c:url value="/app/${type}s/edit/${product.id}" />'>
-							<img src='<c:url value="/resources/img/editar.gif" />' />
-						</a>
-					</c:if>
-					<c:if test="${product.userId ne sessionScope.user.id and product.borrowable eq true}">
-						<a href='<c:url value="/app/loan/${product.id}?type=${type}" />'>
-							<img src='<c:url value="/resources/img/solicitud_prestamo.png" />' />
-						</a>
-					</c:if>
-				</td>
-			</tr>
-		</c:forEach>
-		</table>
+		<c:if test="${not empty products}">
+			<table border="1">
+				<tr>
+					<th> <spring:message code="label.products.cover"/> </th>
+	 				<th> <spring:message code="label.products.title"/> </th>
+					<th> <spring:message code="label.products.rating"/> </th>
+					<th> <spring:message code="label.products.borrowable"/> </th>
+					<th> <spring:message code="label.products.alreadyUsed"/> </th>
+					<th> <spring:message code="label.products.extra.data"/> </th>
+					<th> <spring:message code="label.products.action"/> </th>
+				</tr>
+			<c:forEach var="product" items="${products}">
+				<tr>
+					<td>
+						<c:choose>
+							<c:when test="${product.type eq 'movie'}">
+								<c:set var="type" value="movie" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="type" value="book" />
+							</c:otherwise>
+						</c:choose>
+						<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
+					</td>
+					<td>${product.title}</td>
+					<td>${product.rating}</td>
+					<td>
+						<c:choose>
+							<c:when test="${product.borrowable}">
+								<spring:message code="label.yes"/>
+							</c:when>
+							<c:otherwise>
+								<spring:message code="label.no"/>
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${product.alreadyUsed}">
+								<spring:message code="label.yes"/>
+							</c:when>
+							<c:otherwise>
+								<spring:message code="label.no"/>
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${type eq 'book'}">
+								 <spring:message code="label.books.authors"/> <br />
+								 <ul>
+							 		<c:forEach var="author" items="${product.authorsList}">
+										<li> ${author.fullName} </li>	
+									</c:forEach>
+								 </ul>
+							</c:when>
+							<c:otherwise>
+								 <spring:message code="label.movies.formats"/> 
+								  	 ${product.selectedFormat} <br />
+								 <spring:message code="label.movies.director"/> 
+									 ${product.director.fullName} <br />
+							     <spring:message code="label.movies.actors"/> 
+							     <ul>
+							 		<c:forEach var="actor" items="${product.actorList}">
+										<li> ${actor.fullName} </li>	
+									</c:forEach>
+								 </ul>
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:if test="${product.userId eq sessionScope.user.id}">
+							<a href='<c:url value="/app/${type}s/edit/${product.id}" />'>
+								<img src='<c:url value="/resources/img/editar.gif" />' />
+							</a>
+						</c:if>
+						<c:if test="${product.userId ne sessionScope.user.id and product.borrowable eq true}">
+							<a href='<c:url value="/app/loan/request/${product.id}?owner=${product.userId}" />'>
+								<img src='<c:url value="/resources/img/solicitud_prestamo.png" />' />
+							</a>
+						</c:if>
+					</td>
+				</tr>
+			</c:forEach>
+			</table>
+		</c:if>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package ar.edu.uces.progweb2.booksmov.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import ar.edu.uces.progweb2.booksmov.dto.BookDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
-import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
 import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.model.User;
 import ar.edu.uces.progweb2.booksmov.service.BookService;
@@ -36,11 +33,6 @@ public class SearchController {
 		
 		User user = (User) model.get("user");
 		Long id = user.getId();
-		//List<BookDto> books = bookService.getBooksByUserId(id);
-		//List<MovieDto> movies = movieService.getMoviesByUserId(id);
-		//List<ProductDto> products = new ArrayList<ProductDto>();
-		//products.addAll(books);
-		//products.addAll(movies);
 		List<ProductDto> products = productService.getProductsByUserId(id);
 		model.addAttribute("filterDto", new FilterDto());
 		model.addAttribute("products", products);

@@ -5,4 +5,6 @@ public interface ImageDao {
 	byte[] getBookImage(Long id);
 	
 	byte[] getMovieImage(Long id);
+
+	byte[] getProductImage(Long id);
 }

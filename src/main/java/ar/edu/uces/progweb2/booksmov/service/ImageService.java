@@ -10,4 +10,6 @@ public interface ImageService {
 	byte[] getBookImageFromDb(Long id);
 	
 	byte[] getMovieImageFromDb(Long id);
+
+	byte[] getProductImageFromDb(Long id);
 }
