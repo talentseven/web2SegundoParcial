@@ -16,15 +16,15 @@ public class ImageController {
 	@Autowired
 	private ImageService imageService;
 	
-	@RequestMapping(value="/book/{isbn}", method=RequestMethod.GET)
+	@RequestMapping(value="/book/{id}", method=RequestMethod.GET)
 	@ResponseBody
-	public byte[] getBookImage(@PathVariable("isbn") String isbn){
-		return imageService.getBookImageFromDb(isbn);
+	public byte[] getBookImage(@PathVariable("id") Long id){
+		return imageService.getBookImageFromDb(id);
 	}
 	
-	@RequestMapping(value="/movie/{isan}", method=RequestMethod.GET)
+	@RequestMapping(value="/movie/{id}", method=RequestMethod.GET)
 	@ResponseBody
-	public byte[] getMovieImage(@PathVariable("isan") String isan){
-		return imageService.getMovieImageFromDb(isan);
+	public byte[] getMovieImage(@PathVariable("id") Long id){
+		return imageService.getMovieImageFromDb(id);
 	}
 }

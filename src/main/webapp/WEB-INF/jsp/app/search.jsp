@@ -70,20 +70,17 @@
 				<th> <spring:message code="label.products.action"/> </th>
 			</tr>
 		<c:forEach var="product" items="${products}">
-			<c:set var="type" value="book" />
 			<tr>
 				<td>
 					<c:choose>
 						<c:when test="${product.type eq 'movie'}">
 							<c:set var="type" value="movie" />
-							<c:set var="id" value="${product.isan}" />
 						</c:when>
 						<c:otherwise>
-							<c:set var="id" value="${product.isbn}" />
+							<c:set var="type" value="book" />
 						</c:otherwise>
 					</c:choose>
-					
-					<img height="130" width="100" src='<c:url value="/app/image/${type}/${id}" />' />
+					<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
 				</td>
 				<td>${product.title}</td>
 				<td>${product.rating}</td>
@@ -110,8 +107,6 @@
 				<td>
 					<c:choose>
 						<c:when test="${type eq 'book'}">
-							 <spring:message code="label.books.isbn"/> 
-								 ${product.isbn} <br />
 							 <spring:message code="label.books.authors"/> <br />
 							 <ul>
 						 		<c:forEach var="author" items="${product.authorsList}">
@@ -120,8 +115,6 @@
 							 </ul>
 						</c:when>
 						<c:otherwise>
-							 <spring:message code="label.movies.isan"/> 
-								 ${product.isan} <br />
 							 <spring:message code="label.movies.formats"/> 
 							  	 ${product.selectedFormat} <br />
 							 <spring:message code="label.movies.director"/> 
@@ -137,7 +130,7 @@
 				</td>
 				<td>
 					<c:if test="${product.userId eq sessionScope.user.id}">
-						<a href='<c:url value="/app/${type}s/edit/${id}" />'>
+						<a href='<c:url value="/app/${type}s/edit/${product.id}" />'>
 							<img src='<c:url value="/resources/img/editar.gif" />' />
 						</a>
 					</c:if>

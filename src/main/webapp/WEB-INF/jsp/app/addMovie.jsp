@@ -16,10 +16,6 @@
 	<h1>Alta Peliculas</h1>
 	
 	<form:form method="POST" modelAttribute="movieDto" action="/booksmov/app/movies/new" enctype="multipart/form-data" >
-		<form:label path="isan">
-			<spring:message code="label.movies.isan" /> 
-		</form:label>
-		<form:input path="isan" /> <form:errors path="isan" cssStyle="color: red" /><br/>
 		<form:label path="title">
 			<spring:message code="label.movies.title" /> 
 		</form:label>

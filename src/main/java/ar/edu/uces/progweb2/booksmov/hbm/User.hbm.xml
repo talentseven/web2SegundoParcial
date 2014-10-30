@@ -7,10 +7,8 @@
 		<id name="id" column="ID_USER">
 			<generator class="native"/>
 		</id>
-		<property name="firstName" column="FIRST_NAME" />
-		<property name="lastName" column="LAST_NAME" />
+		<property name="name" column="NAME" />
 		<property name="password" column="PASSWORD"/>
-		<property name="email" column="EMAIL" />
 		
 		<set name="books" cascade="all" lazy="false" >
         	<key column="USER_ID" not-null="false" />

@@ -8,7 +8,6 @@ import ar.edu.uces.progweb2.booksmov.model.Author;
 
 public class BookDto extends ProductDto{
 	
-	private String isbn;
 	private String description;
 	private String authors;
 	private List<Author> authorsList = new ArrayList<Author>();
@@ -16,20 +15,10 @@ public class BookDto extends ProductDto{
 	public BookDto(){}
 	
 	public BookDto(String title, String rating, boolean alreadyUsed,
-			boolean borrowable, Serializable image, String isbn,
-			String description, Long userId) {
+			boolean borrowable, Serializable image, String description, Long userId) {
 		super(title, rating, alreadyUsed, borrowable, image, userId);
-		this.isbn = isbn;
 		this.description = description;
 		this.type = "book";
-	}
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
 	}
 
 	public String getDescription() {
@@ -57,7 +46,6 @@ public class BookDto extends ProductDto{
 	}
 
 	public void clearFields(){
-		this.isbn = null;
 		this.title = null;
 		this.description = null;
 		this.rating = null;

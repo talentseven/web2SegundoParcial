@@ -9,6 +9,6 @@ public interface MovieService {
 	
 	void save(Movie movie);
 	List<MovieDto> getMoviesByUserId(Long id);
-	MovieDto getMovieByIsan(String isan);
 	void update(Movie movie);
+	MovieDto getMovieById(Long id);
 }

@@ -10,7 +10,6 @@ import ar.edu.uces.progweb2.booksmov.model.Format;
 
 public class MovieDto extends ProductDto{
 	
-	private String isan;
 	private String actors;
 	private List<Actor> actorList = new ArrayList<Actor>();
 	private Director director;
@@ -20,22 +19,13 @@ public class MovieDto extends ProductDto{
 	public MovieDto(){}
 
 	public MovieDto(String title, String rating, boolean alreadyUsed,
-			boolean borrowable, Serializable image, String isan,
+			boolean borrowable, Serializable image,
 			String actors, Director director, Format format, Long userId) {
 		super(title, rating, alreadyUsed, borrowable, image, userId);
-		this.isan = isan;
 		this.actors = actors;
 		this.director = director;
 		this.selectedFormat = format;
 		this.type = "movie";
-	}
-
-	public String getIsan() {
-		return isan;
-	}
-
-	public void setIsan(String isan) {
-		this.isan = isan;
 	}
 
 	public String getActors() {
@@ -79,7 +69,6 @@ public class MovieDto extends ProductDto{
 	}
 
 	public void clearFields(){
-		this.isan = null;
 		this.title = null;
 		this.director = null;
 		this.rating = null;

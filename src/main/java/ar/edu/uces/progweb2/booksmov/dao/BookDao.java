@@ -9,7 +9,6 @@ public interface BookDao {
 	
 	void save(Book book);
 	List<Book> getBooks(Long id);
-	Book getBookByIsbn(String isbn);
 	void update(Book book);
 	List<Book> getBooksByCriteria(String criteria, Map<String, String> values);
 	List<Book> getBooksByUserName(String userName);

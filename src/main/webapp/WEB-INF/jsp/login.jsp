@@ -13,16 +13,16 @@
 </head>
 <body>
 	<form:form method="POST" modelAttribute="userDto" action="/booksmov/login">
-		<form:label path="email">
-			<spring:message code="label.email" /> 
+		<form:label path="name">
+			<spring:message code="label.name" /> 
 		</form:label>
-		<form:input path="email"/>  <br />
+		<form:input path="name"/>  <br />
 		<form:label path="password">
 			<spring:message code="label.password"/>
 		</form:label>
 		<form:password path="password"/> <form:errors path="password" cssStyle="color: red" /><br/>
 		<form:button><spring:message code="label.submit"/></form:button>
-		<form:errors path="email" cssStyle="color: red" /><br/>
+		<form:errors path="name" cssStyle="color: red" /><br/>
 	</form:form>
 	</body>
 </html>

@@ -16,10 +16,6 @@
 	<h1>Alta libros</h1>
 	
 	<form:form method="POST" modelAttribute="bookDto" action="/booksmov/app/books/new" enctype="multipart/form-data" >
-		<form:label path="isbn">
-			<spring:message code="label.books.isbn" /> 
-		</form:label>
-		<form:input path="isbn" /> <form:errors path="isbn" cssStyle="color: red" /><br/>
 		<form:label path="title">
 			<spring:message code="label.books.title" /> 
 		</form:label>

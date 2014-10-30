@@ -23,7 +23,6 @@ public class BookValidator implements Validator{
 
 	@Override
 	public void validate(Object object, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "isbn", "errors.book.isbn.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "errors.book.title.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rating", "errors.book.rating.empty");
 		

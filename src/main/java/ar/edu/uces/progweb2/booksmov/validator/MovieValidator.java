@@ -23,7 +23,6 @@ public class MovieValidator implements Validator{
 
 	@Override
 	public void validate(Object object, Errors errors) {
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "isan", "errors.movie.isan.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "errors.movie.title.empty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rating", "errors.movie.rating.empty");
 		

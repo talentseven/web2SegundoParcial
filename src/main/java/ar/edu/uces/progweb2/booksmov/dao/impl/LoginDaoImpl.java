@@ -20,10 +20,10 @@ public class LoginDaoImpl implements LoginDao{
 	}
 	
 	@Override
-	public User get(String email, String password) {
+	public User get(String name, String password) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM User where email = :mail and password = :pass");
-		query.setString("mail", email);
+		Query query = session.createQuery("FROM User where name = :name and password = :pass");
+		query.setString("name", name);
 		query.setString("pass", password);
 		return (User) query.uniqueResult();
 

@@ -16,8 +16,8 @@ public class LoginServiceImpl implements LoginService{
 	private LoginDaoImpl loginDao;
 	
 	@Override
-	public User getUserByCredentials(String email, String password) {
-		return loginDao.get(email, password);
+	public User getUserByCredentials(String name, String password) {
+		return loginDao.get(name, password);
 	}
 
 }

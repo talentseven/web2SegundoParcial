@@ -5,16 +5,14 @@ import java.util.Set;
 
 public class Movie extends Product{
 	
-	private String isan;
 	private Set<Actor> actors = new HashSet<Actor>();
 	private Format format;
 	private Director director;
 	
 	public Movie(){}
 	
-	public Movie(String isan, String title, String mark, boolean alreadyUsed, boolean borrowable, byte[] image, Format format, Director director, User user){
+	public Movie(String title, String mark, boolean alreadyUsed, boolean borrowable, byte[] image, Format format, Director director, User user){
 		super(title, mark, alreadyUsed, borrowable, image, user);
-		this.isan = isan;
 		this.format = format;
 		this.director = director;
 	}
@@ -43,12 +41,4 @@ public class Movie extends Product{
 		this.director = director;
 	}
 
-	public String getIsan() {
-		return isan;
-	}
-
-	public void setIsan(String isan) {
-		this.isan = isan;
-	}
-	
 }

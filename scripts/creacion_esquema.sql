@@ -24,9 +24,7 @@ CREATE  TABLE `Preferences` (
 
 CREATE  TABLE `Users` (
   `id_user` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(200) NOT NULL,
-  `last_name` VARCHAR(200) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
+  `name` VARCHAR(200) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
   `preference_id` INT NULL,
   PRIMARY KEY (`id_user`)  );
@@ -50,7 +48,6 @@ CREATE  TABLE `Directors` (
   
 CREATE  TABLE `Books` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `isbn` VARCHAR(50) NOT NULL,
   `title` VARCHAR(200) NOT NULL,
   `rating` VARCHAR(10) NOT NULL,
   `already_used` BOOLEAN,
@@ -62,7 +59,6 @@ CREATE  TABLE `Books` (
 
 CREATE  TABLE `Movies` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `isan` VARCHAR(50) NOT NULL,
   `title` VARCHAR(200) NOT NULL,
   `rating` VARCHAR(10) NOT NULL,
   `already_used` BOOLEAN,
@@ -131,10 +127,11 @@ insert into `Preferences` (language, country) VALUES ('es', 'ES');
 insert into `Preferences` (language, country) VALUES ('en', 'US');
 insert into `Preferences` (language, country) VALUES ('en', 'UK');
 
-insert into `Users` (first_name, last_name, email, password, preference_id) VALUES ('Andres', 'Biasoli', 'andres@gmail.com', '123456', 1);
-insert into `Users` (first_name, last_name, email, password, preference_id) VALUES ('Diego', 'Mornacco', 'diego@gmail.com', '123456', 2);
-insert into `Users` (first_name, last_name, email, password, preference_id) VALUES ('John', 'Lennon', 'john@gmail.com', '123456', 3);
-insert into `Users` (first_name, last_name, email, password, preference_id) VALUES ('Paul', 'McCartney', 'paul@gmail.com', '123456', 4);
+insert into `Users` (name, password, preference_id) VALUES ('Andres', '123456', 1);
+insert into `Users` (name, password, preference_id) VALUES ('Diego', '123456', 2);
+insert into `Users` (name, password, preference_id) VALUES ('John', '123456', 3);
+insert into `Users` (name, password, preference_id) VALUES ('Paul', '123456', 4);
+
 
 GRANT ALL PRIVILEGES ON `booksmov_db`.* TO 'root'@'localhost'
   IDENTIFIED BY PASSWORD '4540';

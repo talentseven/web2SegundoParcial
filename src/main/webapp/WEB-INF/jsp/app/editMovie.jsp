@@ -16,11 +16,7 @@
 	<h1>Editar Pelicula</h1>
 	
 	<form:form method="POST" modelAttribute="movieDto" action="/booksmov/app/movies/edit" enctype="multipart/form-data" >
-		<img height="130" width="100" src='<c:url value="/app/image/movie/${movieDto.isan}" />' />
-		<form:label path="isan">
-			<spring:message code="label.movies.isan" /> 
-		</form:label>
-		<form:input path="isan" readonly="true" /> <form:errors path="isan" cssStyle="color: red" /><br/>
+		<img height="130" width="100" src='<c:url value="/app/image/movie/${movieDto.id}" />' />
 		<form:label path="title">
 			<spring:message code="label.movies.title" /> 
 		</form:label>

@@ -19,7 +19,6 @@
         </many-to-one>
         		
 	    <union-subclass name="Book" table="BOOKS" >
-	    	<property name="isbn" column="ISBN" not-null="true" />
 	    	<set name="authors" table="authors_books" cascade="all" lazy="false" inverse="false">
 	        	<key column="BOOK_ID" not-null="true" />
 	       	 	<many-to-many entity-name="ar.edu.uces.progweb2.booksmov.model.Author">
@@ -30,7 +29,6 @@
 	    </union-subclass>
 		    
 	    <union-subclass name="Movie" table="MOVIES">
-	    	<property name="isan" column="ISAN" not-null="true" />
 	      
 	        <set name="actors" table="actors_movies" cascade="all" lazy="false" inverse="false">
 	        	<key column="MOVIE_ID" not-null="true" />

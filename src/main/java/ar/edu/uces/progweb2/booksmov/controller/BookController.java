@@ -57,8 +57,8 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-	public String editBook(@PathVariable("id") String id, ModelMap model){
-		BookDto bookDto = bookService.getBookByIsbn(id);
+	public String editBook(@PathVariable("id") Long id, ModelMap model){
+		BookDto bookDto = bookService.getBookById(id);
 		parseAuthorsToString(bookDto);
 		model.addAttribute("bookDto", bookDto);
 		return "editBook";
@@ -80,7 +80,7 @@ public class BookController {
 	private Book prepareEntity(BookDto bookDto, ModelMap model) throws IOException {
 		User user = (User) model.get("user");
 		byte[] image = imageService.getImage(bookDto.getImage(), "book");
-		Book book = new Book(bookDto.getIsbn(), bookDto.getTitle(), bookDto.getRating(),
+		Book book = new Book(bookDto.getTitle(), bookDto.getRating(),
 				bookDto.isAlreadyUsed(), bookDto.isBorrowable(), image, bookDto.getDescription(), user);
 		
 		String authors = bookDto.getAuthors();

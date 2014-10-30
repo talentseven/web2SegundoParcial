@@ -5,5 +5,5 @@ import ar.edu.uces.progweb2.booksmov.model.User;
 
 public interface LoginService {
 
-	User getUserByCredentials(String email, String password);
+	User getUserByCredentials(String name, String password);
 }

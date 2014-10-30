@@ -17,8 +17,9 @@ public class MovieConverterServiceImpl implements MovieConverterService {
 	public MovieDto transform(Movie movie) {
 		
 		MovieDto movieDto = new MovieDto(movie.getTitle(), movie.getRating(), movie.isAlreadyUsed(), movie.isBorrowable(),
-										movie.getImage(), movie.getIsan(), null, movie.getDirector(), movie.getFormat(), movie.getUser().getId());
+										movie.getImage(), null, movie.getDirector(), movie.getFormat(), movie.getUser().getId());
 		List<Actor> actors = new ArrayList<Actor>();
+		movieDto.setId(movie.getId());
 		actors.addAll(movie.getActors());
 		movieDto.setActorList(actors);
 		return movieDto;

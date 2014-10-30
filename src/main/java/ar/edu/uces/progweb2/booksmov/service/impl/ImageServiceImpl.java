@@ -39,13 +39,13 @@ public class ImageServiceImpl implements ImageService{
 	}
 
 	@Override
-	public byte[] getBookImageFromDb(String isbn) {
-		return imageDao.getBookImage(isbn);
+	public byte[] getBookImageFromDb(Long id) {
+		return imageDao.getBookImage(id);
 	}
 
 	@Override
-	public byte[] getMovieImageFromDb(String isan) {
-		return imageDao.getMovieImage(isan);
+	public byte[] getMovieImageFromDb(Long id) {
+		return imageDao.getMovieImage(id);
 	}
 	
 }

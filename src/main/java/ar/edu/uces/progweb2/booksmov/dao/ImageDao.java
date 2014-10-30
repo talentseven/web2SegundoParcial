@@ -2,7 +2,7 @@ package ar.edu.uces.progweb2.booksmov.dao;
 
 public interface ImageDao {
 	
-	byte[] getBookImage(String isbn);
+	byte[] getBookImage(Long id);
 	
-	byte[] getMovieImage(String isan);
+	byte[] getMovieImage(Long id);
 }

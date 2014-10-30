@@ -43,12 +43,6 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public BookDto getBookByIsbn(String isbn) {
-		Book book = bookDao.getBookByIsbn(isbn);
-		return converter.transform(book);
-	}
-
-	@Override
 	@Transactional(readOnly=false)
 	public void update(Book book) {
 		bookDao.update(book);

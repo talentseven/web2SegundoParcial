@@ -7,7 +7,7 @@ public interface ImageService {
 	
 	byte[] getImage(Serializable serializable, String type) throws IOException;
 	
-	byte[] getBookImageFromDb(String isbn);
+	byte[] getBookImageFromDb(Long id);
 	
-	byte[] getMovieImageFromDb(String isan);
+	byte[] getMovieImageFromDb(Long id);
 }

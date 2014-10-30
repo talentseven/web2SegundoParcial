@@ -16,11 +16,7 @@
 	<h1>Editar libro</h1>
 	
 	<form:form method="POST" modelAttribute="bookDto" action="/booksmov/app/books/edit" enctype="multipart/form-data" >
-		<img height="130" width="100" src='<c:url value="/app/image/book/${bookDto.isbn}" />' />
-		<form:label path="isbn">
-			<spring:message code="label.books.isbn" /> 
-		</form:label>
-		<form:input path="isbn" readonly="true" /> <form:errors path="isbn" cssStyle="color: red" /><br/>
+		<img height="130" width="100" src='<c:url value="/app/image/book/${bookDto.id}" />' />
 		<form:label path="title">
 			<spring:message code="label.books.title" /> 
 		</form:label>

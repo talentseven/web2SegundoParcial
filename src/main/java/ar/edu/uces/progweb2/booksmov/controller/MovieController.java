@@ -60,8 +60,8 @@ public class MovieController {
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-	public String editMovie(@PathVariable("id") String id, ModelMap model){
-		MovieDto movieDto = movieService.getMovieByIsan(id);
+	public String editMovie(@PathVariable("id") Long id, ModelMap model){
+		MovieDto movieDto = movieService.getMovieById(id);
 		parseActorsToString(movieDto);
 		model.addAttribute("movieDto", movieDto);
 		return "editMovie";
@@ -107,7 +107,7 @@ public class MovieController {
 	private Movie prepareEntity(MovieDto movieDto, ModelMap model) throws IOException {
 		User user = (User) model.get("user");
 		byte[] image = imageService.getImage(movieDto.getImage(), "movie");
-		Movie movie = new Movie(movieDto.getIsan(), movieDto.getTitle(), movieDto.getRating(),
+		Movie movie = new Movie(movieDto.getTitle(), movieDto.getRating(),
 				movieDto.isAlreadyUsed(), movieDto.isBorrowable(), image, movieDto.getSelectedFormat(), movieDto.getDirector(), user);
 		
 		String actors = movieDto.getActors();

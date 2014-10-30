@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.MovieDao;
 import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
+import ar.edu.uces.progweb2.booksmov.model.Book;
 import ar.edu.uces.progweb2.booksmov.model.Movie;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;
 
@@ -40,15 +41,16 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieDto getMovieByIsan(String isan) {
-		Movie movie = movieDao.getMovieByIsan(isan);
-		return converter.transform(movie);
-	}
-
-	@Override
 	public void update(Movie movie) {
 		movieDao.update(movie);
 		
 	}
+
+	@Override
+	public MovieDto getMovieById(Long id) {
+		Movie movie = movieDao.getMovieById(id);
+		return converter.transform(movie);
+	}
+
 
 }

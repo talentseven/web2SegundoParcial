@@ -18,19 +18,19 @@ public class ImageDaoImpl implements ImageDao{
 	private SessionFactory sessionFactory;
 	
 	@Override
-	public byte[] getBookImage(String isbn) {
+	public byte[] getBookImage(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (byte[]) session.createCriteria(Book.class)
 	        .setProjection(Projections.projectionList().add(Projections.property("image")))
-	        .add(Restrictions.eq("isbn", isbn)).uniqueResult();
+	        .add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
 	@Override
-	public byte[] getMovieImage(String isan) {
+	public byte[] getMovieImage(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (byte[]) session.createCriteria(Movie.class)
 	        .setProjection(Projections.projectionList().add(Projections.property("image")))
-	        .add(Restrictions.eq("isan", isan)).uniqueResult();
+	        .add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
 }

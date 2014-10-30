@@ -31,16 +31,16 @@ public class MovieDaoImpl implements MovieDao {
 	}
 
 	@Override
-	public Movie getMovieByIsan(String isan) {
-		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM Movie m WHERE m.isan = :isan");
-		query.setString("isan", isan);
-		return (Movie) query.uniqueResult();
+	public void update(Movie movie) {
+		sessionFactory.getCurrentSession().update(movie);
 	}
 
 	@Override
-	public void update(Movie movie) {
-		sessionFactory.getCurrentSession().update(movie);
+	public Movie getMovieById(Long id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM Movie m WHERE m.id = :id");
+		query.setLong("id", id);
+		return (Movie) query.uniqueResult();
 	}
 
 }

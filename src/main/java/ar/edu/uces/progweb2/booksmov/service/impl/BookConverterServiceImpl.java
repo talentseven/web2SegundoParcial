@@ -17,7 +17,7 @@ public class BookConverterServiceImpl implements BookConverterService{
 	public BookDto transform(Book book) {
 		
 		BookDto bookDto = new BookDto(book.getTitle(), book.getRating(), book.isAlreadyUsed(),
-									book.isBorrowable(), book.getImage(), book.getIsbn(), book.getDescription(), book.getUser().getId());
+									book.isBorrowable(), book.getImage(), book.getDescription(), book.getUser().getId());
 		List<Author> authors = new ArrayList<Author>();
 		bookDto.setId(book.getId());
 		authors.addAll(book.getAuthors());

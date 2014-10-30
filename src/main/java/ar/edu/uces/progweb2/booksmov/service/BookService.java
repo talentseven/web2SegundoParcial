@@ -10,7 +10,6 @@ public interface BookService {
 
 	void save(Book book);
 	List<BookDto> getBooksByUserId(Long id);
-	BookDto getBookByIsbn(String isbn);
 	BookDto getBookById(Long id);
 	void update(Book book);
 	List<BookDto> searchBooksWithCriteria(String criteria, Map<String, String> values);
