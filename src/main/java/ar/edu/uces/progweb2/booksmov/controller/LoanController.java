@@ -66,12 +66,18 @@ public class LoanController {
 	public String requestLoan(@ModelAttribute("loanDto") LoanRequestDto dto, BindingResult result, ModelMap model){
 		
 		loanValidator.validate(dto, result);
+		User requester = (User) model.get("user");	
+		List<LoanRequestDto> loans = loanService.getLoanRequestsByProductAndUserId(dto.getProductId(), requester.getId());
+		if(!loanService.canRequestLoan(loans)){
+			model.addAttribute("message", messageUtils.getMessage("loan.not.allowed"));
+			return "loanRequest";
+		}
 		if(!result.hasErrors()){
 			
-			User requester = (User) model.get("user");	
 			User consignee = userService.getUserById(dto.getConsigneeId());
 			Product product = productService.getProductById(dto.getProductId());
-			LoanRequest loan = new LoanRequest(product, dto.getRequestDescription(), LoanStateEnum.PENDING, requester, consignee, new Date());
+			Date requestDate = new Date();
+			LoanRequest loan = new LoanRequest(product, dto.getRequestDescription(), LoanStateEnum.PENDING, requester, consignee, requestDate, null);
 			loanService.requestLoan(loan);
 			model.addAttribute("message", messageUtils.getMessage("loan.submit.successfully"));
 		}
@@ -94,4 +100,21 @@ public class LoanController {
 		return "myLoanNotifications";
 	}
 	
+	@RequestMapping(value="/accept/{id}", method=RequestMethod.GET)
+	public String acceptLoan(@PathVariable("id") Long id, ModelMap model){
+		loanService.acceptLoan(id);
+		return "redirect:/app/loan/notifications";
+	}
+	
+	@RequestMapping(value="/reject/{id}", method=RequestMethod.GET)
+	public String rejectLoan(@PathVariable("id") Long id, ModelMap model){
+		loanService.rejectLoan(id);
+		return "redirect:/app/loan/notifications";
+	}
+	
+	@RequestMapping(value="/deliver/{id}", method=RequestMethod.GET)
+	public String deliverLoan(@PathVariable("id") Long id, ModelMap model){
+		loanService.deliverLoan(id);
+		return "redirect:/app/loan/notifications";
+	}
 }

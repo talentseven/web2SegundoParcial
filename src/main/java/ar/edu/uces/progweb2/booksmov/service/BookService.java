@@ -1,9 +1,9 @@
 package ar.edu.uces.progweb2.booksmov.service;
 
 import java.util.List;
-import java.util.Map;
 
 import ar.edu.uces.progweb2.booksmov.dto.BookDto;
+import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.model.Book;
 
 public interface BookService {
@@ -12,6 +12,6 @@ public interface BookService {
 	List<BookDto> getBooksByUserId(Long id);
 	BookDto getBookById(Long id);
 	void update(Book book);
-	List<BookDto> searchBooksWithCriteria(String criteria, Map<String, String> values);
 	List<BookDto> getBooksByUserName(String userName);
+	List<BookDto> getBooksByCriteria(FilterDto filterDto);
 }

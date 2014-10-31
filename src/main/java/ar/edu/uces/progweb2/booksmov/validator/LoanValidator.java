@@ -9,7 +9,7 @@ import ar.edu.uces.progweb2.booksmov.dto.LoanRequestDto;
 
 @Component
 public class LoanValidator implements Validator{
-
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return LoanRequestDto.class.isAssignableFrom(clazz);
@@ -18,6 +18,8 @@ public class LoanValidator implements Validator{
 	@Override
 	public void validate(Object object, Errors errors) {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "requestDescription", "errors.loan.description.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "productId", "errors.loan.product.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "consigneeId", "errors.loan.consignee.empty");
 		
 		LoanRequestDto loan = (LoanRequestDto) object;
 		
@@ -26,6 +28,7 @@ public class LoanValidator implements Validator{
 				errors.rejectValue("requestDescription", "errors.loan.description.length");
 			}
 		}
+		
 	}
 
 }

@@ -10,7 +10,9 @@ import org.springframework.util.CollectionUtils;
 
 import ar.edu.uces.progweb2.booksmov.dao.LoanDao;
 import ar.edu.uces.progweb2.booksmov.dto.LoanRequestDto;
+import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.model.LoanRequest;
+import ar.edu.uces.progweb2.booksmov.model.LoanStateEnum;
 import ar.edu.uces.progweb2.booksmov.service.LoanConverterService;
 import ar.edu.uces.progweb2.booksmov.service.LoanService;
 
@@ -64,6 +66,43 @@ public class LoanServiceImpl implements LoanService {
 	@Override
 	public List<LoanRequest> getMyNotifiedLoans(Long userId) {
 		return loanDao.getMyNotifiedLoans(userId);
+	}
+
+	@Override
+	public void acceptLoan(Long id) {
+		loanDao.acceptLoan(id);
+	}
+
+	@Override
+	public void rejectLoan(Long id) {
+		loanDao.rejectLoan(id);
+	}
+
+	@Override
+	public void deliverLoan(Long id) {
+		loanDao.deliverLoan(id);
+	}
+
+	@Override
+	public void setRequestableForLoan(List<ProductDto> products, Long userId) {
+		
+		List<LoanRequestDto> loans = getLoanRequestsByUserId(userId);
+		
+		for (ProductDto productDto : products) {
+			for (LoanRequestDto loanRequest : loans) {
+				if(productDto.getId().equals(loanRequest.getProductId())
+						&& (LoanStateEnum.PENDING == loanRequest.getState()
+						|| LoanStateEnum.REJECTED == loanRequest.getState())){
+					productDto.setRequestableForLoan(false);
+				}
+			}
+		}
+	}
+
+	@Override
+	public List<LoanRequestDto> getLoanRequestsByUserId(Long userId) {
+		List<LoanRequest> loans = loanDao.getLoanRequestsByUserId(userId);
+		return transform(loans);
 	}
 	
 	

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.MovieDao;
+import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
+import ar.edu.uces.progweb2.booksmov.model.Book;
 import ar.edu.uces.progweb2.booksmov.model.Movie;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;
 
@@ -30,12 +32,15 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public List<MovieDto> getMoviesByUserId(Long id) {
 		List<Movie> movies = movieDao.getMovies(id);
+		return transform(movies);
+	}
+
+	private List<MovieDto> transform(List<Movie> movies) {
 		List<MovieDto> movieDtos = new ArrayList<MovieDto>();
 		
 		for (Movie movie : movies) {
 			movieDtos.add(converter.transform(movie));
 		}
-		
 		return movieDtos;
 	}
 
@@ -49,6 +54,12 @@ public class MovieServiceImpl implements MovieService {
 	public MovieDto getMovieById(Long id) {
 		Movie movie = movieDao.getMovieById(id);
 		return converter.transform(movie);
+	}
+
+	@Override
+	public List<MovieDto> getMoviesByCriteria(FilterDto filterDto) {
+		List<Movie> movies = movieDao.getMoviesByCriteria(filterDto);
+		return transform(movies);
 	}
 
 

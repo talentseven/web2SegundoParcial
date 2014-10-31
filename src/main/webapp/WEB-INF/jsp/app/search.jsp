@@ -12,6 +12,7 @@
 <title>Búsqueda de libros y películas</title>
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<h1>Search</h1>
 	
 	<spring:message code="label.welcome"/> <br />
@@ -32,37 +33,37 @@
 		<div id="filter">
 			<span><spring:message code="label.filter.by"/></span>
 			<form:form action="/booksmov/app/filter" modelAttribute="filterDto" method="POST">
-				<form:label path="userName.value">
+				<form:label path="userName">
 					<spring:message code="label.filter.user"/>
 				</form:label>
-				<form:input path="userName.value" /><br />
-				<form:label path="rating.value">
+				<form:input path="userName" /><br />
+				<form:label path="rating">
 					<spring:message code="label.filter.rating"/>
 				</form:label>
-				<form:radiobutton path="rating.value" value="1"/>1 
-				<form:radiobutton path="rating.value" value="2"/>2 
-				<form:radiobutton path="rating.value" value="3"/>3 
-				<form:radiobutton path="rating.value" value="4"/>4 
-				<form:radiobutton path="rating.value" value="5"/>5<br />
-				<form:label path="title.value">
+				<form:radiobutton path="rating" value="1"/>1 
+				<form:radiobutton path="rating" value="2"/>2 
+				<form:radiobutton path="rating" value="3"/>3 
+				<form:radiobutton path="rating" value="4"/>4 
+				<form:radiobutton path="rating" value="5"/>5<br />
+				<form:label path="title">
 					<spring:message code="label.filter.title"/>
 				</form:label>
-				<form:input path="title.value" />
-				<form:label path="borrowable.value">
+				<form:input path="title" />
+				<form:label path="borrowable">
 					<spring:message code="label.filter.borrowable"/>
 				</form:label>
-				<form:checkbox path="borrowable.boolValue" />
+				<form:checkbox path="borrowable" />
 				<br />
-				<form:radiobutton path="type.value" value="all"/> 
-				<form:label path="type.value">
+				<form:radiobutton path="type" value="all"/> 
+				<form:label path="type">
 					<spring:message code="label.filter.all"/>
 				</form:label>
-				<form:radiobutton path="type.value" value="books"/> 
-				<form:label path="type.value">
+				<form:radiobutton path="type" value="books"/> 
+				<form:label path="type">
 					<spring:message code="label.filter.booksOnly"/>
 				</form:label>
-				<form:radiobutton path="type.value" value="movies"/> 
-				<form:label path="type.value">
+				<form:radiobutton path="type" value="movies"/> 
+				<form:label path="type">
 					<spring:message code="label.filter.moviesOnly"/>
 				</form:label><br />
 				<form:button><spring:message code="label.filter.submit"/></form:button>
@@ -144,7 +145,7 @@
 								<img src='<c:url value="/resources/img/editar.gif" />' />
 							</a>
 						</c:if>
-						<c:if test="${product.userId ne sessionScope.user.id and product.borrowable eq true}">
+						<c:if test="${product.userId ne sessionScope.user.id and product.borrowable eq true and product.requestableForLoan eq true}">
 							<a href='<c:url value="/app/loan/request/${product.id}?owner=${product.userId}" />'>
 								<img src='<c:url value="/resources/img/solicitud_prestamo.png" />' />
 							</a>

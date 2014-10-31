@@ -12,16 +12,18 @@ public class LoanRequest {
 	private User consignee;
 	private Date requestDate;
 	private Date responseDate;
+	private Date deliveryDate;
 	
 	public LoanRequest(Product product, String requestDescription,
 			LoanStateEnum state, User requester, User consignee,
-			Date requestDate) {
+			Date requestDate, Date deliveryDate) {
 		this.product = product;
 		this.requestDescription = requestDescription;
 		this.state = state;
 		this.requester = requester;
 		this.consignee = consignee;
 		this.requestDate = requestDate;
+		this.deliveryDate = deliveryDate;
 	}
 	
 	public LoanRequest(){}
@@ -68,7 +70,12 @@ public class LoanRequest {
 	public void setResponseDate(Date responseDate) {
 		this.responseDate = responseDate;
 	}
-	
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
 	public LoanStateEnum getState() {
 		return state;
 	}

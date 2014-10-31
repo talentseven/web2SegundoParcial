@@ -20,8 +20,16 @@
 		</form:label>
 		<form:textarea path="requestDescription" maxlength="500" />
 		<form:hidden path="consigneeId"/>
+		<form:errors path="consigneeId" cssStyle="color: red" /><br/>
 		<form:hidden path="productId"/>
+		<form:errors path="productId" cssStyle="color: red" /><br/>
 		<form:button><spring:message code="loan.submit.request"/></form:button>
 	</form:form>
+	
+	<c:if test="${not empty message}">
+		<div id="messages">
+			<h3>${message}</h3>
+		</div>
+	</c:if>
 </body>
 </html>

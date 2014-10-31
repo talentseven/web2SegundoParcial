@@ -1,25 +1,32 @@
 package ar.edu.uces.progweb2.booksmov.controller;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.uces.progweb2.booksmov.dto.BookDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
-import ar.edu.uces.progweb2.booksmov.model.Book;
+import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
+import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
+import ar.edu.uces.progweb2.booksmov.model.User;
 import ar.edu.uces.progweb2.booksmov.search.filter.CriteriaBuilder;
 import ar.edu.uces.progweb2.booksmov.search.filter.TypeSelector;
 import ar.edu.uces.progweb2.booksmov.service.BookService;
+import ar.edu.uces.progweb2.booksmov.service.LoanService;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;
 
 @Controller
+@SessionAttributes("user")
 @RequestMapping("/app/filter")
 public class FilterController {
 	
@@ -27,6 +34,8 @@ public class FilterController {
 	private BookService bookService;
 	@Autowired
 	private MovieService movieService;
+	@Autowired
+	private LoanService loanService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ModelAndView filter(){
@@ -37,22 +46,26 @@ public class FilterController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ModelAndView filterSearch(@ModelAttribute("filterDto") FilterDto filterDto){
+	public ModelAndView filterSearch(@ModelAttribute("filterDto") FilterDto filterDto, ModelMap model){
 		
 		CriteriaBuilder cb = CriteriaBuilder.getInstance();
+		User user = (User) model.get("user");
 		Map<String, String> values = new LinkedHashMap<String, String>();
-		TypeSelector selector = new TypeSelector();
+		//TypeSelector selector = new TypeSelector();
 		ModelAndView mav = new ModelAndView("search");
-		Map<String, Object> options = filterDto.getOptionsMap();
-		decideOverallSearch((String) options.get("type"), selector);
+		//Map<String, Object> options = filterDto.getOptionsMap();
+		//decideOverallSearch((String) options.get("type"), selector);
 		List<BookDto> books = null;
-		if(selector.isAll()){
+		List<MovieDto> movies = null;
+		List<ProductDto> productDtos = new ArrayList<ProductDto>();
+		if(filterDto.getType().equals("movies")){
 			
+			movies = movieService.getMoviesByCriteria(filterDto);
 			
-		}else if(selector.isBooksOnly()){
+		}else if(filterDto.getType().equals("books")){
 			
-			String userName = (String) options.get("userName");
-			
+			//String userName = (String) options.get("userName");
+			String userName = filterDto.getUserName();
 			
 			/*
 			String userName = (String) options.get("userName");
@@ -87,13 +100,18 @@ public class FilterController {
 			
 			bookService.searchBooksWithCriteria(cb.build(), values);
 			*/
-			books = bookService.getBooksByUserName(userName);
+			
+			books = bookService.getBooksByCriteria(filterDto);
+			
+			//books = bookService.getBooksByUserName(userName);
+			productDtos.addAll(books);
 		}else{
 			
 			
 		}
 		
-		mav.addObject("products", books);
+		loanService.setRequestableForLoan(productDtos, user.getId());
+		mav.addObject("products", productDtos);
 		return mav;
 	}
 	

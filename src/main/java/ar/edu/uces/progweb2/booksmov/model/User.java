@@ -10,7 +10,7 @@ public class User {
 	private String password;
 	private Preference preferences;
 	private Set<Product> products = new HashSet<Product>();
-	private Set<LoanRequest> loans = new HashSet<LoanRequest>();
+	private Set<LoanRequest> pendingLoans = new HashSet<LoanRequest>();
 	
 	public Preference getPreferences() {
 		return preferences;
@@ -43,12 +43,11 @@ public class User {
 	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
-	public Set<LoanRequest> getLoans() {
-		return loans;
+	public Set<LoanRequest> getPendingLoans() {
+		return pendingLoans;
 	}
-	public void setLoans(Set<LoanRequest> loans) {
-		this.loans = loans;
+	public void setPendingLoans(Set<LoanRequest> pendingLoans) {
+		this.pendingLoans = pendingLoans;
 	}
-	
 	
 }

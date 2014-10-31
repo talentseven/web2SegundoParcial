@@ -13,6 +13,7 @@ public abstract class ProductDto {
 	protected Serializable image;
 	protected String type;
 	protected Long userId;
+	protected boolean requestableForLoan;
 
 	public ProductDto(String title, String rating, boolean alreadyUsed,
 			boolean borrowable, Serializable image, Long userId) {
@@ -22,6 +23,7 @@ public abstract class ProductDto {
 		this.borrowable = borrowable;
 		this.image = image;
 		this.userId = userId;
+		this.requestableForLoan = true;
 	}
 	
 	public ProductDto(){}
@@ -97,5 +99,12 @@ public abstract class ProductDto {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	public boolean isRequestableForLoan() {
+		return requestableForLoan;
+	}
+
+	public void setRequestableForLoan(boolean requestableForLoan) {
+		this.requestableForLoan = requestableForLoan;
+	}
 }

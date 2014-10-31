@@ -17,6 +17,7 @@ public class ProductDaoImpl implements ProductDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getProductsByUserId(Long id) {
 		Session session = sessionFactory.getCurrentSession();

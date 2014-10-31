@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS `Books`;
 DROP TABLE IF EXISTS `Movies`;
 DROP TABLE IF EXISTS `Directors`;
 DROP TABLE IF EXISTS `Products`;
-DROP TABLE IF EXISTS `Loan_requests`;
+DROP TABLE IF EXISTS `loans`;
 
 CREATE  TABLE `Preferences` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -69,27 +69,27 @@ CREATE  TABLE `Movies` (
   `director_id` INT NULL,
   PRIMARY KEY (`id`)  );
   
-  /*
-  CREATE  TABLE `States` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`)  );
-  */
-  CREATE  TABLE `Loan_requests` (
+ CREATE  TABLE `loans` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `product_id` INT NOT NULL,
   `request_desc` VARCHAR(500) NOT NULL,
   `state` VARCHAR(20) NOT NULL,
-  `requester` INT NOT NULL,
-  `consignee` INT NOT NULL,
+  `requester_id` INT NOT NULL,
+  `consignee_id` INT NOT NULL,
   `request_date` DATE NOT NULL,
   `response_date` DATE NULL,
+  `delivery_date` DATE NULL,
   PRIMARY KEY (`id`)  );
   
-  /*
-  ALTER TABLE `Loan_requests` ADD CONSTRAINT fk_loan_product FOREIGN KEY (`product_id`)
-  REFERENCES 
-*/
+  
+  ALTER TABLE `loans` ADD CONSTRAINT fk_loan_product FOREIGN KEY (`product_id`)
+  REFERENCES `Products`(`id`);
+  
+  ALTER TABLE `loans` ADD CONSTRAINT fk_loan_requester FOREIGN KEY (`requester_id`)
+  REFERENCES `Users`(`id_user`);
+  
+  ALTER TABLE `loans` ADD CONSTRAINT fk_loan_consignee FOREIGN KEY (`consignee_id`)
+  REFERENCES `Users`(`id_user`);
 	
   ALTER TABLE `Authors` ADD CONSTRAINT fk_author_book FOREIGN KEY (`book_id`)
   REFERENCES `Books`(`id`);

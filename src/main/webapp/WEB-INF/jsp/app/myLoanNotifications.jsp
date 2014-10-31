@@ -15,6 +15,8 @@
 	<h1><spring:message code="loan.notified.list"/></h1>
 	<c:set var="backgroundColor" value="" />
 	<c:set var="state" value="" />
+	<c:set var="pending" value="false" />
+	<c:set var="accepted" value="false" />
 	<c:choose>
 		<c:when test="${empty loans}">
 			<h3><spring:message code="loan.not.in.course"/></h3>
@@ -24,12 +26,13 @@
 				<tr>
 					<th><spring:message code="loan.requested.cover"/></th>
 					<th><spring:message code="loan.requested.title"/></th>
-					<th><spring:message code="loan.requested.consignee"/></th>
+					<th><spring:message code="loan.requested.requester"/></th>
 					<th><spring:message code="loan.requested.date"/></th>
 					<th><spring:message code="loan.requested.state"/></th>
 					<th><spring:message code="loan.requested.message"/></th>			
 					<th><spring:message code="loan.response.date"/></th>
 					<th><spring:message code="loan.delivery.date"/></th>
+					<th><spring:message code="loan.requested.action"/></th>
 				</tr>
 				<c:forEach var="loan" items="${loans}">
 					<c:choose>	
@@ -38,31 +41,41 @@
 								<spring:message code='loan.state.accepted' />
 							</c:set>
 							<c:set var="backgroundColor" value="green" />
+							<c:set var="pending" value="false" />
+							<c:set var="accepted" value="true" />
 						</c:when>
 						<c:when test="${loan.state eq 'REJECTED'}">
 							<c:set var="state">
 								<spring:message code="loan.state.rejected" />
 							</c:set>
 							<c:set var="backgroundColor" value="red" />
+							<c:set var="accepted" value="false" />
+							<c:set var="delivered" value="false" />
 						</c:when>
 						<c:when test="${loan.state eq 'DELIVERED'}">
 							<c:set var="state">
 								<spring:message code="loan.state.delivered" />
 							</c:set>
 							<c:set var="backgroundColor" value="gray" />
+							<c:set var="pending" value="false" />
+							<c:set var="accepted" value="false" />
 						</c:when>
 						<c:otherwise>
 							<c:set var="state">
 								<spring:message code="loan.state.pending" />
 							</c:set>
 							<c:set var="backgroundColor" value="yellow" />
+							<c:set var="pending" value="true" />
+							<c:set var="accepted" value="false" />
 						</c:otherwise>
 					</c:choose>
 					<tr style="background-color:${backgroundColor}">
 						<td><img height="130" width="100" src='<c:url value="/app/image/${loan.product.id}" />' /></td>
 						<td>${loan.product.title}</td>
-						<td>${loan.consignee.name}</td>
+						<td>${loan.requester.name}</td>
 						<td>${loan.requestDate}</td>
+						<td>${state}</td>
+						<td>${loan.requestDescription}</td>
 						<td>
 							<c:choose>
 								<c:when test="${not empty loan.responseDate}">
@@ -73,7 +86,31 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td>${state}</td>
+						<td>
+							<c:choose>
+								<c:when test="${loan.state eq 'DELIVERED'}">
+									${loan.deliveryDate}
+								</c:when>
+								<c:otherwise>
+									<spring:message code="loan.no.apply"/>
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>
+							<c:if test="${pending}">
+								<a href='<c:url value="/app/loan/accept/${loan.id}" />' >
+								   <button><spring:message code="loan.response.accept"/></button>
+								</a>
+								<a href="<c:url value="/app/loan/reject/${loan.id}" />" >
+								   <button><spring:message code="loan.response.reject"/></button>
+								</a>
+							</c:if>
+							<c:if test="${accepted}">
+								<a href='<c:url value="/app/loan/deliver/${loan.id}" />' >
+								   <button><spring:message code="loan.response.deliver"/></button>
+								</a>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

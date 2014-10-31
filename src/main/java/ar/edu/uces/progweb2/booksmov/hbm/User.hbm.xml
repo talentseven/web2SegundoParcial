@@ -15,7 +15,7 @@
        	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Product" />
     	</set>
     	
-    	<set name="loans" cascade="all" lazy="true" >
+    	<set name="pendingLoans" cascade="all" lazy="true" >
         	<key column="USER_ID" not-null="false" />
        	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.LoanRequest" />
     	</set>
