@@ -15,8 +15,6 @@
 	<jsp:include page="header.jsp" />
 	<h1>Search</h1>
 	
-	<spring:message code="label.welcome"/> <br />
-	
 	<a href='<c:url value="/app/books/new" />'>Alta libros</a> <br />
 	<a href='<c:url value="/app/movies/new" />'>Alta peliculas</a> <br />
 	<a href='<c:url value="/app/loan/" />'>Mis préstamos</a> <br />

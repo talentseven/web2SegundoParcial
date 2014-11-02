@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.model.User;
-import ar.edu.uces.progweb2.booksmov.service.BookService;
-import ar.edu.uces.progweb2.booksmov.service.MovieService;
 import ar.edu.uces.progweb2.booksmov.service.ProductService;
 
 @Controller
@@ -21,10 +19,6 @@ import ar.edu.uces.progweb2.booksmov.service.ProductService;
 @RequestMapping("/app/search")
 public class SearchController {
 	
-	@Autowired
-	private BookService bookService;
-	@Autowired
-	private MovieService movieService;
 	@Autowired
 	private ProductService productService;
 

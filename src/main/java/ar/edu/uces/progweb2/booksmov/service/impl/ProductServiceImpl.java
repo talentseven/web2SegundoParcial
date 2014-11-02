@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
+import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.model.Product;
 import ar.edu.uces.progweb2.booksmov.service.ProductConverterService;
@@ -26,6 +27,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductDto> getProductsByUserId(Long id) {
 		List<Product> products = productDao.getProductsByUserId(id);
+		return transform(products);
+	}
+
+	private List<ProductDto> transform(List<Product> products) {
 		List<ProductDto> productsDto = new ArrayList<ProductDto>();
 		for (Product product : products) {
 			productsDto.add(converter.toDto(product));
@@ -37,6 +42,12 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product getProductById(Long id) {
 		return productDao.getProductById(id);
+	}
+
+	@Override
+	public List<ProductDto> getProductsByCriteria(FilterDto filterDto) {
+		List<Product> products = productDao.getProductsByCriteria(filterDto);
+		return transform(products);
 	}
 
 }

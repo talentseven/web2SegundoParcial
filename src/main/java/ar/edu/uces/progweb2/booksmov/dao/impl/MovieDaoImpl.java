@@ -7,6 +7,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -54,24 +56,29 @@ public class MovieDaoImpl implements MovieDao {
 		
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Movie.class);
+
+		Conjunction conjunction = Restrictions.conjunction();
+		Disjunction disjunction = Restrictions.disjunction();
 		
 		if(!StringUtils.isBlank(filterDto.getUserName())){
 			criteria.createAlias("user", "u");
-			criteria.add(Restrictions.ilike("u.name", filterDto.getUserName()));
+			disjunction.add(Restrictions.ilike("u.name", "%" + filterDto.getUserName() + "%"));
 		}
 		if(filterDto.getRating() != null){
-			criteria.add(Restrictions.eq("rating", filterDto.getRating()));
+			conjunction.add(Restrictions.eq("rating", filterDto.getRating()));
 		}
-		if(filterDto.isBorrowable()){
-			criteria.add(Restrictions.eq("borrowable", filterDto.isBorrowable()));
-		}
+		
+		conjunction.add(Restrictions.eq("borrowable", filterDto.isBorrowable()));
+		
 		if(!StringUtils.isBlank(filterDto.getTitle())){
 			criteria.createAlias("actors", "actor");
 			criteria.createAlias("director", "dir");
-			criteria.add(Restrictions.ilike("title", filterDto.getTitle()));
-			criteria.add(Restrictions.ilike("actor.fullName", filterDto.getTitle()));
-			criteria.add(Restrictions.ilike("dir.fullName", filterDto.getTitle()));
+			disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
+			disjunction.add(Restrictions.ilike("actor.fullName", "%" + filterDto.getTitle() + "%"));
+			disjunction.add(Restrictions.ilike("dir.fullName", "%" + filterDto.getTitle() + "%"));
 		}
+		criteria.add(disjunction);
+		criteria.add(conjunction);
 		return (List<Movie>) criteria.list();
 	}
 
