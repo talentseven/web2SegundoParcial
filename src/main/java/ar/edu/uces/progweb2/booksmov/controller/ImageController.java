@@ -1,5 +1,7 @@
 package ar.edu.uces.progweb2.booksmov.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +20,13 @@ public class ImageController {
 	
 	@RequestMapping(value="/book/{id}", method=RequestMethod.GET)
 	@ResponseBody
-	public byte[] getBookImage(@PathVariable("id") Long id){
+	public byte[] getBookImage(@PathVariable("id") Long id) throws IOException{
 		return imageService.getBookImageFromDb(id);
 	}
 	
 	@RequestMapping(value="/movie/{id}", method=RequestMethod.GET)
 	@ResponseBody
-	public byte[] getMovieImage(@PathVariable("id") Long id){
+	public byte[] getMovieImage(@PathVariable("id") Long id) throws IOException{
 		return imageService.getMovieImageFromDb(id);
 	}
 	

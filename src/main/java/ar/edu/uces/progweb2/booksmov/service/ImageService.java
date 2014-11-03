@@ -7,9 +7,9 @@ public interface ImageService {
 	
 	byte[] getImage(Serializable serializable, String type) throws IOException;
 	
-	byte[] getBookImageFromDb(Long id);
+	byte[] getBookImageFromDb(Long id) throws IOException;
 	
-	byte[] getMovieImageFromDb(Long id);
+	byte[] getMovieImageFromDb(Long id) throws IOException;
 
 	byte[] getProductImageFromDb(Long id);
 }

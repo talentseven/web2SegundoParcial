@@ -30,22 +30,36 @@ public class ImageServiceImpl implements ImageService{
 		MultipartFile multiPartFile = (MultipartFile) serializable;
 		byte[] file = multiPartFile.getBytes();
 		
-		if(file.length == 0){
-			ServletContextResource resource = new ServletContextResource(servletContext, "/resources/img/"+ type + "_sin_imagen.jpg");
-			file = IOUtils.toByteArray(resource.getInputStream());
+		if(file != null && file.length == 0){
+			file = setDefaultImage(type);
 		}
 		
 		return file;
 	}
 
-	@Override
-	public byte[] getBookImageFromDb(Long id) {
-		return imageDao.getBookImage(id);
+	private byte[] setDefaultImage(String type) throws IOException {
+		byte[] file;
+		ServletContextResource resource = new ServletContextResource(servletContext, "/resources/img/"+ type + "_sin_imagen.jpg");
+		file = IOUtils.toByteArray(resource.getInputStream());
+		return file;
 	}
 
 	@Override
-	public byte[] getMovieImageFromDb(Long id) {
-		return imageDao.getMovieImage(id);
+	public byte[] getBookImageFromDb(Long id) throws IOException {
+		byte[] image = imageDao.getBookImage(id);
+		if(image == null){
+			image = setDefaultImage("book");
+		}
+		return image;
+	}
+
+	@Override
+	public byte[] getMovieImageFromDb(Long id) throws IOException {
+		byte[] image = imageDao.getMovieImage(id);
+		if(image == null){
+			image = setDefaultImage("movie");
+		}
+		return image;
 	}
 
 	@Override

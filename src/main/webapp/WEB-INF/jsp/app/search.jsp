@@ -152,6 +152,22 @@
 				</tr>
 			</c:forEach>
 			</table>
+			
+			<c:set var="fromPage" value ="${pagination.currentPage + 1}" />
+			<h1>current page: ${pagination.currentPage}</h1>
+			<h2>Items per page: ${pagination.itemsPerPage}</h2>
+			
+			<c:if test="${pagination.currentPage gt 0}">
+				<a href='<c:url value="/app/search/?page=${pagination.currentPage}"/>'>Anterior</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pagination.begin}" end="${pagination.end}">
+				<a href='<c:url value="/app/search/?page=${i}"/>'>${i}</a>
+			</c:forEach>
+			
+			<c:if test="${pagination.currentPage lt pagination.maxPage - 1}">
+				<a href='<c:url value="/app/search/?page=${pagination.currentPage + 2}"/>'>Siguiente</a>
+			</c:if>
 		</c:if>
 </body>
 </html>

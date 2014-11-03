@@ -15,7 +15,9 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
+import ar.edu.uces.progweb2.booksmov.dto.PaginationDetailsDto;
 import ar.edu.uces.progweb2.booksmov.model.Product;
+import ar.edu.uces.progweb2.booksmov.model.SearchResult;
 
 @Repository
 public class ProductDaoImpl implements ProductDao{
@@ -25,11 +27,36 @@ public class ProductDaoImpl implements ProductDao{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Product> getProductsByUserId(Long id) {
+	public SearchResult getProductsByUserId(Long id, Integer page) {
 		Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM Product p WHERE p.user.id = :id");
-		query.setLong("id", id);
-		return (List<Product>) query.list();
+		SearchResult searchResult = new SearchResult();
+		
+		int pageSize = 3;
+	    String count = "Select count (p.id) FROM Product p WHERE p.user.id = :id";
+	    Query countQuery = session.createQuery(count);
+	    countQuery.setLong("id", id);
+	    Long countResults = (Long) countQuery.uniqueResult();
+	    int lastPageNumber = (int) ((countResults / pageSize) + 1);
+		int firstResult = page * pageSize;
+		
+		Query selectQuery = session.createQuery("FROM Product p WHERE p.user.id = :id");
+		selectQuery.setLong("id", id);
+		selectQuery.setFirstResult(firstResult);
+	    selectQuery.setMaxResults(pageSize);
+	    List<Product> products = (List<Product>) selectQuery.list();
+	    
+	    PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
+	    paginationDetails.setCurrentPage(page);
+	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
+	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
+	    paginationDetails.setTotalResults(products.size());
+	    paginationDetails.setEnd( (firstResult + pageSize) > lastPageNumber ? lastPageNumber : firstResult + pageSize);
+	    paginationDetails.setBegin( page == 0 ? page + 1 : page);
+	    	    
+	    searchResult.setProducts(products);
+	    searchResult.setPaginationDetails(paginationDetails);
+	    
+		return searchResult;
 	}
 
 	@Override
