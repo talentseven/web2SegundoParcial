@@ -29,9 +29,9 @@ public class ProductServiceImpl implements ProductService{
 	
 	
 	@Override
-	public SearchResultDto getProductsByUserId(Long id, CriteriaSearchDto criteriaSearch) {
+	public SearchResultDto<ProductDto> getProductsByUserId(Long id, CriteriaSearchDto criteriaSearch) {
 		SearchResult searchResult = productDao.getProductsByUserId(id, criteriaSearch);
-		SearchResultDto results = new SearchResultDto();
+		SearchResultDto<ProductDto> results = new SearchResultDto<ProductDto>();
 		results.setPaginationDetails(searchResult.getPaginationDetails());
 		results.setProducts(transform(searchResult.getProducts()));
 		return results;
@@ -52,9 +52,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductDto> getProductsByCriteria(FilterDto filterDto) {
-		List<Product> products = productDao.getProductsByCriteria(filterDto);
-		return transform(products);
+	public SearchResultDto<ProductDto> getProductsByCriteria(FilterDto filterDto, CriteriaSearchDto criteriaSearchDto) {
+		SearchResult searchResult = productDao.getProductsByCriteria(filterDto, criteriaSearchDto);
+		SearchResultDto<ProductDto> results = new SearchResultDto<ProductDto>();
+		results.setPaginationDetails(searchResult.getPaginationDetails());
+		results.setProducts(transform(searchResult.getProducts()));
+		return results;
 	}
 
 }

@@ -2,27 +2,14 @@ package ar.edu.uces.progweb2.booksmov.dao.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Conjunction;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.uces.progweb2.booksmov.dao.BookDao;
-import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
-import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
-import ar.edu.uces.progweb2.booksmov.dto.PaginationDetailsDto;
 import ar.edu.uces.progweb2.booksmov.model.Book;
-import ar.edu.uces.progweb2.booksmov.model.Product;
-import ar.edu.uces.progweb2.booksmov.model.SearchResult;
 
 @Repository
 public class BookDaoImpl implements BookDao{
@@ -65,64 +52,4 @@ public class BookDaoImpl implements BookDao{
 		query.setLong("id", id);
 		return (Book) query.uniqueResult();
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public SearchResult getBooksByCriteria(FilterDto filterDto, CriteriaSearchDto cs) {
-		SearchResult searchResult = new SearchResult();
-		int pageSize = 10;
-		int firstResult = cs.getPage() * pageSize;
-		
-		Criteria criteriaCount = formCriteria(filterDto);
-		Projection projection = Projections.rowCount();
-		criteriaCount.setProjection(projection);
-		Long countResults = (Long) criteriaCount.uniqueResult();
-		int lastPageNumber = (int) ((countResults / pageSize) + 1);
-		
-		Criteria criteriaSelect = formCriteria(filterDto);
-		criteriaSelect.addOrder(cs.getOrder().equalsIgnoreCase("asc") ? Order.asc(cs.getPropertyForOrder()) : Order.desc(cs.getPropertyForOrder()));
-		criteriaSelect.setFirstResult(firstResult);
-		criteriaSelect.setMaxResults(pageSize);
-		List<Book> books = (List<Book>) criteriaSelect.list();
-		
-		PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
-	    paginationDetails.setCurrentPage(cs.getPage());
-	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
-	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
-	    paginationDetails.setTotalResults(books.size());
-	    paginationDetails.setBegin(1);
-	    paginationDetails.setEnd( lastPageNumber );
-		
-		searchResult.setProducts(books);
-		searchResult.setPaginationDetails(paginationDetails);
-		return searchResult;
-	}
-
-	private Criteria formCriteria(FilterDto filterDto) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Book.class);
-
-		Conjunction conjunction = Restrictions.conjunction();
-		Disjunction disjunction = Restrictions.disjunction();
-		
-		if(!StringUtils.isBlank(filterDto.getUserName())){
-			criteria.createAlias("user", "u");
-			disjunction.add(Restrictions.ilike("u.name", "%" + filterDto.getUserName() + "%"));
-		}
-		if(filterDto.getRating() != null){
-			conjunction.add(Restrictions.eq("rating", filterDto.getRating()));
-		}
-		
-		conjunction.add(Restrictions.eq("borrowable", filterDto.isBorrowable()));
-
-		if(!StringUtils.isBlank(filterDto.getTitle())){
-			criteria.createAlias("authors", "author");
-			disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
-			disjunction.add(Restrictions.ilike("author.fullName", "%" + filterDto.getTitle() + "%"));
-		}
-		criteria.add(disjunction);
-		criteria.add(conjunction);
-		return criteria;
-	}
-
 }

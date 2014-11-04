@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Disjunction;
@@ -19,6 +18,8 @@ import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
 import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.PaginationDetailsDto;
+import ar.edu.uces.progweb2.booksmov.model.Book;
+import ar.edu.uces.progweb2.booksmov.model.Movie;
 import ar.edu.uces.progweb2.booksmov.model.Product;
 import ar.edu.uces.progweb2.booksmov.model.SearchResult;
 
@@ -31,37 +32,7 @@ public class ProductDaoImpl implements ProductDao{
 	@SuppressWarnings("unchecked")
 	@Override
 	public SearchResult getProductsByUserId(Long id, CriteriaSearchDto cs) {
-		/*
-		Session session = sessionFactory.getCurrentSession();
-		SearchResult searchResult = new SearchResult();
-		
-		int pageSize = 10;
-	    String count = "Select count (p.id) FROM Product p WHERE p.user.id = :id";
-	    Query countQuery = session.createQuery(count);
-	    countQuery.setLong("id", id);
-	    Long countResults = (Long) countQuery.uniqueResult();
-	    int lastPageNumber = (int) ((countResults / pageSize) + 1);
-		int firstResult = page * pageSize;
-		
-		Query selectQuery = session.createQuery("FROM Product p WHERE p.user.id = :id ORDER BY p.title ASC");
-		selectQuery.setLong("id", id);
-		selectQuery.setFirstResult(firstResult);
-	    selectQuery.setMaxResults(pageSize);
-	    List<Product> products = (List<Product>) selectQuery.list();
-	    
-	    PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
-	    paginationDetails.setCurrentPage(page);
-	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
-	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
-	    paginationDetails.setTotalResults(products.size());
-	    paginationDetails.setBegin(1);
-	    paginationDetails.setEnd( lastPageNumber );
-	    
-	    searchResult.setProducts(products);
-	    searchResult.setPaginationDetails(paginationDetails);
-	    
-		return searchResult;
-		*/
+
 		SearchResult searchResult = new SearchResult();
 		int pageSize = 10;
 		int firstResult = cs.getPage() * pageSize;
@@ -101,9 +72,40 @@ public class ProductDaoImpl implements ProductDao{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Product> getProductsByCriteria(FilterDto filterDto) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Product.class);
+	public SearchResult getProductsByCriteria(FilterDto filterDto, CriteriaSearchDto cs) {
+		
+		SearchResult searchResult = new SearchResult();
+		int pageSize = 10;
+		int firstResult = cs.getPage() * pageSize;
+		
+		Criteria criteriaCount = formCriteria(filterDto);
+		Projection projection = Projections.rowCount();
+		criteriaCount.setProjection(projection);
+		Long countResults = (Long) criteriaCount.uniqueResult();
+		int lastPageNumber = (int) ((countResults / pageSize) + 1);
+		
+		Criteria criteriaSelect = formCriteria(filterDto);
+		criteriaSelect.addOrder(cs.getOrder().equalsIgnoreCase("asc") ? Order.asc(cs.getPropertyForOrder()) : Order.desc(cs.getPropertyForOrder()));
+		criteriaSelect.setFirstResult(firstResult);
+		criteriaSelect.setMaxResults(pageSize);
+		List<Book> books = (List<Book>) criteriaSelect.list();
+		
+		PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
+	    paginationDetails.setCurrentPage(cs.getPage());
+	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
+	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
+	    paginationDetails.setTotalResults(books.size());
+	    paginationDetails.setBegin(1);
+	    paginationDetails.setEnd( lastPageNumber );
+		
+		searchResult.setProducts(books);
+		searchResult.setPaginationDetails(paginationDetails);
+		return searchResult;
+		
+	}
+	
+	private Criteria formCriteria(FilterDto filterDto) {
+		Criteria criteria = getCriteriaForType(filterDto.getType());
 
 		Conjunction conjunction = Restrictions.conjunction();
 		Disjunction disjunction = Restrictions.disjunction();
@@ -117,13 +119,63 @@ public class ProductDaoImpl implements ProductDao{
 		}
 		
 		conjunction.add(Restrictions.eq("borrowable", filterDto.isBorrowable()));
+
+		getProperFilterForInputName(filterDto, criteria, disjunction);
 		
-		if(!StringUtils.isBlank(filterDto.getTitle())){
-			disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
-		}
 		criteria.add(disjunction);
 		criteria.add(conjunction);
-		return (List<Product>) criteria.list();
+		return criteria;
 	}
 
+	private void getProperFilterForInputName(FilterDto filterDto, Criteria criteria, Disjunction disjunction) {
+		
+		switch(filterDto.getType()){
+			
+			case "books" :  
+				if(!StringUtils.isBlank(filterDto.getTitle())){
+					getBookFilter(filterDto, criteria, disjunction);
+				}
+				break;
+			case "movies" :
+				if(!StringUtils.isBlank(filterDto.getTitle())){
+					getMovieFilter(filterDto, criteria, disjunction);
+				}
+				break;
+			default : 
+				if(!StringUtils.isBlank(filterDto.getTitle())){
+					getProductFilter(filterDto, criteria, disjunction);
+				}
+		}
+	}
+
+	private void getMovieFilter(FilterDto filterDto, Criteria criteria, Disjunction disjunction) {
+		criteria.createAlias("actors", "actor");
+		criteria.createAlias("director", "dir");
+		disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
+		disjunction.add(Restrictions.ilike("actor.fullName", "%" + filterDto.getTitle() + "%"));
+		disjunction.add(Restrictions.ilike("dir.fullName", "%" + filterDto.getTitle() + "%"));
+	}
+
+	private void getBookFilter(FilterDto filterDto, Criteria criteria, Disjunction disjunction) {
+		criteria.createAlias("authors", "author");
+		disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
+		disjunction.add(Restrictions.ilike("author.fullName", "%" + filterDto.getTitle() + "%"));
+	}
+	
+	private void getProductFilter(FilterDto filterDto, Criteria criteria, Disjunction disjunction) {
+		disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
+	}
+
+	private Criteria getCriteriaForType(String type) {
+		Criteria criteria = null;
+		switch(type){
+			case "books" : criteria = sessionFactory.getCurrentSession().createCriteria(Book.class); break;
+			case "movies" : criteria = sessionFactory.getCurrentSession().createCriteria(Movie.class); break;
+			default : criteria = sessionFactory.getCurrentSession().createCriteria(Product.class); break;
+		}
+		return criteria;
+	}
+	
+	
+	
 }

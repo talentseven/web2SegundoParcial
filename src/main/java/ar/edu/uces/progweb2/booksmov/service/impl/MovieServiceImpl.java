@@ -2,16 +2,13 @@ package ar.edu.uces.progweb2.booksmov.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.MovieDao;
-import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.MovieDto;
 import ar.edu.uces.progweb2.booksmov.model.Movie;
 import ar.edu.uces.progweb2.booksmov.service.MovieService;
@@ -57,13 +54,5 @@ public class MovieServiceImpl implements MovieService {
 		Movie movie = movieDao.getMovieById(id);
 		return converter.transform(movie);
 	}
-
-	@Override
-	public List<MovieDto> getMoviesByCriteria(FilterDto filterDto) {
-		List<Movie> movies = movieDao.getMoviesByCriteria(filterDto);
-		Set<Movie> moviekSet = new HashSet<Movie>(movies);
-		return transform(moviekSet);
-	}
-
 
 }

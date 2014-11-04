@@ -5,43 +5,22 @@ public class FilterDto {
 	
 	
 	private String userName;
-	private String rating = "3";
+	private String rating;
 	private String title;
 	private String type = "all";
 	private boolean borrowable;
 	
-	/*
-	private OptionSearch borrowable; 
-	private OptionSearch userName;
-	private OptionSearch rating; 
-	private OptionSearch type; 
-	private OptionSearch title; 
-	*/
-	/*
-	public FilterDto(){
-		borrowable = new OptionSearch(Product.class, "borrowable", false);
-		userName = new OptionSearch(User.class, "userName", "");
-		rating = new OptionSearch(Product.class, "rating", "3");
-		type = new OptionSearch(String.class, "type", "all");
-		title = new OptionSearch(String.class, "title", "");
+	public FilterDto(String userName, String rating, String title, String type,
+			boolean borrowable) {
+		this.userName = userName;
+		this.rating = rating;
+		this.title = title;
+		this.type = type;
+		this.borrowable = borrowable;
 	}
-	*/
 	public FilterDto(){
 		
 	}
-	/*
-	public Map<String, Object> getOptionsMap(){
-		Map<String, Object> options = new LinkedHashMap<String, Object>();
-		options.put("userName", userName.getValue());
-		options.put("rating", rating.getValue());
-		options.put("title", title.getValue());
-		options.put("type", type.getValue());
-		options.put("borrowable", borrowable.isBoolValue());
-		
-		return options;
-	}
-*/
-
 	public String getUserName() {
 		return userName;
 	}

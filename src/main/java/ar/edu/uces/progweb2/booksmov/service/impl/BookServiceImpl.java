@@ -2,9 +2,7 @@ package ar.edu.uces.progweb2.booksmov.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.BookDao;
 import ar.edu.uces.progweb2.booksmov.dto.BookDto;
-import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
-import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
-import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
-import ar.edu.uces.progweb2.booksmov.dto.SearchResultDto;
 import ar.edu.uces.progweb2.booksmov.model.Book;
-import ar.edu.uces.progweb2.booksmov.model.SearchResult;
+import ar.edu.uces.progweb2.booksmov.model.Product;
 import ar.edu.uces.progweb2.booksmov.service.BookConverterService;
 import ar.edu.uces.progweb2.booksmov.service.BookService;
 
@@ -68,15 +62,18 @@ public class BookServiceImpl implements BookService{
 		return converter.transform(book);
 	}
 
-	@Override
-	public SearchResultDto getBooksByCriteria(FilterDto filterDto, CriteriaSearchDto searchCriteria) {
-		SearchResult searchResult = bookDao.getBooksByCriteria(filterDto, searchCriteria);
-		Set<Book> bookSet = new HashSet<Book>((Collection<? extends Book>) searchResult.getProducts());
-		List<BookDto> booksDto = transform(bookSet);
-		SearchResultDto searchDto = new SearchResultDto();
-		searchDto.setPaginationDetails(searchResult.getPaginationDetails());
-		searchDto.setProducts(booksDto);
-		return searchDto;
+	public List<Book> getBooksWithNoDuplicates(Collection<? extends Product> products){
+		
+		List<Book> books = new ArrayList<Book>();
+		
+		for (Product product : products) {
+			Book book = (Book) product;
+			if(!books.contains(book)){
+				books.add(book);
+			}
+		}
+		
+		return books;
 	}
 
 }

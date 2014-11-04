@@ -30,7 +30,7 @@
 				
 		<div id="filter">
 			<span><spring:message code="label.filter.by"/></span>
-			<form:form action="/booksmov/app/filter" modelAttribute="filterDto" method="POST">
+			<form:form action="/booksmov/app/search" modelAttribute="filterDto" method="POST">
 				<form:label path="userName">
 					<spring:message code="label.filter.user"/>
 				</form:label>
@@ -73,18 +73,18 @@
 					<th> <spring:message code="label.products.cover"/> </th>
 	 				<th>
 	 				    <spring:message code="label.products.title"/> 
-	 					<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=asc" />'>
+	 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
 	 						<img src='<c:url value="/resources/img/asc.png" />' />
 	 					</a>
-	 					<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=desc" />'>
+	 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
 	 						<img src='<c:url value="/resources/img/desc.png" />' />
 	 					</a>
 	 				</th>
 					<th> <spring:message code="label.products.rating"/>
-						<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=asc&rating=true" />'>
+						<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
 	 						<img src='<c:url value="/resources/img/asc.png" />' />
 	 					</a>
-	 					<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=desc&rating=true" />'>
+	 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
 	 						<img src='<c:url value="/resources/img/desc.png" />' />
 	 					</a>
 					</th>
