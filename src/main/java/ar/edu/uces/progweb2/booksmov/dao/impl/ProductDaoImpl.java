@@ -4,16 +4,19 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
+import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.PaginationDetailsDto;
 import ar.edu.uces.progweb2.booksmov.model.Product;
@@ -27,11 +30,12 @@ public class ProductDaoImpl implements ProductDao{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public SearchResult getProductsByUserId(Long id, Integer page) {
+	public SearchResult getProductsByUserId(Long id, CriteriaSearchDto cs) {
+		/*
 		Session session = sessionFactory.getCurrentSession();
 		SearchResult searchResult = new SearchResult();
 		
-		int pageSize = 3;
+		int pageSize = 10;
 	    String count = "Select count (p.id) FROM Product p WHERE p.user.id = :id";
 	    Query countQuery = session.createQuery(count);
 	    countQuery.setLong("id", id);
@@ -39,7 +43,7 @@ public class ProductDaoImpl implements ProductDao{
 	    int lastPageNumber = (int) ((countResults / pageSize) + 1);
 		int firstResult = page * pageSize;
 		
-		Query selectQuery = session.createQuery("FROM Product p WHERE p.user.id = :id");
+		Query selectQuery = session.createQuery("FROM Product p WHERE p.user.id = :id ORDER BY p.title ASC");
 		selectQuery.setLong("id", id);
 		selectQuery.setFirstResult(firstResult);
 	    selectQuery.setMaxResults(pageSize);
@@ -47,6 +51,37 @@ public class ProductDaoImpl implements ProductDao{
 	    
 	    PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
 	    paginationDetails.setCurrentPage(page);
+	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
+	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
+	    paginationDetails.setTotalResults(products.size());
+	    paginationDetails.setBegin(1);
+	    paginationDetails.setEnd( lastPageNumber );
+	    
+	    searchResult.setProducts(products);
+	    searchResult.setPaginationDetails(paginationDetails);
+	    
+		return searchResult;
+		*/
+		SearchResult searchResult = new SearchResult();
+		int pageSize = 10;
+		int firstResult = cs.getPage() * pageSize;
+		
+		Criteria criteriaCount  = sessionFactory.getCurrentSession().createCriteria(Product.class);
+		Projection projection = Projections.rowCount();
+		criteriaCount.setProjection(projection);
+		criteriaCount.add(Restrictions.eq("user.id", id));
+		Long countResults = (Long) criteriaCount.uniqueResult();
+		int lastPageNumber = (int) ((countResults / pageSize) + 1);
+		
+		Criteria criteriaSelect = sessionFactory.getCurrentSession().createCriteria(Product.class);
+		criteriaSelect.add(Restrictions.eq("user.id", id));
+		criteriaSelect.addOrder(cs.getOrder().equalsIgnoreCase("asc") ? Order.asc(cs.getPropertyForOrder()) : Order.desc(cs.getPropertyForOrder()));
+		criteriaSelect.setFirstResult(firstResult);
+		criteriaSelect.setMaxResults(pageSize);
+		List<Product> products = (List<Product>) criteriaSelect.list();
+		
+		PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
+	    paginationDetails.setCurrentPage(cs.getPage());
 	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
 	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
 	    paginationDetails.setTotalResults(products.size());

@@ -71,8 +71,23 @@
 			<table border="1">
 				<tr>
 					<th> <spring:message code="label.products.cover"/> </th>
-	 				<th> <spring:message code="label.products.title"/> </th>
-					<th> <spring:message code="label.products.rating"/> </th>
+	 				<th>
+	 				    <spring:message code="label.products.title"/> 
+	 					<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=asc" />'>
+	 						<img src='<c:url value="/resources/img/asc.png" />' />
+	 					</a>
+	 					<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=desc" />'>
+	 						<img src='<c:url value="/resources/img/desc.png" />' />
+	 					</a>
+	 				</th>
+					<th> <spring:message code="label.products.rating"/>
+						<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=asc&rating=true" />'>
+	 						<img src='<c:url value="/resources/img/asc.png" />' />
+	 					</a>
+	 					<a href='<c:url value="/app/search/?page=${pagination.currentPage}&order=desc&rating=true" />'>
+	 						<img src='<c:url value="/resources/img/desc.png" />' />
+	 					</a>
+					</th>
 					<th> <spring:message code="label.products.borrowable"/> </th>
 					<th> <spring:message code="label.products.alreadyUsed"/> </th>
 					<th> <spring:message code="label.products.extra.data"/> </th>
@@ -153,21 +168,26 @@
 			</c:forEach>
 			</table>
 			
-			<c:set var="fromPage" value ="${pagination.currentPage + 1}" />
-			<h1>current page: ${pagination.currentPage}</h1>
-			<h2>Items per page: ${pagination.itemsPerPage}</h2>
-			
 			<c:if test="${pagination.currentPage gt 0}">
-				<a href='<c:url value="/app/search/?page=${pagination.currentPage}"/>'>Anterior</a>
+				<a href='<c:url value="/app/search/?page=${pagination.currentPage - 1}&order=${search.order}&rating=${search.rating}"/>'>Anterior</a>
 			</c:if>
 			
 			<c:forEach var="i" begin="${pagination.begin}" end="${pagination.end}">
-				<a href='<c:url value="/app/search/?page=${i}"/>'>${i}</a>
+				<c:choose>
+					<c:when test="${i == pagination.currentPage + 1}">
+						${i}
+					</c:when>
+					<c:otherwise>
+						<a href='<c:url value="/app/search/?page=${i - 1}&order=${search.order}&rating=${search.rating}"/>'>${i}</a>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 			
 			<c:if test="${pagination.currentPage lt pagination.maxPage - 1}">
-				<a href='<c:url value="/app/search/?page=${pagination.currentPage + 2}"/>'>Siguiente</a>
+				<a href='<c:url value="/app/search/?page=${pagination.currentPage + 1}&order=${search.order}&rating=${search.rating}"/>'>Siguiente</a>
 			</c:if>
 		</c:if>
+		
+		<div></div>
 </body>
 </html>

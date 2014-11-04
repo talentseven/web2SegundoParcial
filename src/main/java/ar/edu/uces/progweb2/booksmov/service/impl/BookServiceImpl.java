@@ -12,8 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.BookDao;
 import ar.edu.uces.progweb2.booksmov.dto.BookDto;
+import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
+import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
+import ar.edu.uces.progweb2.booksmov.dto.SearchResultDto;
 import ar.edu.uces.progweb2.booksmov.model.Book;
+import ar.edu.uces.progweb2.booksmov.model.SearchResult;
 import ar.edu.uces.progweb2.booksmov.service.BookConverterService;
 import ar.edu.uces.progweb2.booksmov.service.BookService;
 
@@ -65,10 +69,14 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public List<BookDto> getBooksByCriteria(FilterDto filterDto) {
-		List<Book> books = bookDao.getBooksByCriteria(filterDto);
-		Set<Book> bookSet = new HashSet<Book>(books);
-		return transform(bookSet);
+	public SearchResultDto getBooksByCriteria(FilterDto filterDto, CriteriaSearchDto searchCriteria) {
+		SearchResult searchResult = bookDao.getBooksByCriteria(filterDto, searchCriteria);
+		Set<Book> bookSet = new HashSet<Book>((Collection<? extends Book>) searchResult.getProducts());
+		List<BookDto> booksDto = transform(bookSet);
+		SearchResultDto searchDto = new SearchResultDto();
+		searchDto.setPaginationDetails(searchResult.getPaginationDetails());
+		searchDto.setProducts(booksDto);
+		return searchDto;
 	}
 
 }

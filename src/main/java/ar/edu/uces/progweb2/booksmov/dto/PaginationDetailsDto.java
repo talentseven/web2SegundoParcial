@@ -13,60 +13,48 @@ public class PaginationDetailsDto {
 		this.totalResults = totalResults;
 	}
 
-
 	public Integer getTotalResults() {
 		return totalResults;
 	}
-
 
 	public void setItemsPerPage(Integer itemsPerPage) {
 		this.itemsPerPage = itemsPerPage;
 	}
 
-
 	public Integer getItemsPerPage() {
 		return itemsPerPage;
 	}
-
 
 	public void setMaxPage(Integer maxPage) {
 		this.maxPage = maxPage;
 	}
 
-
 	public Integer getMaxPage() {
 		return maxPage;
 	}
-
 
 	public void setCurrentPage(Integer currentPage) {
 		this.currentPage = currentPage;
 	}
 
-
 	public Integer getCurrentPage() {
 		return currentPage;
 	}
-
 
 	public Integer getBegin() {
 		return begin;
 	}
 
-
 	public void setBegin(Integer begin) {
 		this.begin = begin;
 	}
-
 
 	public Integer getEnd() {
 		return end;
 	}
 
-
 	public void setEnd(Integer end) {
 		this.end = end;
 	}
-	
-	
+
 }

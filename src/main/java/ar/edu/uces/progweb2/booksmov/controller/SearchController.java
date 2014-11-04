@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.SearchResultDto;
 import ar.edu.uces.progweb2.booksmov.model.User;
@@ -22,16 +23,20 @@ public class SearchController {
 	private ProductService productService;
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String findProducts(ModelMap model, @RequestParam(value="page", required=false, defaultValue="0") String page){
+	public String findProducts(ModelMap model, 
+			@RequestParam(value="page", required=false, defaultValue="0") String page,
+			@RequestParam(value="rating", required=false, defaultValue="false") String rating,
+			@RequestParam(value="order", required=false, defaultValue="asc") String order){
 		
 		User user = (User) model.get("user");
 		Long id = user.getId();
 		Integer pageId = Integer.parseInt(page);
-		pageId = (pageId > 0) ? pageId - 1: pageId;
-		SearchResultDto searchResult = productService.getProductsByUserId(id, pageId);
+		CriteriaSearchDto searchCriteria = new CriteriaSearchDto(pageId, order, Boolean.valueOf(rating));
+		SearchResultDto searchResult = productService.getProductsByUserId(id, searchCriteria);
 		model.addAttribute("filterDto", new FilterDto());
 		model.addAttribute("products", searchResult.getProducts());
 		model.addAttribute("pagination", searchResult.getPaginationDetails());
+		model.addAttribute("search", searchCriteria);
 		return "search";
 	}
 	

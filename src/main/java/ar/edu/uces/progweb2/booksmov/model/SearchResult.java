@@ -1,19 +1,19 @@
 package ar.edu.uces.progweb2.booksmov.model;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import ar.edu.uces.progweb2.booksmov.dto.PaginationDetailsDto;
 
 public class SearchResult {
 	
-	private List<Product> products = new ArrayList<Product>();
+	private Collection<? extends Product> products = new ArrayList<Product>();
 	private PaginationDetailsDto paginationDetails;
 	
-	public List<Product> getProducts() {
+	public Collection<? extends Product> getProducts() {
 		return products;
 	}
-	public void setProducts(List<Product> products) {
+	public void setProducts(Collection<? extends Product> products) {
 		this.products = products;
 	}
 	public PaginationDetailsDto getPaginationDetails() {
@@ -22,6 +22,4 @@ public class SearchResult {
 	public void setPaginationDetails(PaginationDetailsDto paginationDetails) {
 		this.paginationDetails = paginationDetails;
 	}
-	
-	
 }

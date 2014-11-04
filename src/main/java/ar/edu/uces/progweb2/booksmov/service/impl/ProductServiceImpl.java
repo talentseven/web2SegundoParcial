@@ -1,6 +1,7 @@
 package ar.edu.uces.progweb2.booksmov.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
+import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.dto.SearchResultDto;
@@ -27,15 +29,15 @@ public class ProductServiceImpl implements ProductService{
 	
 	
 	@Override
-	public SearchResultDto getProductsByUserId(Long id, Integer page) {
-		SearchResult searchResult = productDao.getProductsByUserId(id, page);
+	public SearchResultDto getProductsByUserId(Long id, CriteriaSearchDto criteriaSearch) {
+		SearchResult searchResult = productDao.getProductsByUserId(id, criteriaSearch);
 		SearchResultDto results = new SearchResultDto();
 		results.setPaginationDetails(searchResult.getPaginationDetails());
 		results.setProducts(transform(searchResult.getProducts()));
 		return results;
 	}
 
-	private List<ProductDto> transform(List<Product> products) {
+	private List<ProductDto> transform(Collection<? extends Product> products) {
 		List<ProductDto> productsDto = new ArrayList<ProductDto>();
 		for (Product product : products) {
 			productsDto.add(converter.toDto(product));

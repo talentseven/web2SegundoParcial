@@ -144,7 +144,7 @@ INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES
 INSERT INTO `books` (id, description) VALUES (6, 'An ingenious code hidden in the works of Leonardo da Vinci. A desperate race through the cathedrals and castles of Europe. An astonishing truth concealed for centuries . . . unveiled at last. While in Paris, Harvard symbologist Robert Langdon is awakened by a phone call in the dead of the night. The elderly curator of the Louvre has been murdered inside the museum, his body covered in baffling symbols. As Langdon and gifted French cryptologist Sophie Neveu sort through the bizarre riddles, they are stunned to discover a trail of clues hidden in the works of Leonardo da Vinci—clues visible for all to see and yet ingeniously disguised by the painter.');
 INSERT INTO `authors` (`id`, `full_name`, `book_id`) VALUES (7,'Dan Brown', 6);
 
-INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Harry Potter and the Deathly Hallows', 5, '1', '0', 2);
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Harry Potter and the Deathly Hallows', 5, '1', '0', 1);
 INSERT INTO `books` (id, description) VALUES (7, 'Harry is waiting in Privet Drive. The Order of the Phoenix is coming to escort him safely away without Voldemort and his supporters knowing - if they can. But what will Harry do then? How can he fulfill the momentous and seemingly impossible task that Professor Dumbledore has left him? The epic finale to an epic series.');
 INSERT INTO `authors` (`id`, `full_name`, `book_id`) VALUES (8,'J.K. Rowling',7), (9, 'Mary GrandPré', 7);
 
@@ -180,6 +180,15 @@ INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES
 INSERT INTO `books` (id, description) VALUES (15, 'Edgar Allan Poe stories collection "The Raven, The Gold-Bug, The Black Cat, The Masque of the Red Death, The Pit and the Pendulum, The Shadow, Some Words with a Mummy, The Angel of the Odd, The Sphinx, A Tale of the Ragged Mountains, The Purloined Letter, The Man of the Crowd, Mystification". Poe and his works influenced literature in the United States and around the world, as well as in specialized fields, such as cosmology and cryptography. Poe and his work appear throughout popular culture in literature, music, films, and television.');
 INSERT INTO `authors` (`id`, `full_name`, `book_id`) VALUES (20,'Edgar Allan Poe',15), (21, 'Alexey Daranov', 15), (22, 'Pavel Alexeev', 15);
 
+/*----------------------Otro usuario-----------------------*/
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('The Thirteenth Tale', 5, '1', '1', 2);
+INSERT INTO `books` (id, description) VALUES (16, 'iographer Margaret Lea returns one night to her apartment above her father’s antiquarian bookshop. On her steps she finds a letter. It is a hand-written request from one of Britain’s most prolific and well-loved novelists. Vida Winter, gravely ill, wants to recount her life story before it is too late, and she wants Margaret to be the one to capture her history. The request takes Margaret by surprise — she doesn’t know the author, nor has she read any of Miss Winter’s dozens of novels.');
+INSERT INTO `authors` (`id`, `full_name`, `book_id`) VALUES (23,'Edgar Allan Poe',16);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Harry Potter and the Deathly Hallows', 5, '1', '1', 2);
+INSERT INTO `books` (id, description) VALUES (17, 'Harry is waiting in Privet Drive. The Order of the Phoenix is coming to escort him safely away without Voldemort and his supporters knowing - if they can. But what will Harry do then? How can he fulfill the momentous and seemingly impossible task that Professor Dumbledore has left him? The epic finale to an epic series.');
+INSERT INTO `authors` (`id`, `full_name`, `book_id`) VALUES (24,'J.K. Rowling',7), (25, 'Mary GrandPré', 17);
 
 GRANT ALL PRIVILEGES ON `booksmov_db`.* TO 'root'@'localhost'
   IDENTIFIED BY PASSWORD '4540';

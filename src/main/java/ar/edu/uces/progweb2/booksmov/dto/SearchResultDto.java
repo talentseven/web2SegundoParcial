@@ -2,15 +2,15 @@ package ar.edu.uces.progweb2.booksmov.dto;
 
 import java.util.List;
 
-public class SearchResultDto {
+public class SearchResultDto<T extends ProductDto> {
 	
-	private List<ProductDto> products;
+	private List<T> products;
 	private PaginationDetailsDto paginationDetails;
 	
-	public List<ProductDto> getProducts() {
+	public List<T> getProducts() {
 		return products;
 	}
-	public void setProducts(List<ProductDto> products) {
+	public void setProducts(List<T> products) {
 		this.products = products;
 	}
 	public PaginationDetailsDto getPaginationDetails() {
