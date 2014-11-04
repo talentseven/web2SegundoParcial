@@ -50,9 +50,9 @@ public class ProductDaoImpl implements ProductDao{
 	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
 	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
 	    paginationDetails.setTotalResults(products.size());
-	    paginationDetails.setEnd( (firstResult + pageSize) > lastPageNumber ? lastPageNumber : firstResult + pageSize);
-	    paginationDetails.setBegin( page == 0 ? page + 1 : page);
-	    	    
+	    paginationDetails.setBegin(1);
+	    paginationDetails.setEnd( lastPageNumber );
+	    
 	    searchResult.setProducts(products);
 	    searchResult.setPaginationDetails(paginationDetails);
 	    
