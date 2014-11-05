@@ -19,9 +19,7 @@ import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
 import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.dto.SearchResultDto;
 import ar.edu.uces.progweb2.booksmov.model.User;
-import ar.edu.uces.progweb2.booksmov.service.BookService;
 import ar.edu.uces.progweb2.booksmov.service.LoanService;
-import ar.edu.uces.progweb2.booksmov.service.MovieService;
 import ar.edu.uces.progweb2.booksmov.service.ProductService;
 
 @Controller
@@ -29,10 +27,6 @@ import ar.edu.uces.progweb2.booksmov.service.ProductService;
 @RequestMapping("/app/search")
 public class SearchController {
 	
-	@Autowired
-	private BookService bookService;
-	@Autowired
-	private MovieService movieService;
 	@Autowired
 	private LoanService loanService;
 	@Autowired
@@ -97,8 +91,7 @@ public class SearchController {
 			@RequestParam(value="rating", required=false, defaultValue="false") String rating,
 			@RequestParam(value="order", required=false, defaultValue="asc") String order){
 		
-		ModelAndView mav = doSearch(filterDto, model, page, rating, order);
-		return mav;
+		return doSearch(filterDto, model, page, rating, order);
 		
 	}
 

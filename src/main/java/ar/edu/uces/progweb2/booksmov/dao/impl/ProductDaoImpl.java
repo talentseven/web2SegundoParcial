@@ -88,17 +88,17 @@ public class ProductDaoImpl implements ProductDao{
 		criteriaSelect.addOrder(cs.getOrder().equalsIgnoreCase("asc") ? Order.asc(cs.getPropertyForOrder()) : Order.desc(cs.getPropertyForOrder()));
 		criteriaSelect.setFirstResult(firstResult);
 		criteriaSelect.setMaxResults(pageSize);
-		List<Book> books = (List<Book>) criteriaSelect.list();
+		List<Product> products = (List<Product>) criteriaSelect.list();
 		
 		PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
 	    paginationDetails.setCurrentPage(cs.getPage());
 	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
 	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
-	    paginationDetails.setTotalResults(books.size());
+	    paginationDetails.setTotalResults(products.size());
 	    paginationDetails.setBegin(1);
 	    paginationDetails.setEnd( lastPageNumber );
 		
-		searchResult.setProducts(books);
+		searchResult.setProducts(products);
 		searchResult.setPaginationDetails(paginationDetails);
 		return searchResult;
 		

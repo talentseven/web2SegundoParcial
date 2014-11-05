@@ -8,7 +8,7 @@ public class FilterDto {
 	private String rating;
 	private String title;
 	private String type = "all";
-	private boolean borrowable;
+	private boolean borrowable = true;
 	
 	public FilterDto(String userName, String rating, String title, String type,
 			boolean borrowable) {

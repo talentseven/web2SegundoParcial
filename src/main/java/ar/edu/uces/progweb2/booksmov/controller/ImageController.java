@@ -32,7 +32,7 @@ public class ImageController {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	@ResponseBody
-	public byte[] getProductImage(@PathVariable("id") Long id){
+	public byte[] getProductImage(@PathVariable("id") Long id) throws IOException{
 		return imageService.getProductImageFromDb(id);
 	}
 }
