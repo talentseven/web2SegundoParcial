@@ -29,7 +29,7 @@ public class InjectedDependencyFilter implements Filter {
 			System.out.println("In InjectedDependencyFilter");
 			chain.doFilter(req, res);
 		}else{
-			res.sendRedirect("/booksmov/");
+			res.sendRedirect("/booksmov/login");
 		}
 	}
 
