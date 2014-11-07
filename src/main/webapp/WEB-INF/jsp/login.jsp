@@ -17,23 +17,28 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	
 	<div id="main" class="shell login-form">
-		<div id="content">
-			
-		</div>
-		<div>
-			<form:form method="POST" modelAttribute="userDto" action="/booksmov/login">
+		
+		<div class="col login" id="newsletter">
+			<h4>Login</h4>
+			<p>Por favor ingrese sus credenciales. </p>
+			<form:form  method="POST" modelAttribute="userDto" action="/booksmov/login">
 				<form:label path="name">
-					<spring:message code="label.name" /> 
+					<spring:message code="label.name" />
 				</form:label>
-				<form:input path="name"/>  <br />
+				<form:input path="name" cssClass="field"/>
+				<form:errors path="name" cssStyle="color: red" />
 				<form:label path="password">
 					<spring:message code="label.password"/>
 				</form:label>
-				<form:password path="password"/> <form:errors path="password" cssStyle="color: red" /><br/>
-				<form:button><spring:message code="label.submit"/></form:button>
-				<form:errors path="name" cssStyle="color: red" /><br/>
+				<form:password path="password" cssClass="field"/> 
+			 	<form:errors path="password" cssStyle="color: red" />
+				<form:button id="login-btn" cssClass="submit-btn"><spring:message code="label.submit"/></form:button>
 			</form:form>
-		</div>	
+		</div>
+		
 	</div>
+	<!-- Footer -->
+	<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
+	<!-- End Footer -->
 </body>
 </html>

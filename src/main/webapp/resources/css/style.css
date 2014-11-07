@@ -68,6 +68,8 @@ textarea { overflow: auto; }
 /* #slider .read-more-btn:hover { color: #0f173a; text-decoration: none; } */
 
 .login-form{ height: 500px; position: relative; margin-top: 18px; }
+.login {margin-right: auto; margin-left: auto; padding-top: 170px; line-height: 30px; font-size: 15px; font-size: 12px; }
+#login-btn {margin-top: 10px; margin-left: 75px;}
 
 #main { padding-top: 0px; padding-bottom: 41px; z-index: 1; }
 
@@ -139,5 +141,5 @@ textarea { overflow: auto; }
 #newsletter p { padding: 3px 0 8px; }
 #newsletter .field { width: 201px; padding: 2px 5px 3px; background: #73c1e0; border: solid 1px #a2d6ea; line-height: 13px; margin-bottom: 4px; color: #fff; }
 #newsletter .form-buttons { float: right; display: inline; text-align: right; padding-right: 2px; }
-#newsletter .submit-btn { margin-top: 4px; display: inline-block; font-size: 10px; line-height: 16px; height: 24px; background: url(images/submit-btn.png); padding: 0 8px 0 10px; border: 0; color: #fff; text-transform: uppercase; cursor: pointer; }
-#newsletter .submit-btn:hover { color: #015faa; }
+#login .submit-btn { margin-top: 4px; display: inline-block; font-size: 10px; line-height: 16px; height: 24px; background: url(images/submit-btn.png); padding: 0 8px 0 10px; border: 0; color: #fff; text-transform: uppercase; cursor: pointer; }
+#login .submit-btn:hover { color: #015faa; }

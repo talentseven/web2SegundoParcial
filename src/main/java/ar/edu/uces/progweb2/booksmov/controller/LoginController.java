@@ -53,7 +53,7 @@ public class LoginController {
 				request.getSession().setAttribute("user", user);
 				return "redirect:/app/search";
 			}else{
-				result.rejectValue("email", "errors.login.bad.credentials");
+				result.rejectValue("name", "errors.login.bad.credentials");
 			}
 		}
 		return "login";
