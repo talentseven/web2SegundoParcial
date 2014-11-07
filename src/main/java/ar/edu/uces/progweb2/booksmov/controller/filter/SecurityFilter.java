@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class InjectedDependencyFilter implements Filter {
+public class SecurityFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
@@ -26,7 +26,6 @@ public class InjectedDependencyFilter implements Filter {
 		String uri = req.getRequestURI();
 		
 		if(req.getSession().getAttribute("user") != null && !uri.contains("login")){
-			System.out.println("In InjectedDependencyFilter");
 			chain.doFilter(req, res);
 		}else{
 			res.sendRedirect("/booksmov/login");

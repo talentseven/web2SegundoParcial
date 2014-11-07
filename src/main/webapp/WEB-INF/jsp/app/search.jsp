@@ -69,30 +69,71 @@
 					<h3>Featured Products</h3>
 					<ul>
 						<c:forEach var="product" items="${products}">
-							
-								<c:choose>
-										<c:when test="${product.type eq 'movie'}">
-											<c:set var="type" value="movie" />
-										</c:when>
-										<c:otherwise>
-											<c:set var="type" value="book" />
-										</c:otherwise>
-									</c:choose>
+							<c:choose>
+								<c:when test="${product.type eq 'movie'}">
+									<c:set var="type" value="movie" />
+								</c:when>
+								<c:otherwise>
+									<c:set var="type" value="book" />
+								</c:otherwise>
+							</c:choose>
 							<li>	
 								<div class="product">
 									<a href="#" class="info">
 										<span class="holder">
 											<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
-											<span class="book-name">Book Name</span>
-											<span class="author">by John Smith</span>
-											<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
+											<span class="book-name">${product.title}</span>
+											<span class="icon">
+												<c:forEach begin="1" end="${product.rating}">
+													<img  height="16" width="16" src='<c:url value="/resources/img/star.png" />' />
+												</c:forEach>
+											</span>
+											<span class="author">
+												<c:choose>
+													<c:when test="${type eq 'book'}">
+														<c:set var="hasAuthors" value="false" />
+														<c:if test="${fn:length(product.authorsList) > 0}">
+															<c:set var="hasAuthors" value="true" />
+															<spring:message code="by"/>
+														</c:if>
+														<c:forEach var="author" items="${product.authorsList}" varStatus="status">
+															${author.fullName}
+															<c:if test="${hasAuthors and status.index < fn:length(product.authorsList) - 1}">
+																<spring:message code="comma"/>
+															</c:if>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<c:set var="hasActors" value="false" />
+														<c:if test="${fn:length(product.actorList) > 0}">
+															<c:set var="hasActors" value="true" />
+															<spring:message code="by"/>
+														</c:if>
+														<c:forEach var="actor" items="${product.actorList}">
+															${actor.fullName}
+															<c:if test="${hasActors and status.index < fn:length(product.actorList) - 1}">
+																<spring:message code="comma"/>
+															</c:if>
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
+										  </span>
+										  <span class="description icon">
+										  		<spring:message code="label.products.borrowable"/>: 
+										  		<c:choose>
+										  			<c:when test="${product.borrowable}">
+										  				<img height="16" width="16" src='<c:url value="/resources/img/check.png" />' />
+										  			</c:when>
+										  			<c:otherwise>
+										  				<img height="16" width="16" src='<c:url value="/resources/img/cross.png" />' />
+										  			</c:otherwise>
+										  		</c:choose>
+										  </span>
 										</span>
 									</a>
 								</div>
-							
-							
-									
 							</li>
+							
 						</c:forEach>
 					</ul>
 				</div>
@@ -137,7 +178,7 @@
 							<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
 						</td>
 						<td>${product.title}</td>
-						<td>${product.rating}</td>
+						<td></td>
 						<td>
 							<c:choose>
 								<c:when test="${product.borrowable}">
