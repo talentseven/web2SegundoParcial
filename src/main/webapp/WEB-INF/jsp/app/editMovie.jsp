@@ -67,12 +67,13 @@
 			<form:input type="file" path="image" />
 			<form:errors path="image" cssStyle="color: red" /><br/>
 			<form:hidden path="id" /><br/>
-			<form:button><spring:message code="label.products.modify"/></form:button><br/><br/>
+			<form:button class="submit-btn"><spring:message code="label.products.modify"/></form:button><br/><br/>
 		</form:form>
 		
 		<c:if test="${movieDto.success}">
 			<div class="success-message">
 				<h3><spring:message code="movie.successfully.edited"/></h3>
+				<a href='<c:url value="/app/search" />'><spring:message code="go.back"/></a>
 			</div>
 		</c:if>
 	</div>

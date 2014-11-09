@@ -55,7 +55,7 @@ public class ProductDaoImpl implements ProductDao{
 	    paginationDetails.setCurrentPage(cs.getPage());
 	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
 	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
-	    paginationDetails.setTotalResults(products.size());
+	    paginationDetails.setTotalResults(countResults.intValue());
 	    paginationDetails.setBegin(1);
 	    paginationDetails.setEnd( lastPageNumber );
 	    
@@ -79,7 +79,7 @@ public class ProductDaoImpl implements ProductDao{
 		int firstResult = cs.getPage() * pageSize;
 		
 		Criteria criteriaCount = formCriteria(filterDto);
-		Projection projection = Projections.rowCount();
+		Projection projection = Projections.countDistinct("id");
 		criteriaCount.setProjection(projection);
 		Long countResults = (Long) criteriaCount.uniqueResult();
 		int lastPageNumber = (int) ((countResults / pageSize) + 1);
@@ -94,7 +94,7 @@ public class ProductDaoImpl implements ProductDao{
 	    paginationDetails.setCurrentPage(cs.getPage());
 	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
 	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
-	    paginationDetails.setTotalResults(products.size());
+	    paginationDetails.setTotalResults(countResults.intValue());
 	    paginationDetails.setBegin(1);
 	    paginationDetails.setEnd( lastPageNumber );
 		
@@ -118,8 +118,8 @@ public class ProductDaoImpl implements ProductDao{
 			conjunction.add(Restrictions.eq("rating", filterDto.getRating()));
 		}
 		
-		if(!StringUtils.isBlank(filterDto.getBorrowable())){
-			conjunction.add(Restrictions.eq("borrowable", Boolean.valueOf(filterDto.getBorrowable())));
+		if(filterDto.getBorrowable() != null && filterDto.getBorrowable()){
+			conjunction.add(Restrictions.eq("borrowable", filterDto.getBorrowable()));
 		}
 
 		getProperFilterForInputName(filterDto, criteria, disjunction);

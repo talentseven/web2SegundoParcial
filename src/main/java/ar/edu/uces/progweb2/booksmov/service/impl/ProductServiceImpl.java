@@ -2,12 +2,15 @@ package ar.edu.uces.progweb2.booksmov.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sun.awt.image.ImageWatched.Link;
 import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
 import ar.edu.uces.progweb2.booksmov.dto.CriteriaSearchDto;
 import ar.edu.uces.progweb2.booksmov.dto.FilterDto;
@@ -56,7 +59,8 @@ public class ProductServiceImpl implements ProductService{
 		SearchResult searchResult = productDao.getProductsByCriteria(filterDto, criteriaSearchDto);
 		SearchResultDto<ProductDto> results = new SearchResultDto<ProductDto>();
 		results.setPaginationDetails(searchResult.getPaginationDetails());
-		results.setProducts(transform(searchResult.getProducts()));
+		Set<Product> productsSet = new LinkedHashSet<>(searchResult.getProducts());
+		results.setProducts(transform(productsSet));
 		return results;
 	}
 

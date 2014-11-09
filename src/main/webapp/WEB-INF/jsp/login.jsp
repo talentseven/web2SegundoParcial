@@ -16,7 +16,7 @@
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	
-	<div id="main" class="shell login-form">
+	<div id="main" class="shell">
 		
 		<div class="col login" id="newsletter">
 			<h4><spring:message code="login" /></h4>
@@ -32,7 +32,7 @@
 				</form:label>
 				<form:password path="password" cssClass="field"/> 
 			 	<form:errors path="password" cssStyle="color: red" />
-				<form:button id="login-btn" cssClass="submit-btn"><spring:message code="label.submit"/></form:button>
+				<form:button id="login-btn" class="submit-btn"><spring:message code="label.submit"/></form:button>
 			</form:form>
 		</div>
 		

@@ -40,7 +40,7 @@
 					<form:label path="borrowable">
 						<spring:message code="label.filter.borrowable"/>
 					</form:label>
-					<form:checkbox path="borrowable" value=""/>
+					<form:checkbox path="borrowable"/>
 					<br />
 					<form:radiobutton path="type" value="all"/> 
 					<form:label path="type">
@@ -54,7 +54,7 @@
 					<form:label path="type">
 						<spring:message code="label.filter.moviesOnly"/>
 					</form:label><br />
-					<form:button><spring:message code="label.filter.submit"/></form:button>
+					<form:button class="submit-btn"><spring:message code="label.filter.submit"/></form:button>
 				</form:form>
 			</div>
 			<div class="relative">
@@ -85,6 +85,18 @@
 			 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
 			 						<img src='<c:url value="/resources/img/desc.png" />' style="width:16px; height:16px;"/>
 			 					</a>
+							</span>
+							<span id="results">
+								<span>
+									<c:choose>
+										<c:when test="${pagination.totalResults > 1}">
+											<spring:message code="pagination.total.results" arguments="${pagination.totalResults}"/>
+										</c:when>
+										<c:otherwise>
+											<spring:message code="pagination.total.result" arguments="${pagination.totalResults}"/>
+										</c:otherwise>
+									</c:choose>
+								</span>
 							</span>
 							<ul>
 								<c:forEach var="product" items="${products}">

@@ -41,7 +41,7 @@ public class SearchController {
 			@RequestParam(value="stars", required=false) String stars,
 			@RequestParam(value="title", required=false, defaultValue="") String title,
 			@RequestParam(value="type", required=false, defaultValue="all") String type,
-			@RequestParam(value="borrowable", required=false, defaultValue="") String borrowable){
+			@RequestParam(value="borrowable", required=false) Boolean borrowable){
 		
 		User user = (User) model.get("user");
 		Long id = user.getId();
@@ -66,7 +66,7 @@ public class SearchController {
 			@RequestParam(value="stars", required=false) String stars,
 			@RequestParam(value="title", required=false, defaultValue="") String title,
 			@RequestParam(value="type", required=false, defaultValue="all") String type,
-			@RequestParam(value="borrowable", required=false, defaultValue="true") String borrowable){
+			@RequestParam(value="borrowable", required=false) Boolean borrowable){
 
 		stars = StringUtils.isEmpty(stars) ? null : stars;
 		FilterDto filterDto = new FilterDto(userName, stars, title, type, borrowable);

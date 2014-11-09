@@ -99,6 +99,7 @@ span .icon img {width: 16px; height: 16px; padding: 1px;}
 .product .book-name { font-size: 12px; line-height: 20px; color: #0182b5; font-family: 'Georgia', Arial, serif; display: block; }
 .product .author { font-size: 11px; line-height: 14px; color: #3d3d3d; font-family: 'Georgia', Arial, serif; padding: 0 0 9px 1px; display: block; }
 .product .description { font-size: 11px; line-height: 16px; color: #878787; }
+#results {margin-left: 29%; font-weight: bold; font-size: 13px;}
 div .action { font-size: 11px; line-height: 16px; color: #878787; }
 
 #best-sellers { padding-top: 18px; width: 100%; position: relative; }
@@ -139,5 +140,5 @@ div .action { font-size: 11px; line-height: 16px; color: #878787; }
 #newsletter p { padding: 3px 0 8px; }
 #newsletter .field { width: 201px; padding: 2px 5px 3px; background: #73c1e0; border: solid 1px #a2d6ea; line-height: 13px; margin-bottom: 4px; color: #fff; }
 #newsletter .form-buttons { float: right; display: inline; text-align: right; padding-right: 2px; }
-#login .submit-btn { margin-top: 4px; display: inline-block; font-size: 10px; line-height: 16px; height: 24px; background: url(images/submit-btn.png); padding: 0 8px 0 10px; border: 0; color: #fff; text-transform: uppercase; cursor: pointer; }
-#login .submit-btn:hover { color: #015faa; }
+.submit-btn { margin-top: 4px; display: inline-block; font-size: 10px; line-height: 16px; height: 24px; background: url(images/submit-btn.png); padding: 0 8px 0 10px; border: 0; color: #fff; text-transform: uppercase; cursor: pointer; }
+.submit-btn:hover { color: #015faa; }
