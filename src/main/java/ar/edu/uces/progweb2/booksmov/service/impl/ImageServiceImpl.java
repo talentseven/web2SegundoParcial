@@ -13,6 +13,8 @@ import org.springframework.web.context.support.ServletContextResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import ar.edu.uces.progweb2.booksmov.dao.ImageDao;
+import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
+import ar.edu.uces.progweb2.booksmov.model.Product;
 import ar.edu.uces.progweb2.booksmov.service.ImageService;
 
 @Service
@@ -23,6 +25,9 @@ public class ImageServiceImpl implements ImageService{
 	private ServletContext servletContext;
 	@Autowired
 	private ImageDao imageDao;
+	@Autowired
+	private ProductDao productDao;
+
 	
 	@Override
 	public byte[] getImage(Serializable serializable, String type) throws IOException {
@@ -63,8 +68,12 @@ public class ImageServiceImpl implements ImageService{
 	}
 
 	@Override
-	public byte[] getProductImageFromDb(Long id) {
-		return imageDao.getProductImage(id);
+	public byte[] getProductImageFromDb(Long id) throws IOException {
+		Product product = productDao.getProductById(id);
+		if(product.getImage() == null){
+			product.setImage(setDefaultImage(product.getType()));
+		}
+		return product.getImage();
 	}
 	
 }

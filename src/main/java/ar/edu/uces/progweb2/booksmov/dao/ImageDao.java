@@ -6,5 +6,4 @@ public interface ImageDao {
 	
 	byte[] getMovieImage(Long id);
 
-	byte[] getProductImage(Long id);
 }

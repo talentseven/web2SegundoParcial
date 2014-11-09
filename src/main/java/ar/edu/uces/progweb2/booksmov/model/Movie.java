@@ -41,4 +41,9 @@ public class Movie extends Product{
 		this.director = director;
 	}
 
+	@Override
+	public String getType() {
+		return "movie";
+	}
+
 }

@@ -9,18 +9,13 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Búsqueda de libros y películas</title>
+	<title><spring:message code="app.name" /></title>
 	<link rel="shortcut icon" href='<c:url value="/resources/css/images/favicon.ico" />' />
 	<link rel="stylesheet" href='<c:url value="/resources/css/style.css" />' type="text/css" media="all" />
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
 	
-		<c:if test="${not empty message}">
-			<div id="messages">
-				<h3>${message}</h3>
-			</div>
-		</c:if>
 		<div id="main" class="shell">
 					
 			<div id="filter">
@@ -41,11 +36,11 @@
 					<form:label path="title">
 						<spring:message code="label.filter.title"/>
 					</form:label>
-					<form:input path="title" />
+					<form:input path="title" /> <br />
 					<form:label path="borrowable">
 						<spring:message code="label.filter.borrowable"/>
 					</form:label>
-					<form:checkbox path="borrowable" />
+					<form:checkbox path="borrowable" value=""/>
 					<br />
 					<form:radiobutton path="type" value="all"/> 
 					<form:label path="type">
@@ -62,310 +57,186 @@
 					<form:button><spring:message code="label.filter.submit"/></form:button>
 				</form:form>
 			</div>
-			<c:if test="${not empty products}">
+			<div class="relative">
+				<c:if test="${not empty message}">
+					<div id="messages" class="message-box">
+						<h3>${message}</h3>
+					</div>
+				</c:if>
+			</div>
 			<div id="content">
 				<!-- Products -->
 				<div class="products">
-					<h3>Featured Products</h3>
-					<ul>
-						<c:forEach var="product" items="${products}">
-							<c:choose>
-								<c:when test="${product.type eq 'movie'}">
-									<c:set var="type" value="movie" />
-								</c:when>
-								<c:otherwise>
-									<c:set var="type" value="book" />
-								</c:otherwise>
-							</c:choose>
-							<li>	
-								<div class="product">
-									<a href="#" class="info">
-										<span class="holder">
-											<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
-											<span class="book-name">${product.title}</span>
-											<span class="icon">
-												<c:forEach begin="1" end="${product.rating}">
-													<img  height="16" width="16" src='<c:url value="/resources/img/star.png" />' />
-												</c:forEach>
-											</span>
-											<span class="author">
-												<c:choose>
-													<c:when test="${type eq 'book'}">
-														<c:set var="hasAuthors" value="false" />
-														<c:if test="${fn:length(product.authorsList) > 0}">
-															<c:set var="hasAuthors" value="true" />
-															<spring:message code="by"/>
-														</c:if>
-														<c:forEach var="author" items="${product.authorsList}" varStatus="status">
-															${author.fullName}
-															<c:if test="${hasAuthors and status.index < fn:length(product.authorsList) - 1}">
-																<spring:message code="comma"/>
-															</c:if>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														<c:set var="hasActors" value="false" />
-														<c:if test="${fn:length(product.actorList) > 0}">
-															<c:set var="hasActors" value="true" />
-															<spring:message code="by"/>
-														</c:if>
-														<c:forEach var="actor" items="${product.actorList}">
-															${actor.fullName}
-															<c:if test="${hasActors and status.index < fn:length(product.actorList) - 1}">
-																<spring:message code="comma"/>
-															</c:if>
-														</c:forEach>
-													</c:otherwise>
-												</c:choose>
-										  </span>
-										  <span class="description icon">
-										  		<spring:message code="label.products.borrowable"/>: 
-										  		<c:choose>
-										  			<c:when test="${product.borrowable}">
-										  				<img height="16" width="16" src='<c:url value="/resources/img/check.png" />' />
-										  			</c:when>
-										  			<c:otherwise>
-										  				<img height="16" width="16" src='<c:url value="/resources/img/cross.png" />' />
-										  			</c:otherwise>
-										  		</c:choose>
-										  </span>
-										</span>
-									</a>
-								</div>
-							</li>
-							
-						</c:forEach>
-					</ul>
-				</div>
-			</div>
-			
-				<table border="1">
-					<tr>
-						<th> <spring:message code="label.products.cover"/> </th>
-		 				<th>
-		 				    <spring:message code="label.products.title"/> 
-		 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-		 						<img src='<c:url value="/resources/img/asc.png" />' />
-		 					</a>
-		 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-		 						<img src='<c:url value="/resources/img/desc.png" />' />
-		 					</a>
-		 				</th>
-						<th> <spring:message code="label.products.rating"/>
-							<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-		 						<img src='<c:url value="/resources/img/asc.png" />' />
-		 					</a>
-		 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-		 						<img src='<c:url value="/resources/img/desc.png" />' />
-		 					</a>
-						</th>
-						<th> <spring:message code="label.products.borrowable"/> </th>
-						<th> <spring:message code="label.products.alreadyUsed"/> </th>
-						<th> <spring:message code="label.products.extra.data"/> </th>
-						<th> <spring:message code="label.products.action"/> </th>
-					</tr>
-				<c:forEach var="product" items="${products}">
-					<tr>
-						<td>
-							<c:choose>
-								<c:when test="${product.type eq 'movie'}">
-									<c:set var="type" value="movie" />
-								</c:when>
-								<c:otherwise>
-									<c:set var="type" value="book" />
-								</c:otherwise>
-							</c:choose>
-							<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
-						</td>
-						<td>${product.title}</td>
-						<td></td>
-						<td>
-							<c:choose>
-								<c:when test="${product.borrowable}">
-									<spring:message code="label.yes"/>
-								</c:when>
-								<c:otherwise>
-									<spring:message code="label.no"/>
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td>
-							<c:choose>
-								<c:when test="${product.alreadyUsed}">
-									<spring:message code="label.yes"/>
-								</c:when>
-								<c:otherwise>
-									<spring:message code="label.no"/>
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td>
-							<c:choose>
-								<c:when test="${type eq 'book'}">
-									 <spring:message code="label.books.authors"/> <br />
-									 <ul>
-								 		<c:forEach var="author" items="${product.authorsList}">
-											<li> ${author.fullName} </li>	
-										</c:forEach>
-									 </ul>
-								</c:when>
-								<c:otherwise>
-									 <spring:message code="label.movies.formats"/> 
-									  	 ${product.selectedFormat} <br />
-									 <spring:message code="label.movies.director"/> 
-										 ${product.director.fullName} <br />
-								     <spring:message code="label.movies.actors"/> 
-								     <ul>
-								 		<c:forEach var="actor" items="${product.actorList}">
-											<li> ${actor.fullName} </li>	
-										</c:forEach>
-									 </ul>
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td>
-							<c:if test="${product.userId eq sessionScope.user.id}">
-								<a href='<c:url value="/app/${type}s/edit/${product.id}" />'>
-									<img src='<c:url value="/resources/img/editar.gif" />' />
-								</a>
-							</c:if>
-							<c:if test="${product.userId ne sessionScope.user.id and product.borrowable eq true and product.requestableForLoan eq true}">
-								<a href='<c:url value="/app/loan/request/${product.id}?owner=${product.userId}" />'>
-									<img src='<c:url value="/resources/img/solicitud_prestamo.png" />' />
-								</a>
-							</c:if>
-						</td>
-					</tr>
-				</c:forEach>
-				</table>
-				
-				<c:if test="${pagination.currentPage gt 0}">
-					<a href='<c:url value="/app/search/?page=${pagination.currentPage - 1}&order=${search.order}&rating=${search.rating}"/>'>Anterior</a>
-				</c:if>
-				
-				<c:forEach var="i" begin="${pagination.begin}" end="${pagination.end}">
+					<h3><spring:message code="books.and.movies" /></h3>
 					<c:choose>
-						<c:when test="${i == pagination.currentPage + 1}">
-							${i}
+						<c:when test="${not empty products}">
+							<span class="icon"><spring:message code="sort.by.title" />:
+								<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+			 						<img src='<c:url value="/resources/img/asc.png" />' style="width:16px; height:16px;"/>
+			 					</a>
+			 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+			 						<img src='<c:url value="/resources/img/desc.png" />' style="width:16px; height:16px;"/>
+			 					</a>
+				 			</span> 
+							<span class="icon" ><spring:message code="sort.by.rating" />
+								<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+			 						<img src='<c:url value="/resources/img/asc.png" />' style="width:16px; height:16px;"/>
+			 					</a>
+			 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+			 						<img src='<c:url value="/resources/img/desc.png" />' style="width:16px; height:16px;"/>
+			 					</a>
+							</span>
+							<ul>
+								<c:forEach var="product" items="${products}">
+									<c:choose>
+										<c:when test="${product.type eq 'movie'}">
+											<c:set var="type" value="movie" />
+										</c:when>
+										<c:otherwise>
+											<c:set var="type" value="book" />
+										</c:otherwise>
+									</c:choose>
+									<li>	
+										<div class="product">
+											<div class="info">
+												<span class="holder">
+													<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
+													<span class="book-name">${product.title}</span>
+													<span class="icon">
+														<c:forEach begin="1" end="${product.rating}">
+															<img  height="16" width="16" src='<c:url value="/resources/img/star.png" />' />
+														</c:forEach>
+													</span>
+													<span class="author">
+														<c:choose>
+															<c:when test="${type eq 'book'}">
+																<c:set var="hasAuthors" value="false" />
+																<c:if test="${fn:length(product.authorsList) > 0}">
+																	<c:set var="hasAuthors" value="true" />
+																	<strong><spring:message code="by"/></strong>
+																</c:if>
+																<c:forEach var="author" items="${product.authorsList}" varStatus="status">
+																	${author.fullName}
+																	<c:if test="${hasAuthors and status.index < fn:length(product.authorsList) - 1}">
+																		<spring:message code="comma"/>
+																	</c:if>
+																</c:forEach>
+															</c:when>
+															<c:otherwise>
+																<c:set var="hasActors" value="false" />
+																<c:if test="${fn:length(product.actorList) > 0}">
+																	<c:set var="hasActors" value="true" />
+																	<strong><spring:message code="by"/></strong>
+																</c:if>
+																<span>
+																<c:forEach var="actor" items="${product.actorList}">
+																	${actor.fullName}
+																	<c:if test="${hasActors and status.index < fn:length(product.actorList) - 1}">
+																		<spring:message code="comma"/>
+																	</c:if>
+																</c:forEach>
+																</span>
+																<strong><spring:message code="format" />:</strong> ${product.selectedFormat}<br />
+																<c:if test="${not empty product.director.fullName.trim()}">
+																	<strong><spring:message code="director" />:</strong> ${product.director.fullName}
+																</c:if>
+															</c:otherwise>
+														</c:choose>
+												  </span>
+												  <span class="description icon">
+												  		<spring:message code="label.products.borrowable"/>: 
+												  		<c:choose>
+												  			<c:when test="${product.borrowable}">
+												  				<img height="16" width="16" src='<c:url value="/resources/img/check.png" />' />
+												  			</c:when>
+												  			<c:otherwise>
+												  				<img height="16" width="16" src='<c:url value="/resources/img/cross.png" />' />
+												  			</c:otherwise>
+												  		</c:choose>
+												  		<c:set var="used" value=""/>
+												  		<spring:message var="seen" code="seen" />
+												  		<spring:message var="notSeen" code="not.seen" />
+												  		<spring:message var="read" code="read" />
+												  		<spring:message var="notRead" code="not.read" />
+												  		<c:choose>
+													  		<c:when test="${type eq 'movie' and product.alreadyUsed}">
+																<c:set var="used" value="${seen}"/>		
+															</c:when>
+															<c:when test="${type eq 'movie' and !product.alreadyUsed}">
+																<c:set var="used" value="${notSeen}"/>		
+															</c:when>
+															<c:when test="${type eq 'book' and product.alreadyUsed}">
+																<c:set var="used" value="${read}"/>		
+															</c:when>
+															<c:when test="${type eq 'book' and !product.alreadyUsed}">
+																<c:set var="used" value="${notRead}"/>		
+															</c:when>
+														</c:choose>
+												  		<c:choose>
+															<c:when test="${product.alreadyUsed}">
+																<img title="${used}" src='<c:url value="/resources/img/eye_open.png" />' />
+															</c:when>
+															<c:otherwise>
+																<img title="${used}" src='<c:url value="/resources/img/eye_closed.png" />' />
+															</c:otherwise>
+														</c:choose>
+												  </span>
+												
+												  <span class="icon">
+														<c:if test="${product.userId eq sessionScope.user.id}">
+															<a href='<c:url value="/app/${type}s/edit/${product.id}" />'>
+																<img title='<spring:message code="edit" />' src='<c:url value="/resources/img/editar.gif" />' />
+															</a>
+														</c:if>
+														<c:if test="${product.userId ne sessionScope.user.id and product.borrowable eq true and product.requestableForLoan eq true}">
+															<a href='<c:url value="/app/loan/request/${product.id}?owner=${product.userId}"  />'>
+																<img title='<spring:message code="request" />' src='<c:url value="/resources/img/solicitud_prestamo.png"  />' />
+															</a>
+														</c:if>
+												  </span>
+												</span>
+											</div>
+										</div>
+									</li>
+									
+								</c:forEach>
+							</ul>
 						</c:when>
 						<c:otherwise>
-							<a href='<c:url value="/app/search/?page=${i - 1}&order=${search.order}&rating=${search.rating}"/>'>${i}</a>
+							<spring:message code="no.results.found" />
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-				
-				<c:if test="${pagination.currentPage lt pagination.maxPage - 1}">
-					<a href='<c:url value="/app/search/?page=${pagination.currentPage + 1}&order=${search.order}&rating=${search.rating}"/>'>Siguiente</a>
-				</c:if>
-			</c:if>
-					<!-- Content -->
-		<div id="content">
-			<!-- Products -->
-			<div class="products">
-				<h3>Featured Products</h3>
-				<ul>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image01.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image02.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image03.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image03.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image04.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image06.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image07.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src='<c:url value="/resources/css/images/image08.jpg" />' alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-						</div>
-					</li>
-				</ul>
-			<!-- End Products -->
+				<!-- End Products -->
+				</div>
+				<div class="cl">&nbsp;</div>
 			</div>
+		<!-- End Content -->
 			<div class="cl">&nbsp;</div>
+			<span>
+			<c:if test="${pagination.currentPage gt 0}">
+				<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage - 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'><spring:message code="previous" /></a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pagination.begin}" end="${pagination.end}">
+				<c:choose>
+					<c:when test="${i == pagination.currentPage + 1}">
+						${i}
+					</c:when>
+					<c:otherwise>
+						<a href='<c:url value="/app/search/${filter}?page=${i - 1}&order=${search.order}&rating=${search.rating}"/>'>${i}</a>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<c:if test="${pagination.currentPage lt pagination.maxPage - 1}">
+				<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage + 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'><spring:message code="next" /></a>
+			</c:if>
+		</span>
 		</div>
-		<!-- End Content -->	
-	</div>
+		
+		<!-- End Main -->
+	<!-- Footer -->
+	<jsp:include page="/WEB-INF/jsp/footer.jsp"></jsp:include>
+	<!-- End Footer -->
 </body>
 </html>

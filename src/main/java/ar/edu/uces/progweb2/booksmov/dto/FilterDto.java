@@ -8,10 +8,10 @@ public class FilterDto {
 	private String rating;
 	private String title;
 	private String type = "all";
-	private boolean borrowable = true;
+	private String borrowable;
 	
 	public FilterDto(String userName, String rating, String title, String type,
-			boolean borrowable) {
+			String borrowable) {
 		this.userName = userName;
 		this.rating = rating;
 		this.title = title;
@@ -52,14 +52,11 @@ public class FilterDto {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	public boolean isBorrowable() {
+	public String getBorrowable() {
 		return borrowable;
 	}
-
-	public void setBorrowable(boolean borrowable) {
+	public void setBorrowable(String borrowable) {
 		this.borrowable = borrowable;
 	}
-	
-	
+
 }

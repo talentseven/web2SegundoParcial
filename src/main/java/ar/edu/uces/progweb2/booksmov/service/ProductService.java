@@ -8,7 +8,7 @@ import ar.edu.uces.progweb2.booksmov.model.Product;
 
 public interface ProductService {
 	
-	SearchResultDto<ProductDto> getProductsByUserId(Long id, CriteriaSearchDto criteriaSearch);
+	SearchResultDto<ProductDto> getProductsByUserId(Long id, FilterDto filterDto, CriteriaSearchDto criteriaSearch);
 	SearchResultDto<ProductDto> getProductsByCriteria(FilterDto filterDto, CriteriaSearchDto searchCriteria);
 	Product getProductById(Long id);
 }

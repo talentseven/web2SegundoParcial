@@ -64,5 +64,6 @@ public abstract class Product {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+	public abstract String getType();
 }

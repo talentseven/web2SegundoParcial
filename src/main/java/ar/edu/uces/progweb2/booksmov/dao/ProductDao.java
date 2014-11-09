@@ -7,7 +7,7 @@ import ar.edu.uces.progweb2.booksmov.model.SearchResult;
 
 public interface ProductDao {
 	
-	SearchResult getProductsByUserId(Long id, CriteriaSearchDto criteriaSearch);
+	SearchResult getProductsByUserId(Long id, FilterDto filterDto, CriteriaSearchDto criteriaSearch);
 	SearchResult getProductsByCriteria(FilterDto filterDto, CriteriaSearchDto criteriaSearchDto);
 	Product getProductById(Long id);
 }

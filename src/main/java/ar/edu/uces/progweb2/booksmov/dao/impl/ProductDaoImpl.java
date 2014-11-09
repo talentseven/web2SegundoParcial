@@ -31,20 +31,20 @@ public class ProductDaoImpl implements ProductDao{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public SearchResult getProductsByUserId(Long id, CriteriaSearchDto cs) {
+	public SearchResult getProductsByUserId(Long id, FilterDto filterDto, CriteriaSearchDto cs) {
 
 		SearchResult searchResult = new SearchResult();
 		int pageSize = 10;
 		int firstResult = cs.getPage() * pageSize;
 		
-		Criteria criteriaCount  = sessionFactory.getCurrentSession().createCriteria(Product.class);
+		Criteria criteriaCount = formCriteria(filterDto);
 		Projection projection = Projections.rowCount();
 		criteriaCount.setProjection(projection);
 		criteriaCount.add(Restrictions.eq("user.id", id));
 		Long countResults = (Long) criteriaCount.uniqueResult();
 		int lastPageNumber = (int) ((countResults / pageSize) + 1);
 		
-		Criteria criteriaSelect = sessionFactory.getCurrentSession().createCriteria(Product.class);
+		Criteria criteriaSelect = formCriteria(filterDto);
 		criteriaSelect.add(Restrictions.eq("user.id", id));
 		criteriaSelect.addOrder(cs.getOrder().equalsIgnoreCase("asc") ? Order.asc(cs.getPropertyForOrder()) : Order.desc(cs.getPropertyForOrder()));
 		criteriaSelect.setFirstResult(firstResult);
@@ -114,11 +114,13 @@ public class ProductDaoImpl implements ProductDao{
 			criteria.createAlias("user", "u");
 			disjunction.add(Restrictions.ilike("u.name", "%" + filterDto.getUserName() + "%"));
 		}
-		if(filterDto.getRating() != null){
+		if(!StringUtils.isBlank(filterDto.getRating())){
 			conjunction.add(Restrictions.eq("rating", filterDto.getRating()));
 		}
 		
-		conjunction.add(Restrictions.eq("borrowable", filterDto.isBorrowable()));
+		if(!StringUtils.isBlank(filterDto.getBorrowable())){
+			conjunction.add(Restrictions.eq("borrowable", Boolean.valueOf(filterDto.getBorrowable())));
+		}
 
 		getProperFilterForInputName(filterDto, criteria, disjunction);
 		
@@ -169,9 +171,12 @@ public class ProductDaoImpl implements ProductDao{
 	private Criteria getCriteriaForType(String type) {
 		Criteria criteria = null;
 		switch(type){
-			case "books" : criteria = sessionFactory.getCurrentSession().createCriteria(Book.class); break;
-			case "movies" : criteria = sessionFactory.getCurrentSession().createCriteria(Movie.class); break;
-			default : criteria = sessionFactory.getCurrentSession().createCriteria(Product.class); break;
+			case "books" : 
+				criteria = sessionFactory.getCurrentSession().createCriteria(Book.class); break;
+			case "movies" :
+				criteria = sessionFactory.getCurrentSession().createCriteria(Movie.class); break;
+			default :
+				criteria = sessionFactory.getCurrentSession().createCriteria(Product.class); break;
 		}
 		return criteria;
 	}

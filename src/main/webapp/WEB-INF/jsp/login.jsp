@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>BooksMov - Login page</title>
+	<title><spring:message code="app.name" /></title>
 	<link rel="shortcut icon" href='<c:url value="/resources/css/images/favicon.ico" />' />
 	<link rel="stylesheet" href='<c:url value="/resources/css/style.css" />' type="text/css" media="all" />
 </head>
@@ -19,8 +19,8 @@
 	<div id="main" class="shell login-form">
 		
 		<div class="col login" id="newsletter">
-			<h4>Login</h4>
-			<p>Por favor ingrese sus credenciales. </p>
+			<h4><spring:message code="login" /></h4>
+			<p><spring:message code="enter.credentials" /> </p>
 			<form:form  method="POST" modelAttribute="userDto" action="/booksmov/login">
 				<form:label path="name">
 					<spring:message code="label.name" />

@@ -29,8 +29,8 @@ public class ProductServiceImpl implements ProductService{
 	
 	
 	@Override
-	public SearchResultDto<ProductDto> getProductsByUserId(Long id, CriteriaSearchDto criteriaSearch) {
-		SearchResult searchResult = productDao.getProductsByUserId(id, criteriaSearch);
+	public SearchResultDto<ProductDto> getProductsByUserId(Long id, FilterDto filterDto, CriteriaSearchDto criteriaSearch) {
+		SearchResult searchResult = productDao.getProductsByUserId(id, filterDto, criteriaSearch);
 		SearchResultDto<ProductDto> results = new SearchResultDto<ProductDto>();
 		results.setPaginationDetails(searchResult.getPaginationDetails());
 		results.setProducts(transform(searchResult.getProducts()));

@@ -11,5 +11,6 @@ public interface ImageService {
 	
 	byte[] getMovieImageFromDb(Long id) throws IOException;
 
-	byte[] getProductImageFromDb(Long id);
+	byte[] getProductImageFromDb(Long id) throws IOException;
+
 }

@@ -1,5 +1,6 @@
 package ar.edu.uces.progweb2.booksmov.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -85,15 +86,15 @@ public class LoanController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String displayMyRequestedLoans(ModelMap model){
+	public String displayMyRequestedLoans(ModelMap model) throws IOException{
 		Long userId = ((User) model.get("user")).getId();
 		List<LoanRequest> loans = loanService.getMyRequestedLoans(userId);
 		model.addAttribute("loans", loans);
 		return "myLoans";
 	}
-	
+
 	@RequestMapping(value="/notifications", method=RequestMethod.GET)
-	public String displayMyNotifiedLoans(ModelMap model){
+	public String displayMyNotifiedLoans(ModelMap model) throws IOException{
 		Long userId = ((User) model.get("user")).getId();
 		List<LoanRequest> loans = loanService.getMyNotifiedLoans(userId);
 		model.addAttribute("loans", loans);

@@ -12,7 +12,7 @@
 	<!-- Navigation -->
 	<div id="navigation">
 		<ul>
-			<li><a href='<c:url value="/app/search" />' class="active"><spring:message code="menu.search"/></a></li>
+			<li><a href='<c:url value="/app/search" />'><spring:message code="menu.search"/></a></li>
 			<li><a href='<c:url value="/app/books/new" />'><spring:message code="menu.add.book"/></a></li>
 			<li><a href='<c:url value="/app/movies/new" />'><spring:message code="menu.add.movie"/></a></li>
 			<li><a href='<c:url value="/app/loan/" />'><spring:message code="menu.my.loans"/></a></li>
@@ -24,7 +24,7 @@
 	<!-- Login-details -->
 	<c:if test="${not empty user}">
 		<div id="login-details">
-			<p><spring:message code="header.welcome"/><span id="user">${user.name}</span>.</p>
+			<p><spring:message code="welcome"/><spring:message code="comma"/>&nbsp;<span id="user">${user.name}</span>.&nbsp;</p>
 			<a href='<c:url value="/app/logout/" />'>Logout</a>
 		</div>
 	</c:if>

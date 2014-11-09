@@ -36,13 +36,19 @@ public class SearchController {
 	public String findProducts(ModelMap model, 
 			@RequestParam(value="page", required=false, defaultValue="0") String page,
 			@RequestParam(value="rating", required=false, defaultValue="false") String rating,
-			@RequestParam(value="order", required=false, defaultValue="asc") String order){
+			@RequestParam(value="order", required=false, defaultValue="asc") String order,
+			@RequestParam(value="userName", required=false, defaultValue="") String userName,
+			@RequestParam(value="stars", required=false) String stars,
+			@RequestParam(value="title", required=false, defaultValue="") String title,
+			@RequestParam(value="type", required=false, defaultValue="all") String type,
+			@RequestParam(value="borrowable", required=false, defaultValue="") String borrowable){
 		
 		User user = (User) model.get("user");
 		Long id = user.getId();
 		Integer pageId = Integer.parseInt(page);
+		FilterDto filterDto = new FilterDto(userName, stars, title, type, borrowable);
 		CriteriaSearchDto searchCriteria = new CriteriaSearchDto(pageId, order, Boolean.valueOf(rating));
-		SearchResultDto<ProductDto> searchResult = productService.getProductsByUserId(id, searchCriteria);
+		SearchResultDto<ProductDto> searchResult = productService.getProductsByUserId(id, filterDto, searchCriteria);
 		model.addAttribute("products", searchResult.getProducts());
 		model.addAttribute("pagination", searchResult.getPaginationDetails());
 		model.addAttribute("search", searchCriteria);
@@ -63,7 +69,7 @@ public class SearchController {
 			@RequestParam(value="borrowable", required=false, defaultValue="true") String borrowable){
 
 		stars = StringUtils.isEmpty(stars) ? null : stars;
-		FilterDto filterDto = new FilterDto(userName, stars, title, type, Boolean.valueOf(borrowable));
+		FilterDto filterDto = new FilterDto(userName, stars, title, type, borrowable);
 		return doSearch(filterDto, model, page, rating, order);
 	}
 

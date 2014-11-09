@@ -76,9 +76,9 @@ CREATE  TABLE `Movies` (
   `state` VARCHAR(20) NOT NULL,
   `requester_id` INT NOT NULL,
   `consignee_id` INT NOT NULL,
-  `request_date` DATE NOT NULL,
-  `response_date` DATE NULL,
-  `delivery_date` DATE NULL,
+  `request_date` DATETIME NOT NULL,
+  `response_date` DATETIME NULL,
+  `delivery_date` DATETIME NULL,
   PRIMARY KEY (`id`)  );
   
   

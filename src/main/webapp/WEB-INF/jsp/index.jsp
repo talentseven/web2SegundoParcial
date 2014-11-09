@@ -4,12 +4,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Home de la aplicacion</title>
+		<title><spring:message code="app.name" /></title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" href='<c:url value="/resources/css/images/favicon.ico" />' />
 		<link rel="stylesheet" href='<c:url value="/resources/css/style.css" />' type="text/css" media="all" />
@@ -19,30 +19,18 @@
 	<body>
 		<jsp:include page="/WEB-INF/jsp/header.jsp" />
 		
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${empty sessionScope.user}"> --%>
-<%-- 				<a href="<c:url value="/login" />">Logueate</a> --%>
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
-<%-- 				<a href="<c:url value="/app/search" />">Ingresar</a> --%>
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
-		
-		
 			<div class="shell">
 				
 				<div class="image">
 					<img src="<c:url value="/resources/css/images/books.png" />" alt="" />
 				</div>
 				<div class="details">
-					<h3>Special Offers</h3>
-					<p class="title">Pellentesque congue lorem quis massa blandit non pretium nisi pharetra</p>
-					<p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					<a href="#" class="read-more-btn">Read More</a>
+					<h3><spring:message code="welcome" />&nbsp;<spring:message code="to" />&nbsp;<spring:message code="app.name" />!</h3><br />
+					<p class="title"><spring:message code="desc1" /></p>
+					<p class="description"><spring:message code="desc2" /></p>
 				</div>
 			</div>
 		
-	<!-- End Slider -->
 	<!-- Main -->
 	<div id="main" class="shell">
 	
@@ -50,7 +38,7 @@
 		<div id="content">
 			<!-- Products -->
 			<div class="products">
-				<h3>Featured Products</h3>
+				<h3><spring:message code="outstanding.of.the.week" /></h3>
 				<ul>
 					<li>
 						<div class="product">

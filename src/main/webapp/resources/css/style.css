@@ -8,6 +8,8 @@ body {
     background: #3b3b3b url(images/body.png);
 }
 
+table {text-align: center; border-style: double; margin-right: auto; margin-left: auto;}
+
 a { color: #0252aa; text-decoration: none; cursor: pointer; }
 a:hover { text-decoration: underline; }
 a img { border: 0; }
@@ -19,6 +21,8 @@ h4 { font-family: 'Georgia', Arial, serif; font-style: italic; font-size: 16px; 
 input, textarea, select { font-size: 10px; font-family: arial, sans-serif; }
 textarea { overflow: auto; }
 
+.relative {position: relative;}
+.message-box {position: absolute; top: 8%; left: 42%; width: 450px; margin-top: -146px;}
 .cl { display: block; height: 0; font-size: 0; line-height: 0; text-indent: -4000px; clear: both; }
 .notext { font-size: 0; line-height: 0; text-indent: -4000px; }
 .left, .alignleft { float: left; display: inline; }
@@ -26,6 +30,12 @@ textarea { overflow: auto; }
 
 .shell { width: 884px; margin: 0 auto; background: url(images/shell.png) repeat-y 0 0; padding: 0 57px 0 57px; position: relative; }
 
+.margin-top {margin-top: 10px;}
+.margin-bottom {margin-bottom: 10px;}
+.margin-left {margin-left: 20px;}
+.success-message {margin-top: 40px; margin-left: 25%;}
+a .back {margin-left: 18%; font-size: 14px;}
+.main-title {padding-top: 40px; padding-bottom: 20px;}
 #header { padding-top: 30px; }
 
 #logo { width: 238px; height: 41px; float: left; display: inline; margin-left: -4px;  position: relative; }
@@ -45,27 +55,7 @@ textarea { overflow: auto; }
 #navigation { float: right; display: inline; font-family: 'Georgia', Arial, serif; font-size: 14px; line-height: 20px; padding: 24px 4px 23px 0; }
 #navigation ul li { list-style: none; padding-left: 33px; float: left; display: inline; }
 #navigation ul li a { color: #383838; }
-#navigation ul li a.active { font-style: italic; font-weight: bold; text-decoration: none; cursor: default; }
-
-/* #slider { background: url(images/slider-bg.png) repeat-x 0 0; height: 364px; position: relative; z-index: 10; } */
-/* #slider .jcarousel-container { background: url(images/slider.png) no-repeat 0 0; height: 364px; width: 857px; height: 508px; padding: 36px 14px 20px 13px; } */
-/* #slider .jcarousel-clip { width: 857px; height: 508px; overflow: hidden; } */
-/* #slider .jcarousel-item { width: 857px; height: 508px; } */
-/* #slider .jcarousel-prev,  */
-/* #slider .jcarousel-next { position: absolute; top: 155px; width: 28px; height: 47px; background: url(images/slider-directions.png) no-repeat 0 0; } */
-/* #slider .jcarousel-prev { left: -40px; } */
-/* #slider .jcarousel-next { right: -40px; background-position: right 0; cursor: pointer; } */
-/* #slider .nav { position: absolute; bottom: -7px; left: 459px; width: 80px; height: 14px; z-index: 100; } */
-/* #slider .nav a { width: 14px; height: 14px; font-size: 0; line-height: 0; text-indent: -4000px; background: url(images/slider-nav.png) no-repeat 0 0; margin: 0 3px 0 0; float: left; display: inline; margin: 0 3px; } */
-/* #slider .nav a.active { background-position: right 0; } */
-
-/* #slider .image { float: left; width: 356px; } */
-/* #slider .details { float: right; display: inline; width: 368px; padding: 4px 50px 0 0; } */
-/* #slider .details h3 { padding-bottom: 15px; position: relative; width: 100%; margin: -7px 0 0; } */
-/* #slider .details .title { font-size: 16px; line-height: 22px; font-family: 'Georgia', Arial, serif; padding-bottom: 14px; } */
-/* #slider .details .description { font-size: 12px; line-height: 18px; padding-bottom: 19px; } */
-/* #slider .read-more-btn { display: block; width: 110px; height: 48px; line-height: 48px; background: url(images/slider-btn.png); padding: 0 10px 0 59px; color: #fff; font-size: 18px; font-family: 'Georgia', Arial, serif; font-style: italic; font-weight: bold; margin-left: 3px; } */
-/* #slider .read-more-btn:hover { color: #0f173a; text-decoration: none; } */
+#navigation ul li a.active { font-style: italic; font-weight: bold; text-decoration: none; cursor: pointer; }
 
 .login-form{ height: 500px; position: relative; margin-top: 18px; }
 .login {margin-right: auto; margin-left: auto; padding-top: 170px; line-height: 30px; font-size: 15px; font-size: 12px; }
@@ -85,14 +75,16 @@ textarea { overflow: auto; }
 #content h3 { padding: 0 0 7px 3px; border-bottom: solid 4px #eaeaea; margin-bottom: 12px; }
 
 .image {position: relative; top: 46px; left: 15px;}
+.float-lf {float:left;}
+.float-rt {float:right;}
 
-.details {position: relative; left: 47%; top: -112px; max-width: 500px;}
+.details {position: relative; left: 47%; top: -112px; max-width: 400px; text-align: justify;}
 
 .products ul { list-style: none; position: relative; width: 860px; margin-left: -7px; width: 860px; }
 .products ul li { float: left; display: inline; width: 150px; height: 343px; margin: 0 15px 14px 0; }
-.products ul li a.info { display: block; padding: 7px; width: 136px; height: 329px; }
-.products ul li a.info:hover { background: url(images/product-hover.png) no-repeat 0 0; text-decoration: none; }
-.products ul li a.info .holder { padding: 14px 9px; border: solid 1px #dcdcdc; display: block; }
+.products ul li div.info { display: block; padding: 7px; width: 136px; height: 329px; }
+.products ul li div.info:hover { background: url(images/product-hover.png) no-repeat 0 0; text-decoration: none; }
+.products ul li div.info .holder { padding: 14px 9px; border: solid 1px #dcdcdc; display: block; }
 .products .product { width: 134px; position: relative; }
 
 	
@@ -107,6 +99,7 @@ span .icon img {width: 16px; height: 16px; padding: 1px;}
 .product .book-name { font-size: 12px; line-height: 20px; color: #0182b5; font-family: 'Georgia', Arial, serif; display: block; }
 .product .author { font-size: 11px; line-height: 14px; color: #3d3d3d; font-family: 'Georgia', Arial, serif; padding: 0 0 9px 1px; display: block; }
 .product .description { font-size: 11px; line-height: 16px; color: #878787; }
+div .action { font-size: 11px; line-height: 16px; color: #878787; }
 
 #best-sellers { padding-top: 18px; width: 100%; position: relative; }
 #best-sellers h3 { color: #404040; margin-bottom: 0; }
@@ -139,6 +132,8 @@ span .icon img {width: 16px; height: 16px; padding: 1px;}
 .store { width: 160px; padding-left: 37px; }
 .store ul { padding-left: 2px; list-style: none; line-height: 28px; text-transform: uppercase; }
 .store ul li a { color: #c7e6f2; }
+
+#filter {padding-top: 31px; padding-bottom: 46px; line-height: 24px;}
 
 #newsletter { width: 215px; padding-left: 31px; font-size: 11px; line-height: 20px; }
 #newsletter p { padding: 3px 0 8px; }
