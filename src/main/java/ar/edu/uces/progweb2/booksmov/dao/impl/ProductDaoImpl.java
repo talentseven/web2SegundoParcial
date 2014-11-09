@@ -42,7 +42,7 @@ public class ProductDaoImpl implements ProductDao{
 		criteriaCount.setProjection(projection);
 		criteriaCount.add(Restrictions.eq("user.id", id));
 		Long countResults = (Long) criteriaCount.uniqueResult();
-		int lastPageNumber = (int) ((countResults / pageSize) + 1);
+		int lastPageNumber = (int) ((countResults == pageSize) ? countResults / pageSize : (countResults / pageSize) + 1);
 		
 		Criteria criteriaSelect = formCriteria(filterDto);
 		criteriaSelect.add(Restrictions.eq("user.id", id));
@@ -53,11 +53,11 @@ public class ProductDaoImpl implements ProductDao{
 		
 		PaginationDetailsDto paginationDetails = new PaginationDetailsDto();
 	    paginationDetails.setCurrentPage(cs.getPage());
-	    paginationDetails.setItemsPerPage(Integer.valueOf(pageSize));
-	    paginationDetails.setMaxPage(Integer.valueOf(lastPageNumber));
+	    paginationDetails.setItemsPerPage(pageSize);
+	    paginationDetails.setMaxPage(lastPageNumber);
 	    paginationDetails.setTotalResults(countResults.intValue());
 	    paginationDetails.setBegin(1);
-	    paginationDetails.setEnd( lastPageNumber );
+	    paginationDetails.setEnd(lastPageNumber);
 	    
 	    searchResult.setProducts(products);
 	    searchResult.setPaginationDetails(paginationDetails);
@@ -82,7 +82,7 @@ public class ProductDaoImpl implements ProductDao{
 		Projection projection = Projections.countDistinct("id");
 		criteriaCount.setProjection(projection);
 		Long countResults = (Long) criteriaCount.uniqueResult();
-		int lastPageNumber = (int) ((countResults / pageSize) + 1);
+		int lastPageNumber = (int) ((countResults == pageSize) ? countResults / pageSize : (countResults / pageSize) + 1);
 		
 		Criteria criteriaSelect = formCriteria(filterDto);
 		criteriaSelect.addOrder(cs.getOrder().equalsIgnoreCase("asc") ? Order.asc(cs.getPropertyForOrder()) : Order.desc(cs.getPropertyForOrder()));
@@ -112,7 +112,7 @@ public class ProductDaoImpl implements ProductDao{
 		
 		if(!StringUtils.isBlank(filterDto.getUserName())){
 			criteria.createAlias("user", "u");
-			disjunction.add(Restrictions.ilike("u.name", "%" + filterDto.getUserName() + "%"));
+			conjunction.add(Restrictions.ilike("u.name", "%" + filterDto.getUserName() + "%"));
 		}
 		if(!StringUtils.isBlank(filterDto.getRating())){
 			conjunction.add(Restrictions.eq("rating", filterDto.getRating()));

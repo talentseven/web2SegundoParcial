@@ -240,7 +240,7 @@
 				</c:choose>
 			</c:forEach>
 			
-			<c:if test="${pagination.currentPage lt pagination.maxPage - 1}">
+			<c:if test="${pagination.currentPage lt (pagination.maxPage - 1)}">
 				<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage + 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'><spring:message code="next" /></a>
 			</c:if>
 		</span>
