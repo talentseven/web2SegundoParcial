@@ -27,7 +27,7 @@
 			<form:errors path="consigneeId" cssStyle="color: red" /><br/>
 			<form:hidden path="productId"/>
 			<form:errors path="productId" cssStyle="color: red" /><br/>
-			<form:button><spring:message code="loan.submit.request"/></form:button>
+			<form:button class="submit-btn"><spring:message code="loan.submit.request"/></form:button>
 		</form:form>
 		
 		<c:if test="${not empty message}">

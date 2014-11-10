@@ -70,34 +70,36 @@
 					<h3><spring:message code="books.and.movies" /></h3>
 					<c:choose>
 						<c:when test="${not empty products}">
-							<span class="icon"><spring:message code="sort.by.title" />:
-								<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-			 						<img src='<c:url value="/resources/img/asc.png" />' style="width:16px; height:16px;"/>
-			 					</a>
-			 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-			 						<img src='<c:url value="/resources/img/desc.png" />' style="width:16px; height:16px;"/>
-			 					</a>
-				 			</span> 
-							<span class="icon" ><spring:message code="sort.by.rating" />
-								<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-			 						<img src='<c:url value="/resources/img/asc.png" />' style="width:16px; height:16px;"/>
-			 					</a>
-			 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
-			 						<img src='<c:url value="/resources/img/desc.png" />' style="width:16px; height:16px;"/>
-			 					</a>
-							</span>
-							<span id="results">
-								<span>
-									<c:choose>
-										<c:when test="${pagination.totalResults > 1}">
-											<spring:message code="pagination.total.results" arguments="${pagination.totalResults}"/>
-										</c:when>
-										<c:otherwise>
-											<spring:message code="pagination.total.result" arguments="${pagination.totalResults}"/>
-										</c:otherwise>
-									</c:choose>
+							<div id="ul-header">
+								<span class="icon"><spring:message code="sort.by.title" />:
+									<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+				 						<img src='<c:url value="/resources/img/asc.png" />' style="width:16px; height:16px;"/>
+				 					</a>
+				 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+				 						<img src='<c:url value="/resources/img/desc.png" />' style="width:16px; height:16px;"/>
+				 					</a>
+					 			</span> 
+								<span class="icon" ><spring:message code="sort.by.rating" />
+									<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=asc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+				 						<img src='<c:url value="/resources/img/asc.png" />' style="width:16px; height:16px;"/>
+				 					</a>
+				 					<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage}&order=desc&rating=true&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}" />'>
+				 						<img src='<c:url value="/resources/img/desc.png" />' style="width:16px; height:16px;"/>
+				 					</a>
 								</span>
-							</span>
+								<span id="results">
+									<span>
+										<c:choose>
+											<c:when test="${pagination.totalResults > 1}">
+												<spring:message code="pagination.total.results" arguments="${pagination.totalResults}"/>
+											</c:when>
+											<c:otherwise>
+												<spring:message code="pagination.total.result" arguments="${pagination.totalResults}"/>
+											</c:otherwise>
+										</c:choose>
+									</span>
+								</span>
+							</div>
 							<ul>
 								<c:forEach var="product" items="${products}">
 									<c:choose>
@@ -108,11 +110,11 @@
 											<c:set var="type" value="book" />
 										</c:otherwise>
 									</c:choose>
-									<li>	
+									<li class="glowing-border">	
 										<div class="product">
 											<div class="info">
 												<span class="holder">
-													<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' />
+													<img height="130" width="100" src='<c:url value="/app/image/${type}/${product.id}" />' /> 
 													<span class="book-name">${product.title}</span>
 													<span class="icon">
 														<c:forEach begin="1" end="${product.rating}">
@@ -147,7 +149,7 @@
 																		<spring:message code="comma"/>
 																	</c:if>
 																</c:forEach>
-																</span>
+																</span><br />
 																<strong><spring:message code="format" />:</strong> ${product.selectedFormat}<br />
 																<c:if test="${not empty product.director.fullName.trim()}">
 																	<strong><spring:message code="director" />:</strong> ${product.director.fullName}
@@ -224,26 +226,31 @@
 			</div>
 		<!-- End Content -->
 			<div class="cl">&nbsp;</div>
-			<span>
-			<c:if test="${pagination.currentPage gt 0}">
-				<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage - 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'><spring:message code="previous" /></a>
-			</c:if>
-			
-			<c:forEach var="i" begin="${pagination.begin}" end="${pagination.end}">
-				<c:choose>
-					<c:when test="${i == pagination.currentPage + 1}">
-						${i}
-					</c:when>
-					<c:otherwise>
-						<a href='<c:url value="/app/search/${filter}?page=${i - 1}&order=${search.order}&rating=${search.rating}"/>'>${i}</a>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			
-			<c:if test="${pagination.currentPage lt (pagination.maxPage - 1)}">
-				<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage + 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'><spring:message code="next" /></a>
-			</c:if>
-		</span>
+				<div id="pagination">
+					<span class="float-lf">
+						<c:if test="${pagination.currentPage gt 0}">
+							<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage - 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'><spring:message code="previous" /></a>
+						</c:if>
+						
+						<c:forEach var="i" begin="${pagination.begin}" end="${pagination.end}">
+							<c:choose>
+								<c:when test="${i == pagination.currentPage + 1}">
+									${i}
+								</c:when>
+								<c:otherwise>
+									<a href='<c:url value="/app/search/${filter}?page=${i - 1}&order=${search.order}&rating=${search.rating}"/>'>${i}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						
+						<c:if test="${pagination.currentPage lt (pagination.maxPage - 1)}">
+							<a href='<c:url value="/app/search/${filter}?page=${pagination.currentPage + 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'><spring:message code="next" /></a>
+						</c:if>
+					</span>
+				</div>
+				<div>
+					<strong class="ml-page"><spring:message code="page" /> ${pagination.currentPage + 1}/${pagination.maxPage} </strong>
+				</div>
 		</div>
 		
 		<!-- End Main -->

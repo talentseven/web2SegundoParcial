@@ -190,5 +190,76 @@ INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES
 INSERT INTO `books` (id, description) VALUES (17, 'Harry is waiting in Privet Drive. The Order of the Phoenix is coming to escort him safely away without Voldemort and his supporters knowing - if they can. But what will Harry do then? How can he fulfill the momentous and seemingly impossible task that Professor Dumbledore has left him? The epic finale to an epic series.');
 INSERT INTO `authors` (`id`, `full_name`, `book_id`) VALUES (24,'J.K. Rowling',7), (25, 'Mary GrandPré', 17);
 
+/*----------------------Usuario 1 movies-------------------*/
+
+INSERT INTO `directors` (full_name) VALUES ('Chuck Russel');
+INSERT INTO `directors` (full_name) VALUES ('Robert Zemeckis');
+INSERT INTO `directors` (full_name) VALUES ('Peter Jackson');
+INSERT INTO `directors` (full_name) VALUES ('George Lucas');
+INSERT INTO `directors` (full_name) VALUES ('Andy Wachowski');
+INSERT INTO `directors` (full_name) VALUES ('Louis Leterrier');
+INSERT INTO `directors` (full_name) VALUES ('Wolfgang Petersen');
+INSERT INTO `directors` (full_name) VALUES ('Francis Ford Coppola');
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('A Nightmare on Elm Street 3: Dream Warriors', 4, '1', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (18, 'VHS', 1);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (1,'Robert Englund',18);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Back to the future', 5, '1', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (19, 'DVD', 2);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (2,'Michael Fox',19), (3, 'Christopher Lloyd', 19);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('The Lord of the Rings: the Fellowship of the Ring', 3, '0', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (20, 'BLURAY', 3);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (4,'Elijah Wood',20), (5, 'Ian McKellen', 20), (6, 'Viggo Mortensen', 20);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('The Lord of the Rings: the two towers', 5, '1', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (21, 'BLURAY', 3);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (7,'Elijah Wood',21), (8, 'Ian McKellen', 21), (9, 'Viggo Mortensen', 21);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('The Lord of the Rings: the return of the king', 4, '0', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (22, 'BLURAY', 3);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (10,'Elijah Wood',22), (11, 'Ian McKellen', 22), (12, 'Viggo Mortensen', 22);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Cast Away', 2, '1', '0', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (23, 'VHS', 2);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (13,'Tom Hanks',23), (14, 'Helen Hunt', 23);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Star Wars', 1, '0', '0', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (24, 'VHS', 4);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (15,'Harrison Ford',24), (16, 'Mark Hamill', 24);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Star Wars: Episodio VII', 3, '1', '0', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (25, 'DVD', 4);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (17,'Harrison Ford',25), (18, 'Mark Hamill', 25);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Matrix', 5, '1', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (26, 'BLURAY', 5);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (19,'Keanu Reeves',26);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Transporter', 4, '0', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (27, 'DVD', 6);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (20,'Jason Statham',27);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Troy', 5, '1', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (28, 'DVD', 7);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (21,'Brad Pitt',28);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Beowulf', 5, '0', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (29, 'BLURAY', 2);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (22,'Ray Winstone',29), (23, 'Crispin Glover', 29), (24, 'Angelina Jolie', 29);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('The Godfather', 5, '1', '0', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (30, 'VHS', 8);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (25,'Marlon Brando',30), (26, 'Al Pacino', 30);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Dumb & Dumber', 3, '1', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (31, 'VHS', 9);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (27,'Jim Carrey',31), (28, 'Jeff Daniels', 31);
+
+INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('Ace Ventura: When Nature Calls', 4, '0', '1', 1);
+INSERT INTO `movies` (id, format, director_id) VALUES (32, 'DVD', 9);
+INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (29,'Jim Carrey',32);
+
 GRANT ALL PRIVILEGES ON `booksmov_db`.* TO 'root'@'localhost'
   IDENTIFIED BY PASSWORD '4540';

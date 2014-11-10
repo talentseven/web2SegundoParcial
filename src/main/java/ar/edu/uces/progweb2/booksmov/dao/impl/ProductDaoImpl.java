@@ -42,7 +42,7 @@ public class ProductDaoImpl implements ProductDao{
 		criteriaCount.setProjection(projection);
 		criteriaCount.add(Restrictions.eq("user.id", id));
 		Long countResults = (Long) criteriaCount.uniqueResult();
-		int lastPageNumber = (int) ((countResults == pageSize) ? countResults / pageSize : (countResults / pageSize) + 1);
+		int lastPageNumber = (int) ((countResults == pageSize || countResults % pageSize == 0) ? countResults / pageSize : (countResults / pageSize) + 1);
 		
 		Criteria criteriaSelect = formCriteria(filterDto);
 		criteriaSelect.add(Restrictions.eq("user.id", id));
