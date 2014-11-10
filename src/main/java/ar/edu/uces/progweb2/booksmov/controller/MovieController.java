@@ -106,7 +106,8 @@ public class MovieController {
 	
 	private Movie prepareEntity(MovieDto movieDto, ModelMap model) throws IOException {
 		User user = (User) model.get("user");
-		byte[] image = imageService.getImage(movieDto.getImage(), "movie");
+		byte[] image = imageService.manageImage(movieDto);
+		
 		Movie movie = new Movie(movieDto.getTitle(), movieDto.getRating(),
 				movieDto.isAlreadyUsed(), movieDto.isBorrowable(), image, movieDto.getSelectedFormat(), movieDto.getDirector(), user);
 		
@@ -117,4 +118,5 @@ public class MovieController {
 		return movie;
 	}
 
+	
 }

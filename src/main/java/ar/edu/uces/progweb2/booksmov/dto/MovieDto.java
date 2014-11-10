@@ -25,7 +25,6 @@ public class MovieDto extends ProductDto{
 		this.actors = actors;
 		this.director = director;
 		this.selectedFormat = format;
-		this.type = "movie";
 	}
 
 	public String getActors() {
@@ -77,6 +76,10 @@ public class MovieDto extends ProductDto{
 		this.alreadyUsed = false;
 		this.actors = null;
 		this.selectedFormat = null;
+	}
+	
+	public String getType(){
+		return "movie";
 	}
 	
 }

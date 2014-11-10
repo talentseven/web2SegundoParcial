@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import ar.edu.uces.progweb2.booksmov.dao.ImageDao;
 import ar.edu.uces.progweb2.booksmov.dao.ProductDao;
+import ar.edu.uces.progweb2.booksmov.dto.ProductDto;
 import ar.edu.uces.progweb2.booksmov.model.Product;
 import ar.edu.uces.progweb2.booksmov.service.ImageService;
 
@@ -33,16 +34,11 @@ public class ImageServiceImpl implements ImageService{
 	public byte[] getImage(Serializable serializable, String type) throws IOException {
 		
 		MultipartFile multiPartFile = (MultipartFile) serializable;
-		byte[] file = multiPartFile.getBytes();
-		
-		if(file != null && file.length == 0){
-			file = setDefaultImage(type);
-		}
-		
-		return file;
+		return multiPartFile.getBytes();
 	}
-
-	private byte[] setDefaultImage(String type) throws IOException {
+	
+	@Override
+	public byte[] setDefaultImage(String type) throws IOException {
 		byte[] file;
 		ServletContextResource resource = new ServletContextResource(servletContext, "/resources/img/"+ type + "_sin_imagen.jpg");
 		file = IOUtils.toByteArray(resource.getInputStream());
@@ -74,6 +70,23 @@ public class ImageServiceImpl implements ImageService{
 			product.setImage(setDefaultImage(product.getType()));
 		}
 		return product.getImage();
+	}
+
+	@Override
+	public byte[] manageImage(ProductDto productDto) throws IOException {
+		byte[] image = null;
+		byte[] imageDto = getImage(productDto.getImage(), productDto.getType());
+		
+		if(imageDto != null && imageDto.length > 0){
+			image = imageDto;
+		}
+		if(imageDto != null && imageDto.length == 0 && productDto.getId() != null){
+			image = getProductImageFromDb(productDto.getId());
+		}
+		if(image == null){
+			image = setDefaultImage(productDto.getType());
+		}
+		return image;
 	}
 	
 }

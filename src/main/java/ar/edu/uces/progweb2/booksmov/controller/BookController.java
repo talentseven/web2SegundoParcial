@@ -79,7 +79,7 @@ public class BookController {
 
 	private Book prepareEntity(BookDto bookDto, ModelMap model) throws IOException {
 		User user = (User) model.get("user");
-		byte[] image = imageService.getImage(bookDto.getImage(), "book");
+		byte[] image = imageService.manageImage(bookDto);
 		Book book = new Book(bookDto.getTitle(), bookDto.getRating(),
 				bookDto.isAlreadyUsed(), bookDto.isBorrowable(), image, bookDto.getDescription(), user);
 		

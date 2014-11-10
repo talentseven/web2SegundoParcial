@@ -31,7 +31,7 @@
 				<div class="col" id="newsletter">
 					<h4><spring:message code="subscription" /></h4>
 					<p><spring:message code="send.your.email" /> </p>
-					<form action="" method="post">
+					<form action='<c:url value="/app/search" />' method='post'>
 						<input type="text" class="field" value="<spring:message code="your.name" />" title="<spring:message code="your.name" />" />
 						<input type="text" class="field" value="Email" title="Email" />
 						<div class="form-buttons"><input type="submit" value="<spring:message code="submit" />" class="submit-btn" /></div>

@@ -11,7 +11,6 @@ public abstract class ProductDto {
 	protected boolean borrowable;
 	protected boolean success;
 	protected Serializable image;
-	protected String type;
 	protected Long userId;
 	protected boolean requestableForLoan;
 
@@ -76,13 +75,7 @@ public abstract class ProductDto {
 		this.success = success;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
+	public abstract String getType();
 
 	public Long getUserId() {
 		return userId;

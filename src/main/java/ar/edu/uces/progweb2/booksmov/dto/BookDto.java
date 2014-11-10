@@ -18,7 +18,6 @@ public class BookDto extends ProductDto{
 			boolean borrowable, Serializable image, String description, Long userId) {
 		super(title, rating, alreadyUsed, borrowable, image, userId);
 		this.description = description;
-		this.type = "book";
 	}
 
 	public String getDescription() {
@@ -53,5 +52,10 @@ public class BookDto extends ProductDto{
 		this.image = null;
 		this.alreadyUsed = false;
 		this.authors = null;
+	}
+	
+	@Override
+	public String getType(){
+		return "book";
 	}
 }

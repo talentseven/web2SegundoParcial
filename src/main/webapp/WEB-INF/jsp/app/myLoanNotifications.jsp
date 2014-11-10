@@ -108,18 +108,18 @@
 									<c:if test="${pending}">
 										<div class="margin-bottom">
 											<a href='<c:url value="/app/loan/accept/${loan.id}"  />' >
-											   <button><spring:message code="loan.response.accept"/></button>
+											   <button class="submit-btn"><spring:message code="loan.response.accept"/></button>
 											</a>
 										</div>
 										<div class="margin-top">
 											<a href="<c:url value="/app/loan/reject/${loan.id}" />" >
-											   <button><spring:message code="loan.response.reject"/></button>
+											   <button class="submit-btn"><spring:message code="loan.response.reject"/></button>
 											</a>
 										</div>
 									</c:if>
 									<c:if test="${accepted}">
 										<a href='<c:url value="/app/loan/deliver/${loan.id}" />' >
-										   <button><spring:message code="loan.response.deliver"/></button>
+										   <button class="submit-btn"><spring:message code="loan.response.deliver"/></button>
 										</a>
 									</c:if>
 								</div>
