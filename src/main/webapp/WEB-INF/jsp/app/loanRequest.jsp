@@ -22,11 +22,12 @@
 			<form:label path="requestDescription">
 				<spring:message code="loan.request.description" />
 			</form:label> <br />
-			<form:textarea path="requestDescription" maxlength="500" cols="50" />
+			<form:textarea path="requestDescription" maxlength="500" cols="50" rows="10" /><br/>
+			<form:errors path="requestDescription" cssStyle="color: red" /><br/>
 			<form:hidden path="consigneeId"/>
 			<form:errors path="consigneeId" cssStyle="color: red" /><br/>
 			<form:hidden path="productId"/>
-			<form:errors path="productId" cssStyle="color: red" /><br/>
+			<form:errors path="productId" cssStyle="color: red" />
 			<form:button class="submit-btn"><spring:message code="loan.submit.request"/></form:button>
 		</form:form>
 		

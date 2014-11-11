@@ -130,9 +130,7 @@
 																	<strong><spring:message code="by"/></strong>
 																</c:if>
 																<c:forEach var="author" items="${product.authorsList}" varStatus="status">
-																	${author.fullName}
-																	<c:if test="${hasAuthors and status.index < fn:length(product.authorsList) - 1}">
-																		<spring:message code="comma"/>
+																	${author.fullName}<c:if test="${hasAuthors and status.index < fn:length(product.authorsList) - 1}"><spring:message code="comma"/>
 																	</c:if>
 																</c:forEach>
 															</c:when>
@@ -143,10 +141,8 @@
 																	<strong><spring:message code="by"/></strong>
 																</c:if>
 																<span>
-																<c:forEach var="actor" items="${product.actorList}">
-																	${actor.fullName}
-																	<c:if test="${hasActors and status.index < fn:length(product.actorList) - 1}">
-																		<spring:message code="comma"/>
+																<c:forEach var="actor" items="${product.actorList}" varStatus="status">
+																	${actor.fullName}<c:if test="${hasActors and status.index < (fn:length(product.actorList) -1)}"><spring:message code="comma"/>
 																	</c:if>
 																</c:forEach>
 																</span><br />

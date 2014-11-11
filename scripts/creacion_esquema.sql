@@ -200,6 +200,7 @@ INSERT INTO `directors` (full_name) VALUES ('Andy Wachowski');
 INSERT INTO `directors` (full_name) VALUES ('Louis Leterrier');
 INSERT INTO `directors` (full_name) VALUES ('Wolfgang Petersen');
 INSERT INTO `directors` (full_name) VALUES ('Francis Ford Coppola');
+INSERT INTO `directors` (full_name) VALUES ('Peter Farrelly');
 
 INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES ('A Nightmare on Elm Street 3: Dream Warriors', 4, '1', '1', 1);
 INSERT INTO `movies` (id, format, director_id) VALUES (18, 'VHS', 1);
