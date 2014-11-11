@@ -64,9 +64,9 @@
 		</form:form>
 		
 		<c:if test="${bookDto.success}">
-			<div class="success-message">
+			<div id="messages" class="success-message">
 				<h3><spring:message code="book.successfully.added"/></h3>
-				<a href='<c:url value="/app/search" />'><spring:message code="go.back"/></a>
+				<a class="back" href='<c:url value="/app/search" />'><spring:message code="go.back"/></a>
 			</div>
 		</c:if>
 		
