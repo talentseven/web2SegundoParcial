@@ -17,6 +17,9 @@
 			<li><a href='<c:url value="/app/movies/new" />'><spring:message code="menu.add.movie"/></a></li>
 			<li><a href='<c:url value="/app/loan/" />'><spring:message code="menu.my.loans"/></a></li>
 			<li><a href='<c:url value="/app/loan/notifications" />'><spring:message code="menu.my.revisions"/></a></li>
+			<c:if test="${empty user}">
+				<li><a href='<c:url value="/app/login" />'><spring:message code="login"/></a></li>
+			</c:if>
 		</ul>
 	</div>
 	<!-- End Navigation -->

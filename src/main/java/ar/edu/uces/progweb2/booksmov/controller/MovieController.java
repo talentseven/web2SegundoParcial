@@ -86,7 +86,6 @@ public class MovieController {
 		
 		for (int i = 0; i < result.length; i++) {
 			Actor actor = new Actor(result[i].trim());
-			actor.setMovie(movie);
 			movie.getActors().add(actor);
 		}
 	}

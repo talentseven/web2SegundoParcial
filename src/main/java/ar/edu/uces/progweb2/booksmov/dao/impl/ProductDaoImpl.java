@@ -7,10 +7,12 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -82,7 +84,7 @@ public class ProductDaoImpl implements ProductDao{
 		Projection projection = Projections.countDistinct("id");
 		criteriaCount.setProjection(projection);
 		Long countResults = (Long) criteriaCount.uniqueResult();
-		int lastPageNumber = (int) ((countResults == pageSize) ? countResults / pageSize : (countResults / pageSize) + 1);
+		int lastPageNumber = (int) ((countResults == pageSize || countResults % pageSize == 0) ? countResults / pageSize : (countResults / pageSize) + 1);
 		
 		Criteria criteriaSelect = formCriteria(filterDto);
 		criteriaSelect.addOrder(cs.getOrder().equalsIgnoreCase("asc") ? Order.asc(cs.getPropertyForOrder()) : Order.desc(cs.getPropertyForOrder()));
@@ -112,7 +114,7 @@ public class ProductDaoImpl implements ProductDao{
 		
 		if(!StringUtils.isBlank(filterDto.getUserName())){
 			criteria.createAlias("user", "u");
-			conjunction.add(Restrictions.ilike("u.name", "%" + filterDto.getUserName() + "%"));
+			conjunction.add(Restrictions.ilike("u.name", filterDto.getUserName(), MatchMode.ANYWHERE));
 		}
 		if(!StringUtils.isBlank(filterDto.getRating())){
 			conjunction.add(Restrictions.eq("rating", filterDto.getRating()));
@@ -151,30 +153,31 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	private void getMovieFilter(FilterDto filterDto, Criteria criteria, Disjunction disjunction) {
-		criteria.createAlias("actors", "actor");
-		criteria.createAlias("director", "dir");
-		disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
-		disjunction.add(Restrictions.ilike("actor.fullName", "%" + filterDto.getTitle() + "%"));
-		disjunction.add(Restrictions.ilike("dir.fullName", "%" + filterDto.getTitle() + "%"));
+		disjunction.add(Restrictions.ilike("title", filterDto.getTitle(), MatchMode.ANYWHERE));
+		disjunction.add(Restrictions.ilike("actor.fullName", filterDto.getTitle(), MatchMode.ANYWHERE));
+		disjunction.add(Restrictions.ilike("dir.fullName", filterDto.getTitle(), MatchMode.ANYWHERE));
 	}
 
 	private void getBookFilter(FilterDto filterDto, Criteria criteria, Disjunction disjunction) {
-		criteria.createAlias("authors", "author");
-		disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
-		disjunction.add(Restrictions.ilike("author.fullName", "%" + filterDto.getTitle() + "%"));
+		disjunction.add(Restrictions.ilike("title", filterDto.getTitle(), MatchMode.ANYWHERE));
+		disjunction.add(Restrictions.ilike("author.fullName", filterDto.getTitle(), MatchMode.ANYWHERE));
 	}
 	
 	private void getProductFilter(FilterDto filterDto, Criteria criteria, Disjunction disjunction) {
-		disjunction.add(Restrictions.ilike("title", "%" + filterDto.getTitle() + "%"));
+		disjunction.add(Restrictions.ilike("title", filterDto.getTitle(), MatchMode.ANYWHERE));
 	}
 
 	private Criteria getCriteriaForType(String type) {
 		Criteria criteria = null;
 		switch(type){
 			case "books" : 
-				criteria = sessionFactory.getCurrentSession().createCriteria(Book.class); break;
+				criteria = sessionFactory.getCurrentSession().createCriteria(Book.class);
+				criteria.createAlias("authors", "author", JoinType.LEFT_OUTER_JOIN); break;
 			case "movies" :
-				criteria = sessionFactory.getCurrentSession().createCriteria(Movie.class); break;
+				criteria = sessionFactory.getCurrentSession().createCriteria(Movie.class);
+				criteria.createAlias("actors", "actor", JoinType.LEFT_OUTER_JOIN);
+				criteria.createAlias("director", "dir", JoinType.LEFT_OUTER_JOIN);
+				break;
 			default :
 				criteria = sessionFactory.getCurrentSession().createCriteria(Product.class); break;
 		}
