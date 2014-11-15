@@ -1,5 +1,5 @@
--- password is '4540' hashed con http://www.nitrxgen.net/hashgen/
-CREATE USER 'root'@'localhost' IDENTIFIED BY PASSWORD '4540'; 
+-- password is 'somePassword' hashed con http://www.nitrxgen.net/hashgen/
+CREATE USER 'pepe'@'localhost' IDENTIFIED BY PASSWORD '*B04E11FAAAE9A5A019BAF695B40F3BF1997EB194'; 
 
 DROP SCHEMA IF EXISTS `booksmov_db`;
 CREATE SCHEMA IF NOT EXISTS `booksmov_db`;
@@ -260,5 +260,5 @@ INSERT INTO `Products` (title, rating, already_used, borrowable, user_id) VALUES
 INSERT INTO `movies` (id, format, director_id) VALUES (32, 'DVD', 9);
 INSERT INTO `actors` (`id`, `full_name`, `movie_id`) VALUES (29,'Jim Carrey',32);
 
-GRANT ALL PRIVILEGES ON `booksmov_db`.* TO 'root'@'localhost'
-  IDENTIFIED BY PASSWORD '4540';
+GRANT ALL PRIVILEGES ON `booksmov_db`.* TO 'pepe'@'localhost'
+  IDENTIFIED BY PASSWORD '*B04E11FAAAE9A5A019BAF695B40F3BF1997EB194';
