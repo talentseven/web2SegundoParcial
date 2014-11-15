@@ -37,7 +37,7 @@ textarea { overflow: auto; }
 .margin-bottom {margin-bottom: 10px;}
 .margin-left {margin-left: 20px;}
 .success-message {margin-top: 40px; margin-left: 25%;}
-a .back {margin-left: 18%; font-size: 14px;}
+a .back {position: relative; top: 25px; margin-left: 18%; font-size: 14px;}
 .main-title {padding-top: 40px; padding-bottom: 20px;}
 #header { padding-top: 30px; }
 

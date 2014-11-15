@@ -67,7 +67,7 @@
 		
 		<c:if test="${bookDto.success}">
 			<div class="success-message">
-				<h3><spring:message code="book.successfully.edited"/></h3>
+				<h3><spring:message code="book.successfully.edited"/></h3><br /><br />
 				<a class="back" href='<c:url value="/app/search" />'><spring:message code="go.back"/></a>
 			</div>
 		</c:if>

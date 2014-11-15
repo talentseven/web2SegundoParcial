@@ -19,7 +19,7 @@
         		
 	    <joined-subclass name="Book" table="BOOKS" >
 	    	<key column="ID"/>
-	    	<set name="authors" table="authors_books" cascade="all" lazy="false" inverse="false">
+	    	<set name="authors" table="authors_books" cascade="all, delete-orphan" lazy="false" inverse="false">
 	        	<key column="BOOK_ID" not-null="true" />
 	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Author" />
 	    	</set>		
@@ -28,7 +28,7 @@
 		    
 	    <joined-subclass name="Movie" table="MOVIES">
 	    	<key column="ID"/>
-	        <set name="actors" table="actors_movies" cascade="all" lazy="false" inverse="false">
+	        <set name="actors" table="actors_movies" cascade="all, delete-orphan" lazy="false" inverse="false">
 	        	<key column="MOVIE_ID" not-null="true" />
 	       	 	<one-to-many class="ar.edu.uces.progweb2.booksmov.model.Actor" />
 	    	</set>		

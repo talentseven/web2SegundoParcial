@@ -73,7 +73,7 @@
 		
 		<c:if test="${movieDto.success}">
 			<div id="messages" class="success-message">
-				<h3><spring:message code="movie.successfully.added"/></h3>
+				<h3><spring:message code="movie.successfully.added"/></h3><br /><br />
 				<a class="back" href='<c:url value="/app/search" />'><spring:message code="go.back"/></a>
 			</div>
 		</c:if>

@@ -234,7 +234,7 @@
 									${i}
 								</c:when>
 								<c:otherwise>
-									<a href='<c:url value="/app/search/${filter}?page=${i - 1}&order=${search.order}&rating=${search.rating}"/>'>${i}</a>
+									<a href='<c:url value="/app/search/${filter}?page=${i - 1}&order=${search.order}&rating=${search.rating}&userName=${filterDto.userName}&stars=${filterDto.rating}&title=${filterDto.title}&type=${filterDto.type}&borrowable=${filterDto.borrowable}"/>'>${i}</a>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>

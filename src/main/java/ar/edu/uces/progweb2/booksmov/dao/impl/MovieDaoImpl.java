@@ -33,7 +33,21 @@ public class MovieDaoImpl implements MovieDao {
 
 	@Override
 	public void update(Movie movie) {
-		sessionFactory.getCurrentSession().update(movie);
+		Session session = sessionFactory.getCurrentSession();
+		Movie original = (Movie) session.get(Movie.class, movie.getId());
+		original.setAlreadyUsed(movie.isAlreadyUsed());
+		original.setBorrowable(movie.isBorrowable());
+		original.setDirector(movie.getDirector());
+		original.setFormat(movie.getFormat());
+		original.setId(movie.getId());
+		original.setImage(movie.getImage());
+		original.setRating(movie.getRating());
+		original.setTitle(movie.getTitle());
+		original.setUser(movie.getUser());
+		original.getActors().clear();
+		original.getActors().addAll(movie.getActors());
+		session.update(original);
+
 	}
 
 	@Override

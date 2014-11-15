@@ -33,7 +33,20 @@ public class BookDaoImpl implements BookDao{
 
 	@Override
 	public void update(Book book) {
-		sessionFactory.getCurrentSession().update(book);
+		Session session = sessionFactory.getCurrentSession();
+		Book original = (Book) session.get(Book.class, book.getId());
+		original.setAlreadyUsed(book.isAlreadyUsed());
+		original.setBorrowable(book.isBorrowable());
+		original.setImage(book.getImage());
+		original.setId(book.getId());
+		original.setRating(book.getRating());
+		original.setTitle(book.getTitle());
+		original.setUser(book.getUser());
+		original.setDescription(book.getDescription());
+		original.getAuthors().clear();
+		original.getAuthors().addAll(book.getAuthors());
+		session.update(original);
+
 	}
 
 	@SuppressWarnings("unchecked")
