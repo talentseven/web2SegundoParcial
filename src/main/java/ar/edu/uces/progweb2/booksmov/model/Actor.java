@@ -5,7 +5,6 @@ public class Actor {
 	
 	private Long id;
 	private String fullName;
-	private Movie movie;
 	
 	public Actor(String fullName) {
 		this.fullName = fullName;
@@ -27,14 +26,6 @@ public class Actor {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	public Movie getMovie() {
-		return movie;
-	}
-
-	public void setMovie(Movie movie) {
-		this.movie = movie;
 	}
 
 	@Override

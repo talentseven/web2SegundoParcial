@@ -5,7 +5,6 @@ public class Author {
 	
 	private Long id;
 	private String fullName;
-	private Book book;
 
 	public Author(String fullName) {
 		this.fullName = fullName;
@@ -29,14 +28,6 @@ public class Author {
 		this.fullName = fullName;
 	}
 	
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
