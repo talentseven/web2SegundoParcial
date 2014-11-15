@@ -171,13 +171,9 @@ public class ProductDaoImpl implements ProductDao{
 		Criteria criteria = null;
 		switch(type){
 			case "books" : 
-				criteria = sessionFactory.getCurrentSession().createCriteria(Book.class);
-				criteria.createAlias("authors", "author", JoinType.LEFT_OUTER_JOIN); break;
+				criteria = sessionFactory.getCurrentSession().createCriteria(Book.class);break;
 			case "movies" :
-				criteria = sessionFactory.getCurrentSession().createCriteria(Movie.class);
-				criteria.createAlias("actors", "actor", JoinType.LEFT_OUTER_JOIN);
-				criteria.createAlias("director", "dir", JoinType.LEFT_OUTER_JOIN);
-				break;
+				criteria = sessionFactory.getCurrentSession().createCriteria(Movie.class); break;
 			default :
 				criteria = sessionFactory.getCurrentSession().createCriteria(Product.class); break;
 		}
