@@ -245,7 +245,9 @@
 					</span>
 				</div>
 				<div>
-					<strong class="ml-page"><spring:message code="page" /> ${pagination.currentPage + 1}/${pagination.maxPage} </strong>
+					<c:if test="${pagination.maxPage > 0}">
+						<strong class="ml-page"><spring:message code="page" /> ${pagination.currentPage + 1}/${pagination.maxPage} </strong>
+					</c:if>
 				</div>
 		</div>
 		

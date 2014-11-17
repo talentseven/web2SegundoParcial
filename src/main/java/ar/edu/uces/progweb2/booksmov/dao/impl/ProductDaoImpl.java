@@ -137,11 +137,14 @@ public class ProductDaoImpl implements ProductDao{
 			
 			case "books" :  
 				if(!StringUtils.isBlank(filterDto.getTitle())){
+					criteria.createAlias("authors", "author");
 					getBookFilter(filterDto, criteria, disjunction);
 				}
 				break;
 			case "movies" :
 				if(!StringUtils.isBlank(filterDto.getTitle())){
+					criteria.createAlias("actors", "actor");
+					criteria.createAlias("director", "dir");
 					getMovieFilter(filterDto, criteria, disjunction);
 				}
 				break;
