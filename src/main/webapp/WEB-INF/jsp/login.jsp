@@ -15,7 +15,16 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp" />
-	
+		<div class="shell">
+				<div class="image">
+					<img src="<c:url value="/resources/css/images/books.png" />" alt="" />
+				</div>
+				<div class="details">
+					<h3><spring:message code="welcome" />&nbsp;<spring:message code="to" />&nbsp;<spring:message code="app.name" />!</h3><br />
+					<p class="title"><spring:message code="desc1" /></p>
+					<p class="description"><spring:message code="desc2" /></p>
+				</div>
+			</div>
 	<div id="main" class="shell">
 		
 		<div class="col login" id="newsletter">
